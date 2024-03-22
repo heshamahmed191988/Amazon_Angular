@@ -1,0 +1,22 @@
+<div class="card m-auto" style="width: 18rem;">
+    <img class="card-img-top" [src]="product?.ImgUrl" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Name: {{product?.Name}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Quntity: {{product?.Quantity}}</li>
+      <li class="list-group-item">Price: {{product?.Price}}</li>
+      
+    </ul>
+    <div class="card-body">
+             <button (click)="goback()" class="btn btn-secondary">Back</button>
+
+</div>
+<div class="card-body">
+    <button (click)="goprevious()" [disabled]="productid==productIds[0]" class="btn btn-secondary">previous</button>
+
+</div><div class="card-body">
+    <button (click)="gonext()" class="btn btn-secondary">next</button>
+
+</div>
+  </div>

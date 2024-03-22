@@ -1,0 +1,40 @@
+<div class="mb-3">
+    <label for="" class="form-label">Category</label>
+    <select [(ngModel)]="selcategoryId" class="form-select form-select-lg">
+        <option *ngFor="let cat of categories" [value]="cat.ID">{{ cat.Name }}</option>
+    </select>
+  
+</div>
+<!-- to sending data to the parent and the opposite way -->
+<app-products (onTotalPriceChanged)="viewTotalPrice($event)" [recievedSelectedCatId]="selcategoryId" (addItemToCart)="onAddItemToCart($event)"></app-products>
+<h1>Total order price is: {{ totalorderprice | currency }}</h1>
+
+<!-- Cart Items Display -->
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Product Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems; let i = index">
+        <td>{{ item.product.Name | uppercase }}</td>
+        <td>{{ item.product.Price | currency }}</td>
+        <td>{{ item.count }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button class="btn btn-success" (click)="checkout()">Checkout</button>
+
+<!-- (click)="checkout()" -->
+
+<!-- Additional UI elements here, if any -->
+<!-- <input type="text" #username> -->

@@ -1,0 +1,30 @@
+<h1>{{totalorder}}</h1>
+<p>{{ '29909011509345' | egyptianIdDate:'FullDate' }}</p>
+<p>{{ '1234567890123456' | formatCreditCard }}</p>
+<!-- is taking the vlue and put it on selcategoryId -->
+
+
+<div class="row row-cols-1 row-cols-md-4 g-4 my-5 card-deck bg-warning">
+    <ng-container *ngFor="let Product of filterdProducts">
+      <div class="col" *ngIf="Product.CategoryID == recievedSelectedCatId && Product.Quantity > 0">
+        <div class="card" [class.bg-warning]="Product.Quantity <= 1"[appHighlightCard]="'black'"defaultColor="transparent">
+          <img class="card-img-top" [src]="Product.ImgUrl" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{Product.Name |uppercase}}</h5>
+            <p class="card-text">quantity is {{Product.Quantity}}</p>
+            <p class="card-text">price is {{Product.Price|currency}}</p>
+            <input type="number" #itemCount class="form-control" value="1"/>  
+            <button class="btn btn-primary" (click)="addToCart(Product, itemCount.value)">Buy</button>
+            <!-- <button class="btn btn-primary" (click)="gotodetails(Product.ID)">details</button> -->
+            <button class="btn btn-primary" [routerLink]="['/Details',Product.ID ]">details</button>
+            <!-- (click)="buy(Product.ID, itemCount.valueAsNumber)" -->
+           
+
+        </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  
+      
+
