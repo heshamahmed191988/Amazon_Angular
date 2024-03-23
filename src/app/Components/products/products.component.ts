@@ -1,30 +1,43 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProductServiceService } from '../../services/product-service.service';
+import { Iproduct } from '../../models/iproduct';
 
-import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,FormsModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
+  products: Iproduct[] = [];
+  paginatedProducts: Iproduct[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 3; // Adjust based on your preference
 
-  constructor()
-  {
-    
-   
+  constructor(private router: Router, private productService: ProductServiceService) {}
+
+  ngOnInit(): void {
+    this.productService.getAllProducts().subscribe(products => {
+      this.products = products;
+      this.updatePaginatedProducts();
+    });
   }
-  
 
- 
-  // to make filtration each time change happen 
-  ngOnChanges() {
-    
-
-    
+  updatePaginatedProducts() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedProducts = this.products.slice(startIndex, endIndex);
   }
- 
-} 
+
+  totalPages(): number {
+    return Math.ceil(this.products.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+    this.updatePaginatedProducts();
+  }
+}
