@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit {
   products: Iproduct[] = [];
   paginatedProducts: Iproduct[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 3; // Adjust based on your preference
+  itemsPerPage: number = 4; // Adjust based on your preference
 
   constructor(private router: Router, private productService: ProductServiceService) {}
 
