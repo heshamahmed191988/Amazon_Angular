@@ -1,49 +1,69 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-warning">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" ><img class="logo" src="https://zeevector.com/wp-content/uploads/Amazon-Logo-White@zeevector.png"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" routerlink="/Home">Home <span class="sr-only">(current)</span></a>
-        </li> -->
-        <li class="nav-item">
-          <a class="nav-link"routerLink="/Home" routerLinkActive="active">home</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/About"routerLinkActive="active">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [hidden]="isloggd" routerLink="/login"routerLinkActive="active">login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [hidden]="isloggd"routerLink="/register"routerLinkActive="active">register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"[hidden]="!isloggd" (click)="logout()" routerLinkActive="active">Logout</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">contact us</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
+    <div class="collapse navbar-collapse" id="navbarScroll">
+     
+        <span class=" nav-item" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
+          <a class="Deliver nav-link "  style="color: white; margin: 2px; width: 90px;" staria-current="page" href="#" >
+            <span style="color: #d9dbda; margin-right: 10px;">Deliver to</span> <br><i class="fas fa-map-marker-alt"></i>Egypt</a>
+          </span>      
+      
+     <div class="input-group mb-3" style="margin-top: 15px;">
+      <div class="input-group-prepend">
+        <span class="nav-item dropdown" style="margin-right: 0px; color: black;">
+          <a class="All  nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span style="color: black;">All</span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+          <ul class="dropdown-menu" >
+            @for (category of categories; track $index) {
+                <li >
+                  <a class="dropdown-item" href="#" >{{ category.name }}</a>
+                </li>
+               }
+            </ul>         
+          </span>
+      </div>
+      <input type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" >
+      <button class="btn form-btn " type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
+      </button>
+     
+        <span class="nav-item">
+          <div class="Flagdiv dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" >En
+              </a>       
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Egypt</a></li>
+                <li><a class="dropdown-item" href="#">Arabic </a></li>
+              </ul>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-  
+        </span>
+
+          <span class="nav-item">
+          <a class="nav-link "  style="color: white;" staria-current="page" href="#">
+            <span style="color: #d9dbda;">Hello,Sign in</span> <br>Acount &Lists</a>
+          </span> 
+          
+          <div style="margin: 2px;">
+            <a class="nav-link "  style="color: white;" staria-current="page" href="#">
+              <br><span>Order</span>
+            </a>          
+          </div>
+
+          <div style="margin: 2px;">
+            <a class="nav-link "  style="color: white;" staria-current="page" href="#" style="margin-bottom:10px ;">
+              <br><i class="fas fa-shopping-cart" style="font-size:30px;"></i>Cart
+            </a>          
+          </div>
+    </div>     
     </div>
-  </nav>
+  </div>
+</nav>
+                 <!--Div under nav-->
+<div class="nav2">lol</div>
+    

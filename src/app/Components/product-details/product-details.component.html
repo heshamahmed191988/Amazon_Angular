@@ -55,24 +55,44 @@
         </div>
     </div>
   </div>
-  <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
-    <div class="card">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><p>Smart Watch for Men Women(Answer/Make Call),1.83" Fitness Tracker with Blood Pressure Heart Rate Monitor,Sleep Tracker,Pedometer,123 Sport Modes, IP68 Waterproof Smartwatches for iPhone&Android</p></li>
-          <li class="list-group-item"><h3>The Price:</h3></li>
-          <li class="list-group-item"><h4>Item Colors:</h4></li>
-          <li class="list-group-item"><h4>About this item:</h4>【Bluetooth Call & Message Notification】This smart watch for Android iOS phones, after connecting via Bluetooth, it can Answer/Make Calls, and save call records and phonebooks, making your calls more convenient. Smartwatch will also vibrate to remind you of other App messages. You can adjust the intensity of the vibration. Whether you are in a meeting or exercising, you will not be disturbed or miss any
-            ss watch can monitor blood pressure and heart rate in real time 24 hours a day, and also analyze your sleep quality by continuously recording your sleep status,and provide analysis reports and suggestions for the past week to help You adjust your lifestyle. As a sports watch, it has 123 sports modes, which can record your all-day activity data, such as calorie consumption,steps,activity track,etc.
-          level of IP68, and it can have a good waterproof effect in the daily life of washing hands,sweating,raining and other situations (Please take it off in hot water and steam environment).100% battery</li>
-
+  <!-- <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
+     <div class="card">
+        <ul class="list-group list-group-flush" >
+          <li class="list-group-item"><h3>Name:{{currentProduct?.name}}</h3></li>
+          <li class="list-group-item"><h3><sup>EGP</sup>{{currentProduct?.price}}<sup>00</sup></h3></li>
+          <li class="list-group-item"><h4>Item Colors:{{currentProduct?.itemscolor}}</h4></li>
+          <li class="list-group-item"><h4>About this item:{{currentProduct?.productDescription}}</h4></li> 
+               <img class="card-img-top" 
+              *ngIf="product.productImages && product.productImages.length > 0" 
+              [src]="'data:image/jpg;base64,' + currentProduct?.productImages" 
+              alt="Card image cap"> 
         </ul>
-      </div>
+             <span> </span>
+      </div>  
+    </div> -->
+    <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
+      <h4 class="box-title mt-5">Product description</h4>
+      <p>{{currentProduct?.productDescription}}</p><hr>
+      <h2 class="mt-5">
+        <sup>EGP</sup>{{currentProduct?.price}}<sup>00</sup>
+      </h2>
+      <span>All prices include VAT.</span>
+        <h6>Buy with installments and pay EGP 21.43 for 60 months with select banks.</h6>
+        <h4>Item Colors:{{currentProduct?.itemscolor}}</h4>
+      <h3 class="box-title mt-5">Key Highlights</h3>
+      <ul class="list-unstyled">
+          <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
+          <li><i class="fa fa-check text-success"></i>Designed to foster easy portability</li>
+          <li><i class="fa fa-check text-success"></i>Perfect furniture to flaunt your wonderful collectibles</li>
+      </ul>
 
+      
   </div>
-  <div class="col-lg-2  mt-3 mx-4 ">
+
+  <div class="last col-lg-2  mt-3 mx-4 ">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h5>the Price:</h5></li>
+          <li class="list-group-item"><h5><sup>EGP</sup> {{currentProduct?.price}}<sup>00</sup></h5></li>
           <li class="list-group-item">payment details </li>
           <li class="list-group-item"> <div class="mb-3">
            
@@ -82,12 +102,11 @@
 
           <li class="list-group-item text-center">  <button type="button" class="btn btn-warning ">Add to Cart</button>
           </li>
-          <li class="list-group-item text-center">  <button type="button" class="btn btn-warning ">Add to Cart</button>
+          <li class="list-group-item text-center">  <button type="button" class="btn btn-warning ">By Now</button>
           </li>
           <li class="list-group-item">Vestibulum at eros</li>
         </ul>
       </div>
 
   </div>
-</div>
-</div>
+</div> 

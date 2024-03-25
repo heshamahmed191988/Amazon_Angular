@@ -1,7 +1,8 @@
 <div class="row g-4 my-5">
     <ng-container *ngFor="let product of paginatedProducts">
-      <div class="col-6 col-md-3">
+      <div class="col-6 col-md-3" (click)="NavigateToDetails(product.id)">
         <div class="card">
+        
             <img class="card-img-top" 
             *ngIf="product.productImages && product.productImages.length > 0" 
             [src]="'data:image/jpg;base64,' + product.productImages[0]" 
@@ -16,6 +17,7 @@
             </ul>
             <p>static text</p>
           </div>
+          <!-- <button>Details</button> -->
         </div>
       </div>
     </ng-container>
