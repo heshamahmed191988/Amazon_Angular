@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Registration } from '../models/Registration';
 import { Login } from '../models/Login';
@@ -10,8 +10,10 @@ import { environment } from '../../environments/environment.development';
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private http: HttpClient) { }
+isloggedstate !:BehaviorSubject<boolean>
+  constructor(private http: HttpClient) { 
+    this.isloggedstate = new BehaviorSubject<boolean>(this.isLoggedIn());
+  }
 
   register(user: Registration): Observable<any> {
     return this.http.post(`${environment.baseUrl}/api/Account/register`, user);
@@ -24,6 +26,7 @@ export class AuthService {
           // Save the token to local storage or session storage
           localStorage.setItem('jwtToken', response.token);
           localStorage.setItem('tokenExpiration', response.expiration);
+          this.isloggedstate.next(true);
         }
         return response;
       }),
@@ -48,6 +51,7 @@ export class AuthService {
     // Remove token and other user data from storage
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('tokenExpiration');
+    this.isloggedstate.next(false);
   }
 
   // Method to automatically attach JWT to HttpHeaders (for making authenticated requests)
@@ -56,5 +60,9 @@ export class AuthService {
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+  }
+
+  getloggedstatus(): BehaviorSubject<boolean> {
+return this.isloggedstate;
   }
 }
