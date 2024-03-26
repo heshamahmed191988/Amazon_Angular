@@ -21,6 +21,7 @@ export class ProductServiceService {
 
   getProductById(id: number): Observable<Iproduct> {
     return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product?id=${id}`);
+   
+    
   }
-  
 }
