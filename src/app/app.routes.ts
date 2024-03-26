@@ -8,6 +8,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { RegisterComponent } from './Components/register/register.component'; // Import the RegistrationComponent
 import { authGuard } from './guards/auth.guard';
+import { ProductsComponent } from './Components/products/products.component';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,8 @@ export const routes: Routes = [
         component: MainLayoutComponent,
         children: [
             {path: '', redirectTo: 'Home', pathMatch: 'full'},
-            {path: 'Home', component: OrderComponent,},
+            {path: 'Home', component: ProductsComponent,},
+            {path: 'Order', component: OrderComponent,},
             {path: 'About', component: AboutUsComponent},
             {path: 'ContactUs', component: ContactUsComponent},
             {path: 'Details/:id', component: ProductDetailsComponent,canActivate:[authGuard]},

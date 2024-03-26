@@ -1,84 +1,53 @@
 <style>
-    @media (max-width: 768px) {
-        .ecommerce-gallery-main-img {
-            max-height: 200px; /* Reduces image height on small devices */
-        }
+  @media (max-width: 768px) {
+    .ecommerce-gallery-main-img {
+      max-height: 50px; /* Adjusts the main image height on small devices */
     }
+    .secondary-img {
+      height: 70px; /* Adjusts secondary images height on small devices */
+      object-fit: cover; /* Ensures the image covers the area, may clip the image */
+    }
+  }
+
+  /* For larger screens, you might want to set a different fixed height for secondary images */
+  @media (min-width: 769px) {
+    .secondary-img {
+      height: 100px; /* Example height for larger screens */
+      object-fit: cover;
+    }
+  }
 </style>
 <body>
-<div class="container-fluid">
-<div class="row">
-  <div class="col-12 col-md-12 col-lg-4"> 
-    <div class="ecommerce-gallery" data-mdb-zoom-effect="true" data-mdb-auto-height="true">
-        <div class="row py-3 shadow-5">
-          <div class="col-12 mb-1">
-            <div class="lightbox">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14a.webp"
-                alt="Gallery image 1"
-                class="ecommerce-gallery-main-img active w-100 img-fluid"
-              />
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-4">
+        <div class="ecommerce-gallery" data-mdb-zoom-effect="true" data-mdb-auto-height="true">
+          <div class="row py-3 shadow-5">
+            <!-- Main Image -->
+            <div class="col-12 mb-1">
+              <div class="lightbox">
+                <img [src]="currentProduct?.productimages?.[0] | safeBase64" alt="Gallery image 1" class="ecommerce-gallery-main-img active w-100 img-fluid"/>
+              </div>
             </div>
-          </div>
-          <div class="col-3 mt-1">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14a.webp"
-              data-mdb-img="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14a.webp"
-              alt="Gallery image 1"
-              class="active w-100 img-fluid"
-            />
-          </div>
-          <div class="col-3 mt-1">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
-              data-mdb-img="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
-              alt="Gallery image 2"
-              class="w-100 img-fluid"
-            />
-          </div>
-          <div class="col-3 mt-1">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13a.webp"
-              data-mdb-img="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13a.webp"
-              alt="Gallery image 3"
-              class="w-100 img-fluid"
-            />
-          </div>
-          <div class="col-3 mt-1">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15a.webp"
-              data-mdb-img="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15a.webp"
-              alt="Gallery image 4"
-              class="w-100 img-fluid"
-            />
-          </div>
+            <!-- Secondary Images -->
+            <div class="col-3 mt-1" *ngFor="let image of currentProduct?.productimages; let i = index">
+              <img [src]="image | safeBase64" [alt]="'Gallery image ' + (i + 1)" class="w-100 img-fluid secondary-img"/>
+            </div>
+      
+         
         </div>
     </div>
   </div>
-  <!-- <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
-     <div class="card">
-        <ul class="list-group list-group-flush" >
-          <li class="list-group-item"><h3>Name:{{currentProduct?.name}}</h3></li>
-          <li class="list-group-item"><h3><sup>EGP</sup>{{currentProduct?.price}}<sup>00</sup></h3></li>
-          <li class="list-group-item"><h4>Item Colors:{{currentProduct?.itemscolor}}</h4></li>
-          <li class="list-group-item"><h4>About this item:{{currentProduct?.productDescription}}</h4></li> 
-               <img class="card-img-top" 
-              *ngIf="product.productImages && product.productImages.length > 0" 
-              [src]="'data:image/jpg;base64,' + currentProduct?.productImages" 
-              alt="Card image cap"> 
-        </ul>
-             <span> </span>
-      </div>  
-    </div> -->
+
     <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
       <h4 class="box-title mt-5">Product description</h4>
-      <p>{{currentProduct?.productDescription}}</p><hr>
+      <p>{{currentProduct.productDescription}}</p><hr>
       <h2 class="mt-5">
-        <sup>EGP</sup>{{currentProduct?.price}}<sup>00</sup>
+        <sup>EGP</sup>{{currentProduct.price}}<sup>00</sup>
       </h2>
       <span>All prices include VAT.</span>
         <h6>Buy with installments and pay EGP 21.43 for 60 months with select banks.</h6>
-        <h4>Item Colors:{{currentProduct?.itemscolor}}</h4>
+        <h4>Item Colors:{{currentProduct.itemscolor}}</h4>
       <h3 class="box-title mt-5">Key Highlights</h3>
       <ul class="list-unstyled">
           <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
@@ -92,7 +61,7 @@
   <div class="last col-lg-2  mt-3 mx-4 ">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h5><sup>EGP</sup> {{currentProduct?.price}}<sup>00</sup></h5></li>
+          <li class="list-group-item"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
           <li class="list-group-item">payment details </li>
           <li class="list-group-item"> <div class="mb-3">
            
