@@ -40,4 +40,8 @@ export class ProductsComponent implements OnInit {
     this.currentPage = page;
     this.updatePaginatedProducts();
   }
+  NavigateToDetails(proId:number)
+  {
+    this.router.navigateByUrl(`/Details/${proId}`);
+  }
 }

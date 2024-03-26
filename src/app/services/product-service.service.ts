@@ -11,15 +11,16 @@ export class ProductServiceService {
 
   constructor(private httpclient:HttpClient) { }
 
-
   getAllProducts(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all`)
   }
 
-   getProductById(id: number): Observable<Iproduct> {
-    return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product/${id}`)
-   }
+  //  getProductById(id: number): Observable<Iproduct> {
+  //   return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product/${id}`)
+  //  }
 
-
-
+  getProductById(id: number): Observable<Iproduct> {
+    return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product?id=${id}`);
+  }
+  
 }
