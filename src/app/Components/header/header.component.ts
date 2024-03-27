@@ -5,10 +5,11 @@ import { Icategory } from '../../models/icategory';
 import { CategoryServiceService } from '../../services/category-service.service';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from '../register/register.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive,CommonModule,RegisterComponent,RouterModule],
+  imports: [RouterLink,RouterLinkActive,CommonModule,RegisterComponent,RouterModule,TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
   isloggd: boolean = false;
   categories: Icategory[] = [];
 
-  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService) {}
+  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private translate:TranslateService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
@@ -37,6 +38,12 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+
+  selectlanguages(event:any){
+  this.translate.use(event.target.value)
+  
   }
 }
 

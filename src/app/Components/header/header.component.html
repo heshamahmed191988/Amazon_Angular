@@ -10,7 +10,7 @@
      
         <span class=" nav-item" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
           <a class="Deliver nav-link "  style="color: white; margin: 2px; width: 90px;" staria-current="page" href="#" >
-            <span style="color: #d9dbda; margin-right: 10px;">Deliver to</span> <br><i class="fas fa-map-marker-alt"></i>Egypt</a>
+            <span style="color: #d9dbda; margin-right: 10px;">Deliver to</span> <br><i class="fas fa-map-marker-alt"></i>{{'Egypt'|translate}}</a>
           </span>      
       
      <div class="input-group mb-3" style="margin-top: 15px;">
@@ -41,6 +41,11 @@
                 <li><a class="dropdown-item" href="#">Egypt</a></li>
                 <li><a class="dropdown-item" href="#">Arabic </a></li>
               </ul>
+
+              <select (change)="selectlanguages($event)" name="" id="">
+                <option value="en">{{'egypt'|translate}}</option>
+                <option value="ar">{{'egypt'|translate}}</option>
+              </select>
           </div>
         </span>
 
