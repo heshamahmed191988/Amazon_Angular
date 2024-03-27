@@ -9,10 +9,13 @@ import { OrderComponent } from './Components/order/order.component';
 import { ReviewComponent } from './Components/review/review.component';
 import { CommonModule } from '@angular/common';
 
+import { NgxPayPalModule } from 'ngx-paypal';
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FooterComponent,HeaderComponent,NavBarComponent,HomeComponent,RouterOutlet,OrderComponent,ReviewComponent,CommonModule],
+  imports: [FooterComponent,HeaderComponent,NavBarComponent,HomeComponent,RouterOutlet,NgxPayPalModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
