@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReviewUserDTO } from '../../models/review-user-dto';
 import { ReviewService } from '../../services/review.service';
@@ -30,47 +30,33 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     this.reviewForm = this.fb.group({
       productId: [''], // Initially empty, will be set from input or state service
-      userId: [''], // Initially empty, will be dynamically set
+      userId: [''],
+      userName:[''], 
       rating: [null, [Validators.required, Validators.min(1), Validators.max(5)]],
       comment: ['', Validators.required]
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['productId']) {
-      this.loadReviews(); // Only call loadReviews if productId changes
+    if (changes['productId'] && this.productId > 0) {
+      this.reviewForm.get('productId')?.setValue(this.productId);
+      this.loadReviews(); // Load reviews if productId input changes
     }
-    this.productStateService.currentProductId$
-    .pipe(
-      takeUntil(this.destroy$),
-      // Optional: Filter out invalid IDs if necessary
-      filter(id => id > 0)
-    )
-    .subscribe(id => {
-      if (id !== this.productId) {
-        this.productId = id;
-        this.reviewForm.get('productId')?.setValue(this.productId);
-        this.loadReviews(); // Reload reviews
-      }
-    });
-  this.setUserId();
   }
 
   ngOnInit(): void {
+    this.setUserId();
+
     this.productStateService.currentProductId$
       .pipe(
         takeUntil(this.destroy$),
-        // Optional: Filter out invalid IDs if necessary
-        filter(id => id > 0)
+        filter(id => id > 0 && id !== this.productId)
       )
       .subscribe(id => {
-        if (id !== this.productId) {
-          this.productId = id;
-          this.reviewForm.get('productId')?.setValue(this.productId);
-          this.loadReviews(); // Reload reviews
-        }
+        this.productId = id;
+        this.reviewForm.get('productId')?.setValue(this.productId);
+        this.loadReviews(); // Reload reviews when productId changes via service
       });
-    this.setUserId();
   }
 
   ngOnDestroy(): void {
@@ -96,10 +82,12 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   setUserId(): void {
-    this.authService.getCurrentUserId().subscribe(userObject => {
+    this.authService.getCurrentUserDetails().subscribe(userObject => {
       const userId = userObject.userId;
+      const userName = userObject.userName;
       if (userId) {
         this.reviewForm.get('userId')?.setValue(userId);
+        this.reviewForm.get('userName')?.setValue(userName);
       } else {
         console.error('User ID not found in the object:', userObject);
       }
@@ -138,4 +126,10 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
     return Array(Math.floor(rating)).fill(0);
 }
 
-}
+submitReviewAndReload(): void {
+  if (this.reviewForm.valid) {
+   
+    window.location.reload();
+  }
+
+}}

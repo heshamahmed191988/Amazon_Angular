@@ -1,67 +1,89 @@
 <style>
-  /* Custom star style */
-  .star-rating i {
-      color: gold;
-  }
-</style>
-
-<div class="container mt-5">
-  <div class="review-display-section mb-5">
+    /* Custom star style */
+    .star-rating i {
+        color: gold;
+    }
+  </style>
+      <div class="review-form-section">
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="border p-4 rounded shadow">
+            <h4 class="mb-3">Submit a Review</h4>
+  
+            <!-- Read-only Product ID field (hidden) -->
+            <div class="mb-3 d-none">
+                <label for="productId" class="form-label">Product ID</label>
+                <input type="text" formControlName="productId" id="productId" class="form-control" readonly>
+            </div>
+  
+            <!-- The User ID input is readonly and not displayed to the user -->
+            <div class="mb-3 d-none">
+                <label for="userId" class="form-label">Your User ID</label>
+                <input type="text" formControlName="userId" id="userId" class="form-control" readonly>
+            </div>
+  
+            <!-- Rating Selection -->
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <select formControlName="rating" id="rating" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+  
+            <!-- Comment Field -->
+            <div class="mb-3">
+                <label for="comment" class="form-label">Your Comment</label>
+                <textarea formControlName="comment" id="comment" placeholder="Your Comment" class="form-control" rows="3"></textarea>
+            </div>
+  
+            <!-- Optionally display user name if you want to confirm with whom it's associated -->
+            <!-- <div class="user-details mb-3" *ngIf="reviewForm.get('userName')?.value">
+                <h5>Your User Name: {{ reviewForm.get('userName')?.value }}</h5>
+            </div> -->
+  
+            <button type="submit"(click)="submitReviewAndReload()" [disabled]="!reviewForm.valid" class="btn btn-primary">Submit Review</button>
+        </form>
+    </div>
+  <div class="container mt-5">
+    <!-- Review Display Section -->
+    <div class="review-display-section mb-5">
       <h3 class="mb-3">Customer Reviews</h3>
       <div *ngIf="reviews.length; else noReviewsTemplate">
-          <div *ngFor="let review of reviews" class="mb-3">
-              <p>Rating: 
-                  <span class="star-rating">
-                      <!-- Display stars based on the rating -->
-<ng-container *ngFor="let star of getStars(review.rating || 0)">
-                          <i class="fas fa-star"></i>
-                      </ng-container>
-                  </span>
-              </p>
-              <p>Comment: "{{ review.comment }}"</p>
+        <!-- Each review is wrapped in a Bootstrap card with a shadow effect -->
+        <div *ngFor="let review of reviews" class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <!-- Reviewer's name with a larger person icon -->
+            <h5 class="card-title d-flex align-items-center">
+              <i class="bi bi-person-fill me-2" style="font-size: 1.5rem;"></i>
+              {{ reviewForm.get('userName')?.value }}
+            </h5>
+            <!-- Rating using stars -->
+            <p class="card-text">
+              <strong>Rating:</strong>
+              <span class="star-rating">
+                <ng-container *ngFor="let star of getStars(review.rating || 0)">
+                  <i class="fas fa-star"></i>
+                </ng-container>
+              </span>
+            </p>
+            <!-- Review comment -->
+            <p class="card-text"><strong>Reviewd on:</strong> {{ review.datePosted |date: 'MMMM dd,yyyy'}}</p>
+            <p class="card-text"><strong>Comment:</strong> "{{ review.comment }}"</p>
+           
           </div>
+        </div>
       </div>
       <ng-template #noReviewsTemplate>
-          <p>No reviews yet. Be the first to review this product!</p>
+        <div class="alert alert-info" role="alert">
+          No reviews yet. Be the first to review this product!
+        </div>
       </ng-template>
-  </div>
+    </div>
+  
+  
+  
+    <!-- Form to Submit a Review -->
 
-  <!-- Form to Submit a Review -->
-  <div class="review-form-section">
-      <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="border p-4 rounded shadow">
-          <h4 class="mb-3">Submit a Review</h4>
-
-          <!-- Read-only Product ID field -->
-          <div class="mb-3 d-none">
-              <label for="productId" class="form-label">Product ID</label>
-              <input type="text" formControlName="productId" id="productId" class="form-control" readonly>
-          </div>
-
-          <!-- The User ID input is readonly and bound to the userId form control -->
-          <div class="mb-3 d-none">
-              <label for="userId" class="form-label">Your User ID</label>
-              <input type="text" formControlName="userId" id="userId" class="form-control" readonly>
-          </div>
-
-          <div class="mb-3">
-              <label for="rating" class="form-label">Rating</label>
-              <select formControlName="rating" id="rating" class="form-select">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-              </select>
-          </div>
-
-          <div class="mb-3">
-              <label for="comment" class="form-label">Your Comment</label>
-              <textarea formControlName="comment" id="comment" placeholder="Your Comment" class="form-control"
-                  rows="3"></textarea>
-          </div>
-
-          <button type="submit" [disabled]="!reviewForm.valid" class="btn btn-primary">Submit Review</button>
-      </form>
-  </div>
-</div>
-
+  

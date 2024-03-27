@@ -77,4 +77,14 @@ return this.isloggedstate;
     );
   }
 
+  getCurrentUserDetails(): Observable<any> {
+    const headers = this.getAuthHeaders(); // Use getAuthHeaders to ensure the token is included
+    return this.http.get(`${environment.baseUrl}/api/Account/currentUserDetails`, { headers: headers }).pipe(
+      catchError(error => {
+        // Error handling logic
+        return throwError(error);
+      })
+    );
+  }
+
 }
