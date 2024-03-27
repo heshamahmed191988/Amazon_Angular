@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
       this.CategoryService.getAllCategory().subscribe({
         next: (res) => {
           this.categories = res;
-          console.log(this.categories)
+          //console.log(this.categories)
         },
         error: (error) => {
           console.error('Error fetching categories:', error);

@@ -5,6 +5,7 @@ import { ProductServiceService } from '../../services/product-service.service';
 import { Iproduct } from '../../models/iproduct';
 
 @Component({
+ 
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule],

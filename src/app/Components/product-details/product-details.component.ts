@@ -29,7 +29,6 @@ export class ProductDetailsComponent implements OnInit {
 
 
   currentProduct: Iproduct = {
-    // default values for all properties
     id: 0,
     itemscolor: [],
     productimages: [],
