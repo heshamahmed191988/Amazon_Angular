@@ -1,0 +1,34 @@
+<ng-container *ngIf="product.length === 0; else notEmpty">
+  empty cart
+</ng-container>
+
+<ng-template #notEmpty>
+  <div class="cart-tabel">
+    <div class="cart-product">
+      <div class="con">
+        <h2>Shopping Cart</h2>
+        <p><a href="#">Select all items</a></p>
+      </div>
+      <hr>
+      <table class="table table-responsive">
+        <tbody>
+          <tr *ngFor="let item of product; let i = index">
+            <td><input type="checkbox"></td>
+            <td><img [src]="item.itemimages" alt=""></td>
+            <td>
+              <h3>{{ item.productDescription }}</h3>
+              <p>In Stock</p>
+              <h6>Color: {{item.colors}}</h6>
+              <button (click)="Remove(item)"><a href="">Delete</a></button>
+            </td>
+            <td>{{item.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="con2">
+        <h4>Subtotal : {{grandToltal}}</h4>
+      </div>
+     <hr>
+    </div>
+  </div>
+</ng-template>

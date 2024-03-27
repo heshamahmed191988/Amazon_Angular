@@ -17,10 +17,13 @@ export const routes: Routes = [
         children: [
             {path: '', redirectTo: 'Home', pathMatch: 'full'},
             {path: 'Home', component: ProductsComponent,},
-            {path: 'Order', component: OrderComponent,},
+            {path: 'order', component: OrderComponent,},
             {path: 'About', component: AboutUsComponent},
             {path: 'ContactUs', component: ContactUsComponent},
             {path: 'Details/:id', component: ProductDetailsComponent,canActivate:[authGuard]},
+            { path: 'Details/:id/order', component: OrderComponent }
+
+
         ],
     },
     {path: 'login', component: LoginComponent},

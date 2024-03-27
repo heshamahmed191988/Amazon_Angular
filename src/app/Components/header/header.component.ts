@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Icategory } from '../../models/icategory';
 import { CategoryServiceService } from '../../services/category-service.service';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -12,10 +13,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  public totalITeam:number=0
   isloggd: boolean = false;
   categories: Icategory[] = [];
 
-  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService) {}
+  constructor(private authService: AuthService, private router: Router,
+    private CategoryService:CategoryServiceService,private _cart:CartService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
@@ -31,6 +34,11 @@ export class HeaderComponent implements OnInit {
         }
       });
     })
+  this._cart.getProduct()
+   .subscribe(res=>{
+    this.totalITeam=res.length;
+
+   })
   }
 
   logout(): void {

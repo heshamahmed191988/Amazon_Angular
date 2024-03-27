@@ -1,0 +1,193 @@
+footer {
+    background-color: #232f3e;
+    color: #b3b3b3;
+    padding: 40px 0;
+  }
+  
+  h5{
+    color:white;
+  }
+ 
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 0 0 10px;
+  }
+  
+  a {
+    color: #DDD;;
+    font-size: 12px;
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+  #backToTop{
+    justify-content: center;
+    color: white;
+    
+  }
+  section{
+    background-color: #37475a;
+  
+  
+  }
+  .col-12 {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding-top:14px;
+  }
+  
+
+section a:link {
+    font-family: inherit;
+    color: #004B91; 
+    text-decoration: none; 
+}
+
+
+section a:visited {
+    font-family: inherit;
+    color: #004B91; 
+    text-decoration: none; 
+   
+}
+.lan{
+    padding: 20px;
+}
+
+section:hover {
+    color: #111;
+ 
+    text-decoration: none;
+}
+
+span.icp-container-desktop {
+    vertical-align: top;
+    margin: 18px auto 0;
+    margin-left: 70px;
+}
+div.navFooterLine {
+    font-family: inherit;
+    color: #DDD;
+    font-size: 11px;
+    text-align: center;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+#navFooter.navLeftFooter div.navFooterLine {
+    font-size: 12px;
+}
+
+.lan{
+background-color: #232f3e;
+
+}
+.lan a{
+    display: inline-block !important;
+    border: 1px solid #848688;
+    border-radius: 3px;
+    padding: 6px 18px 6px 8px;
+    font-size: 13px;
+    margin-right: 4px;
+    
+}
+.lan i {
+  
+    border-radius: 3px;
+    padding: 6px 18px 6px 8px;
+    font-size: 13px;
+    margin-right: 4px;
+
+}
+#navFooter.navLeftFooter div.navFooterLine {
+    font-size: 12px;
+}
+.select-box {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+
+.icp-button{
+    display: inline-block !important;    border: 1px solid #848688;
+    border-radius: 3px;
+    padding: 6px 18px 6px 8px;
+    font-size: 13px;
+    margin-right: 4px;
+ 
+
+  }
+ 
+  .select-box label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #icp-touch-link-language:hover + .select-box {
+    display: block;
+  }
+
+  select{
+    background-color: transparent;
+    border: none;
+    color: white;
+    display: inline-block;
+  
+  }
+  .fas{
+    color: white;
+  }
+  option{
+    background-color: #ddd;
+    color: #111;
+
+    width: 10px;
+
+  }
+  .f2{
+    background-color: #131a22;
+    color: #b3b3b3;
+    padding: 50px 0;
+
+  }
+.f2 h6{
+    color: white;
+}
+.f2 ul{
+    width: 97px;
+}
+
+.im img{
+    height:100%;
+}
+.nav-sprite, .nav-sprite-v1 .nav-icon {
+    background-image: url(https://m.media-amazon.com/images/G/01/gno/sprites/nav-sprite-global-1x-reorg-privacy._CB587940754_.png);
+ 
+}
+.nav-logo-base {
+    background-position: -10px -90px;
+    width: 76px;
+    height: 23px;
+    margin: 0 auto;
+}
+#copy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:110px !important;
+    text-align: center;
+}
+.navFooterLine{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
