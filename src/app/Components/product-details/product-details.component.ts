@@ -12,13 +12,14 @@ import { PaypalService } from '../../services/paypal.service';
 import { IcreatrOrder } from '../../models/icreatr-order';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { ReviewComponent } from '../review/review.component';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
-  imports: [SafeBase64Pipe, CommonModule, NgxPayPalModule, FormsModule]
+  imports: [SafeBase64Pipe, CommonModule, NgxPayPalModule, FormsModule,ReviewComponent]
 })
 export class ProductDetailsComponent implements OnInit {
   public Quantity: number = 1;
