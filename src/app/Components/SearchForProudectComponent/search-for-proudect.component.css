@@ -1,0 +1,164 @@
+/* .card
+{
+    align-items: center;
+    justify-content: center;
+}
+.card img
+{
+    width: 20vw;
+    height: 20vh;
+} */
+.container-fluid 
+{
+    padding: 0px;
+    
+}
+.select
+{
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    padding-top: 4px;
+    height: 7vh;
+    white-space: nowrap;
+}
+.form-select
+{
+    width: 12vw;
+    height: 5vh;
+    font-size: 1vw;
+    border-radius: 20px;
+    background-color: rgb(235, 236, 237);
+}
+.form-select:hover
+{
+  background-color: rgb(205, 205, 205);
+  cursor: pointer;
+}
+.form-select option
+{
+    top: -20px;
+    
+}
+.row
+{
+  
+    margin: 0 !important;
+    min-width: 100% !important;
+}
+.details
+{
+    padding: 2vw;
+}
+
+.details .squre {
+    border-radius: 2px;
+    width: 15px; 
+    height: 15px;
+    display: inline-block; 
+    border: 1px solid rgb(33, 32, 32); 
+    box-sizing: border-box; 
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.details .squre:hover {
+    border-color: rgb(40, 40, 99); 
+    border-width: 3px;
+    cursor: pointer;
+}
+.details img
+{
+    width: 2vw;
+    height: 2vh;
+}
+.Fulfilledspan:hover
+{
+ color: #c45500;
+ cursor: pointer;
+}
+p > span:hover
+{
+  color: #c45500;
+  cursor: pointer;
+}  
+.priceinput
+{
+  width: 4vw;
+  height: 5vh;
+  margin-right: 3px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+  border: 1px solid black;
+  border-radius: 8px;
+}
+.go {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px rgb(26, 25, 25) solid;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.showproudects
+{
+    padding: 2vw;
+}
+.card1 
+{
+    height: 95vh;
+}
+.carddetails
+{
+   width: 18vw;
+    height: 84vh;
+    border: 2px;
+    border-radius: 5px;
+    background-color: rgb(247, 251, 251);
+}
+.cardimg
+{
+    background-color: rgb(233, 237, 240);
+    text-align: center;
+    justify-content: center;
+    padding: 3px ;
+    border-radius: 10px 10px 0px 0px;
+   
+}
+.cardimg img
+{
+   height: 40vh;
+   width: 15vw;
+   
+}
+@media (max-width: 768px) { 
+    .cardimg img {
+      width: 90%;     
+    }
+    .carddetails
+    {
+        width: 80%;
+    }
+  }
+.row
+{
+    height: auto;   
+}
+.showproudects
+{
+    height:auto ; 
+}
+.related
+{
+    height: 30vh;
+    margin-top: 3%;
+}
+.container.related .col 
+{
+    margin-right: 0.3%;
+    width: 30%;
+    height: 10vh;
+    border: 1px rgb(105, 104, 104) solid;
+}
+.container.related .col p {
+    display: inline;
+    margin-left: 10%;
+  }
+  

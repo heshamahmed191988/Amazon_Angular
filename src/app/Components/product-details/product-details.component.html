@@ -1,7 +1,7 @@
 <style>
     @media (max-width: 768px) {
         .ecommerce-gallery-main-img {
-            max-height: 200px; /* Reduces image height on small devices */
+            max-height: 200px; 
         }
     }
 </style>
@@ -55,21 +55,7 @@
         </div>
     </div>
   </div>
-  <!-- <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
-     <div class="card">
-        <ul class="list-group list-group-flush" >
-          <li class="list-group-item"><h3>Name:{{currentProduct?.name}}</h3></li>
-          <li class="list-group-item"><h3><sup>EGP</sup>{{currentProduct?.price}}<sup>00</sup></h3></li>
-          <li class="list-group-item"><h4>Item Colors:{{currentProduct?.itemscolor}}</h4></li>
-          <li class="list-group-item"><h4>About this item:{{currentProduct?.productDescription}}</h4></li> 
-               <img class="card-img-top" 
-              *ngIf="product.productImages && product.productImages.length > 0" 
-              [src]="'data:image/jpg;base64,' + currentProduct?.productImages" 
-              alt="Card image cap"> 
-        </ul>
-             <span> </span>
-      </div>  
-    </div> -->
+
     <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
       <h4 class="box-title mt-5">Product description</h4>
       <p>{{currentProduct?.productDescription}}</p><hr>

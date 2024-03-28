@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-
+  searchQuery: string = '';
+  
+  constructor(private router: Router) {}
+ 
 }

@@ -1,9 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Font awsom-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!--Font Family-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Indie+Flower&family=Pacifico&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Galada&family=Henny+Penny&display=swap" rel="stylesheet">
+
+
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+       <!--animation-->
+       <link
+       rel="stylesheet"
+       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      />
+      
+   
+    
+</head>
+ <body>
+  
 <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
+      
+        <div class="amazon-icon-container">
+         <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png">
+        </div>
         <div class="card">
           <div class="card-header">
-            <h3 class="text-center">Login</h3>
+            <h3>Sign in</h3>
+            <hr style="color: rgb(117, 116, 116);">
           </div>
           <div class="card-body">
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -17,11 +55,20 @@
               </div>
               
               <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
+              <button type="submit" class="btn  btn-block signbtn">Sign in</button>
+              <div class="keep">
+                <i class="far fa-square" style="color:rgb(50, 50, 50)">
+                </i>Keep me signed in. <a href="#" style="text-decoration: none;">Details</a><i class="fas fa-caret-down"></i>
+                <br>
+                <div class="or-separator">or</div>
+                <button type="submit" class="btn  btn-block signbtn2">Sign in with a code</button>
+              </div>
+            
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+  </body>
+  </html>
