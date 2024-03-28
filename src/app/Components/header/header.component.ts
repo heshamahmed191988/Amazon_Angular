@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   public totalITeam:number=0
   isloggd: boolean = false;
   categories: Icategory[] = [];
-
+  lang="";
   constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();

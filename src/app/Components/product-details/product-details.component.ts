@@ -7,7 +7,6 @@ import { ProductStateService } from '../../services/product-state.service';
 import { ReviewComponent } from '../review/review.component';
 import { SafeBase64Pipe } from '../../pipes/safe-base64.pipe';
 import { Observable } from 'rxjs';
-import { SafeBase64Pipe } from "../../pipes/safe-base64.pipe";
 //paypal
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { NgxPayPalModule } from 'ngx-paypal';
