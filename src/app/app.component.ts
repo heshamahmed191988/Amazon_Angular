@@ -8,6 +8,7 @@ import { ProductsComponent } from './Components/products/products.component';
 import { OrderComponent } from './Components/order/order.component';
 import { ReviewComponent } from './Components/review/review.component';
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,9 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'lecture1';
+  constructor(private translate: TranslateService) {
+   this.translate.setDefaultLang('en');
+   this.translate.use(localStorage.getItem('lang') || 'en');
+  
+  }
 }

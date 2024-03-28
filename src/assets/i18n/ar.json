@@ -1,5 +1,38 @@
 {
-  
-    "egypt":"مصر"
-    
+    "dir":"rtl",
+
+    "header":{
+        "egypt":"مصر",
+        "Deliver": "التوصيل الى",
+        "Cart": "العربة",
+        "login": "الدخول",
+        "register": "التسجيل",
+        "logout": "الخروج",
+        "home": "الرئيسة",
+        "products": "المنتجات",
+        "checkout": "تسجيل الدفع",
+        "search": "البحث",
+        "search_product": "البحث عن المنتج",
+        "all": "الكل",
+        "Hello":"مرحبا",
+        "Acount&Lists":"الحساب والقوائم",
+        "Order":"مشترياتك"
+
+        
+        
+    },
+    "login":{
+        "login": "الدخول",
+        "email": "البريد الإلكتروني",
+        "password":"رمز المرور",
+        "remember_me": "تذكرنى",
+        "forgot_password": "نسيت رمز المرور",
+        "sign_in": "تسجيل الدخول",
+        "Username": "اسم المرور"
+
+    },
+    "footer":{
+        "egypt":"egypty",
+        "Deliver to": "deliver to"
+    }
 }

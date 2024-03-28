@@ -1,5 +1,33 @@
 {
-    
-        "egypt":"e"
-    
+    "dir":"ltr",
+    "header":{
+        "egypt":"egypt",
+        "Deliver": "deliver to",
+        "Cart": "Cart",
+        "login": "login",
+        "register": "register",
+        "logout": "logout",
+        "home": "home",
+        "cart": "cart",
+        "checkout": "checkout",
+        "all": "ALL",
+        "Hello":"Hello",
+        "Acount&Lists":"Acount&Lists",
+        "Order":"Orders"
+
+    },
+    "login":{
+        "login": "login",
+        "email": "email",
+        "password": "password",
+        "remember_me": "remember me",
+        "forgot_password": "forgot password",
+        "sign_in": "sign in",
+        "Username": "Username"
+       
+    },
+    "footer":{
+        "egypt":"egypty",
+        "Deliver to": "deliver to"
+    }
 }

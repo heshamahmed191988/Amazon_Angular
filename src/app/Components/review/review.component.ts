@@ -7,11 +7,12 @@ import { ProductStateService } from '../../services/product-state.service';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [FormsModule, CommonModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule,ReactiveFormsModule,TranslateModule],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.css']
 })

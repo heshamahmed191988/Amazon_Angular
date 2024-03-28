@@ -1,3 +1,4 @@
+<div class="layout" [dir]="'dir'|translate">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <nav class="navbar navbar-expand-lg">
@@ -10,14 +11,14 @@
      
         <span class=" nav-item" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
           <a class="Deliver nav-link "  style="color: white; margin: 2px; width: 90px;" staria-current="page" href="#" >
-            <span style="color: #d9dbda; margin-right: 10px;">Deliver to</span> <br><i class="fas fa-map-marker-alt"></i>{{'Egypt'|translate}}</a>
+            <span style="color: #d9dbda; margin-right: 10px;">{{'header.Deliver'|translate}}</span> <br><i class="fas fa-map-marker-alt"></i>{{'header.egypt'|translate}}</a>
           </span>      
       
      <div class="input-group mb-3" style="margin-top: 15px;">
       <div class="input-group-prepend">
         <span class="nav-item dropdown" style="margin-right: 0px; color: black;">
           <a class="All  nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span style="color: black;">All</span>
+            <span style="color: black;">{{'header.all'|translate}}</span>
           </a>
           <ul class="dropdown-menu" >
             @for (category of categories; track $index) {
@@ -34,44 +35,43 @@
      
         <span class="nav-item">
           <div class="Flagdiv dropdown">
-              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" >En
-              </a>       
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Egypt</a></li>
-                <li><a class="dropdown-item" href="#">Arabic </a></li>
-              </ul>
-
-              <select (change)="selectlanguages($event)" name="" id="">
-                <option value="en">{{'egypt'|translate}}</option>
-                <option value="ar">{{'egypt'|translate}}</option>
-              </select>
+            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"> {{lang | translate}}
+            </a>       
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="#" (click)="changelanguage('en')">English</a></li>
+              <li><a class="dropdown-item" href="#" (click)="changelanguage('ar')">Arabic</a></li>
+            </ul>
           </div>
+          
+              <!-- <select (click)="changelanguage($event)" name="" id="">
+                <option [selected]="lang==='en'" value="en">{{'egypt'|translate}}English</option>
+                <option [selected]="lang==='ar'"value="ar">{{'egypt'|translate}}Arabic</option>
+              </select> -->
         </span>
 
           <span class="nav-item">
           <a class="nav-link "  style="color: white;" staria-current="page" href="#">
-            <span style="color: #d9dbda;">Hello,Sign in</span> <br>Acount &Lists</a>
+            <span style="color: #d9dbda;">{{'header.Hello'|translate}},{{'header.login'|translate}}</span> <br>{{'header.Acount&Lists'|translate}}</a>
           </span> 
           
           <div style="margin: 2px;">
             <a class="nav-link "  style="color: white;" staria-current="page" href="#">
-              <br><span>Order</span>
+              <br><span>{{'header.Order'|translate}}</span>
             </a>          
           </div>
-          <button [routerLink]="'/login'" class="btn btn-primary">login</button>
-          <button (click)="logout()" class="btn btn-secondary">logout</button>
-          <button  [routerLink]="'/register'" class="btn btn-primary">register</button>
+          <button [routerLink]="'/login'" class="btn btn-primary">{{'header.login'|translate}}</button>
+          <button (click)="logout()" class="btn btn-secondary">{{'header.logout'|translate}}</button>
+          <button  [routerLink]="'/register'" class="btn btn-primary">{{'header.register'|translate}}</button>
 
           <div style="margin: 2px;">
             <a class="nav-link "  style="color: white;" staria-current="page" href="#" style="margin-bottom:10px ;">
-              <br><i class="fas fa-shopping-cart" style="font-size:30px;"></i>Cart
+              <br><i class="fas fa-shopping-cart" style="font-size:30px;"></i>{{'header.Cart'|translate}}
             </a>          
           </div>
     </div>     
     </div>
   </div>
 </nav>
-                 <!--Div under nav-->
-<div class="nav2">lol</div>
+</div>              <!--Div under nav-->
     

@@ -16,7 +16,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class HeaderComponent implements OnInit {
   isloggd: boolean = false;
   categories: Icategory[] = [];
-
+  lang  ="";
   constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private translate:TranslateService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();
@@ -33,6 +33,8 @@ export class HeaderComponent implements OnInit {
         }
       });
     })
+ this.lang=localStorage.getItem('lang')||'en';
+ 
   }
 
   logout(): void {
@@ -45,6 +47,19 @@ export class HeaderComponent implements OnInit {
   this.translate.use(event.target.value)
   
   }
+
+  // changelanguage(lang:any) {
+  // {
+  //   const selectlanguage = lang.target.value;
+  //   localStorage.setItem('lang', selectlanguage);
+  //   this.translate.use(selectlanguage);
+  // }
+  changelanguage(lang: any) {
+    localStorage.setItem('lang', lang);
+    this.translate.use(lang);
+  }
+  
+
 }
 
 

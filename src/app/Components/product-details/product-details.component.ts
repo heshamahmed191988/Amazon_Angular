@@ -6,13 +6,14 @@ import { Iproduct } from '../../models/iproduct';
 import { ProductStateService } from '../../services/product-state.service';
 import { ReviewComponent } from '../review/review.component';
 import { SafeBase64Pipe } from '../../pipes/safe-base64.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
-  imports: [CommonModule, ReviewComponent,SafeBase64Pipe]
+  imports: [CommonModule, ReviewComponent,SafeBase64Pipe,TranslateModule]
 })
 export class ProductDetailsComponent implements OnInit {
   currentProduct: Iproduct = {

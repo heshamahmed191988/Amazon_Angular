@@ -4,6 +4,8 @@
         color: gold;
     }
   </style>
+  <div class="layout" [dir]="'dir'|translate">
+
       <div class="review-form-section">
         <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="border p-4 rounded shadow">
             <h4 class="mb-3">Submit a Review</h4>
@@ -81,7 +83,7 @@
         </div>
       </ng-template>
     </div>
-  
+  </div>
   
   
     <!-- Form to Submit a Review -->
