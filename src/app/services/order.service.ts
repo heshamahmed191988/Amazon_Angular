@@ -16,20 +16,28 @@ export class OrderService {
   getOrerById(UserId:string):Observable<IorderId>{
     return this.httpclient.get<IorderId>(`${environment.baseUrl}/api/Order/${UserId}`);
   }
+
+
   CreateOrder(create:IcreatrOrder):Observable<IorderId>{
     return this.httpclient.post<IorderId>(`${environment.baseUrl}/api/Order`, {
       userID: create.userID,
       orderQuantities: create.orderQuantities
     });
+    }
     
-    //  return this.httpclient.post<IorderId>(`${environment.baseUrl}/api/Order`,create);
-  }
   updateOrder(update:IUpdateOrder):Observable<IResultUpdate>
   {
     return this.httpclient.put<IResultUpdate>(`${environment.baseUrl}/api/Order`,JSON.stringify(update));
   }
+
   DeleteOrder(id:number): void
   {
    this.httpclient.delete(`${environment.baseUrl}/api/Order/${id}`);
   }
+
+  createPayment(orderid:number):Observable<void>
+  {
+    return this.httpclient.post<void>(`${environment.baseUrl}/api/Payment?orderId=${orderid}`,null)
+  }
+
 }

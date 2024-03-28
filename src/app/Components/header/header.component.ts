@@ -5,6 +5,7 @@ import { Icategory } from '../../models/icategory';
 import { CategoryServiceService } from '../../services/category-service.service';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from '../register/register.component';
+import { ICartService } from '../../services/icart.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -13,10 +14,11 @@ import { RegisterComponent } from '../register/register.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  public totalITeam:number=0
   isloggd: boolean = false;
   categories: Icategory[] = [];
 
-  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService) {}
+  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private _cart:ICartService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
@@ -31,6 +33,12 @@ export class HeaderComponent implements OnInit {
           console.error('Error fetching categories:', error);
         }
       });
+      this._cart.getProduct()
+      .subscribe(res=>{
+       this.totalITeam=res.length;
+   
+    })
+    
     })
   }
 

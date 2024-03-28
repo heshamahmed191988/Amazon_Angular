@@ -1,7 +1,10 @@
 export interface IorderId {
-    id:number;
-    userID:string;
-    datePlaced:string;
-    totalPrice:number;
-    status:string;
+    entity:{id:number;
+        userID:string;
+        datePlaced:string;
+        totalPrice:number;
+        status:string;}
+    isSuccess:boolean
+    message:string
+
 }

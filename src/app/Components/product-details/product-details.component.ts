@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnChanges, OnInit, SimpleChanges, input, output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { ProductServiceService } from '../../services/product-service.service';
 import { Iproduct } from '../../models/iproduct'
@@ -12,13 +12,14 @@ import { PaypalService } from '../../services/paypal.service';
 import { IcreatrOrder } from '../../models/icreatr-order';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { ICartService } from '../../services/icart.service';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
-  imports: [SafeBase64Pipe, CommonModule, NgxPayPalModule, FormsModule]
+  imports: [SafeBase64Pipe, CommonModule, NgxPayPalModule, FormsModule,RouterLink]
 })
 export class ProductDetailsComponent implements OnInit {
   public Quantity: number = 1;
@@ -44,13 +45,18 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private activatedrouter: ActivatedRoute
     , private location: Location, private route: Router,
     private _ProductServiceService: ProductServiceService,
-    private _PaypalService: PaypalService, private _AuthService: AuthService) {
-      this.setUserid();
+    private _PaypalService: PaypalService, private _AuthService: AuthService,private _Cart:ICartService) {
+    this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
+debugger
         this.order.userID = this.UserId;
         this.order.orderQuantities = [];
-        this.order.orderQuantities.push({ quantity: this.Quantity, productID: this.currentId });
+        this.order.orderQuantities.push({
+          quantity: this.Quantity,
+          productID: this.currentId,
+          unitAmount: Number(this.currentProduct.price)
+        });
         this._PaypalService.create = this.order;
 
       }
@@ -73,26 +79,29 @@ export class ProductDetailsComponent implements OnInit {
         }
       });
     });
+
     // this.setUserid()
     this.payPalConfig = this._PaypalService.payPalConfig;
   }
-  
-  
+  addToOrder(currentProduct:Iproduct){
+    this._Cart.addtoOrder(currentProduct);
+  }  
+
   buy(value: string) {
     this.Quantity = Number(value);
-  } 
-  
-  
+  }
+
+
   createorder
 
     (): void {
-   
+
   }
 
-  setUserid(){
-    this._AuthService.getCurrentUserId().subscribe(user =>{
-       this.UserId = user.userId
-       console.log(this.UserId)
+  setUserid() {
+    this._AuthService.getCurrentUserId().subscribe(user => {
+      this.UserId = user.userId
+      console.log(this.UserId)
     })
   }
 }
