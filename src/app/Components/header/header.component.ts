@@ -5,7 +5,10 @@ import { Icategory } from '../../models/icategory';
 import { CategoryServiceService } from '../../services/category-service.service';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from '../register/register.component';
+import { ICartService } from '../../services/icart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -14,10 +17,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  public totalITeam:number=0
   isloggd: boolean = false;
   categories: Icategory[] = [];
-  lang  ="";
-  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private translate:TranslateService) {}
+
+  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
@@ -32,6 +36,12 @@ export class HeaderComponent implements OnInit {
           console.error('Error fetching categories:', error);
         }
       });
+      this._cart.getProduct()
+      .subscribe(res=>{
+       this.totalITeam=res.length;
+   
+    })
+    
     })
  this.lang=localStorage.getItem('lang')||'en';
  

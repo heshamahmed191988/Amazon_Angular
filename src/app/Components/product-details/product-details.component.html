@@ -59,28 +59,29 @@
 
       
   </div>
-
-  <div class="last col-lg-2  mt-3 mx-4 ">
+  
+  <div class="last col-lg-2  mt-3 mx-4 " style="width: 21%;">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
           <li class="list-group-item">payment details </li>
           <li class="list-group-item"> <div class="mb-3">
            
-            <input type="number" class="form-control" id="quantityInput" placeholder="Quantity">
+             <input type="number" [(ngModel)]="Quantity" [value]="Quantity" class="form-control" id="quantityInput" placeholder="Quantity"  >
+             <!-- name="Quantity" [(ngModel)]="Quantity"> -->
           </div>
         </li>
 
-          <li class="list-group-item text-center">  <button type="button" class="btn btn-warning ">Add to Cart</button>
+        <li class="list-group-item text-center" >  <button class="btn btn-primary" (click)="addToOrder(currentProduct)" routerLink="/Cart" routerLinkActive="router-link-active"  >Add to Cart</button>
+          <li class="list-group-item text-center">  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
           </li>
-          <li class="list-group-item text-center">  <button type="button" class="btn btn-warning ">By Now</button>
-          </li>
+          <!-- <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
           <li class="list-group-item">Vestibulum at eros</li>
         </ul>
       </div>
 
   </div>
 
-<app-review ></app-review>
+<!-- <app-review ></app-review> -->
 </div> 
 </div>

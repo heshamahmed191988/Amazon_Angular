@@ -65,8 +65,7 @@ isloggedstate !:BehaviorSubject<boolean>
   getloggedstatus(): BehaviorSubject<boolean> {
 return this.isloggedstate;
   }
-
-
+  
   getCurrentUserId(): Observable<any> {
     const headers = this.getAuthHeaders(); // Use getAuthHeaders to ensure the token is included
     return this.http.get(`${environment.baseUrl}/api/Account/currentUserId`, { headers: headers }).pipe(
