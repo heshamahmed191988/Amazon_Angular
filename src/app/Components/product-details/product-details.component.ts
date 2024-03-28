@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
-  imports: [CommonModule, ReviewComponent,SafeBase64Pipe,TranslateModule,NgxPayPalModule,FormsModule]
+  imports: [CommonModule, ReviewComponent,SafeBase64Pipe,TranslateModule,NgxPayPalModule,FormsModule,RouterLink]
 })
 export class ProductDetailsComponent implements OnInit {
   public Quantity: number = 1;
@@ -42,16 +42,17 @@ export class ProductDetailsComponent implements OnInit {
     productDescription: '',
     price: 0
   };
+
   payPalConfig: IPayPalConfig | undefined;
   currentId: number = 0;
   constructor(private activatedrouter: ActivatedRoute
     , private location: Location, private route: Router,
     private _ProductServiceService: ProductServiceService,
-    private _PaypalService: PaypalService, private _AuthService: AuthService,private _Cart:ICartService) {
+    private _PaypalService: PaypalService, private _AuthService: AuthService,private _Cart:ICartService,private productStateService: ProductStateService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
-debugger
+
         this.order.userID = this.UserId;
         this.order.orderQuantities = [];
         this.order.orderQuantities.push({

@@ -1,0 +1,80 @@
+.container {
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.card {
+    max-width: 400px; 
+    width: 100%;
+    height: 75vh;
+    margin: 0 auto; 
+  
+}
+.amazon-icon-container 
+{
+    text-align: center;
+    margin-bottom: 20px; 
+}
+.amazon-icon-container  img
+{
+  width: 80px;
+  height: 90px;
+}
+.card-header {
+    border-bottom: none;
+  }
+.card-header {
+    background-color: rgb(255, 255, 255);   
+}
+
+.signbtn {
+    width: 98%; 
+    height: 29px;
+    margin-top: 20px;
+    margin-left: 8px;
+    background-color:#ffd814;
+    padding: 0px;
+}
+.signbtn:hover
+{
+    background-color:#edc80e;
+}
+.keep
+{
+    margin:25px 25px;
+}  
+.or-separator
+ {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .or-separator:before, .or-separator:after 
+  {
+    content: "";
+    display: inline-block;
+    width: 47%;
+    border-top: 1px solid #d3d0d0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-10%);
+  }
+  .or-separator:before {
+    right: 55%;
+    margin-right: 0px;
+  }
+  .or-separator:after {
+    left: 55%;
+    margin-left: 0px;
+  }
+  .signbtn2 {
+    width: 98%; 
+    height: 29px;
+    margin-top: 20px;
+    margin-left: 8px;
+    background-color:#fcfcfc;
+    padding: 0px;
+    border: 1px rgb(179, 175, 175) solid;
+    font-size: 15px;
+    border-radius: 8px;
+}

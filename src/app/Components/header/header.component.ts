@@ -7,21 +7,25 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from '../register/register.component';
 import { ICartService } from '../../services/icart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive,CommonModule,RegisterComponent,RouterModule,TranslateModule],
+  imports: [RouterLink,RouterLinkActive,CommonModule,RegisterComponent,RouterModule,TranslateModule,FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  public totalITeam:number=0
+  public totalITeam:number=0;
   isloggd: boolean = false;
   categories: Icategory[] = [];
   lang="";
-  constructor(private authService: AuthService, private router: Router,private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
+  searchQuery: string = '';
+
+  constructor(private authService: AuthService, private router: Router,
+    private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
   ngOnInit(): void {
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
@@ -68,7 +72,12 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('lang', lang);
     this.translate.use(lang);
   }
-  
+  searchProducts(): void {
+    if (this.searchQuery !== '') {
+      this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
+      console.log(this.searchQuery)
+    }
+  }
 
 }
 

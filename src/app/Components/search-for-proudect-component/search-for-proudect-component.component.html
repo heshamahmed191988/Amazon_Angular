@@ -1,0 +1,172 @@
+<p>search-for-proudect-component works!</p>
+<!-- <div class="d-flex justify-content-end">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col mb-3">
+      <select class="form-select" (change)="onSortChange($event)" style="width: 200px;">
+        <option value="featured"> Sort by :Featured</option>
+        <option value="lowToHigh">Price: Low to High</option>
+        <option value="highToLow">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <ng-container *ngFor="let product of paginatedProducts; let i = index" >
+   
+    <div class="col" (click)="NavigateToDetails(product.id)">
+      <div class="card">
+        <img 
+        [src]="'data:image/jpg;base64,' + product.productImages[0]" >
+        <div class="card-body">
+          <h5 class="card-title">Name: {{ product.name }}</h5>
+          <h5 class="card-title">Description: {{ product.description }}</h5>
+          <h5 class="card-title">Price: {{ product.price }}</h5>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">
+      <a class="page-link" href="javascript:void(0)" (click)="changePage(i+1)">{{i + 1}}</a>
+    </li>
+  </ul>
+</nav> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Font awsom-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!--Font Family-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Indie+Flower&family=Pacifico&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Galada&family=Henny+Penny&display=swap" rel="stylesheet">
+
+
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+       <!--animation-->
+       <link
+       rel="stylesheet"
+       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      />
+      
+   
+    
+</head>
+ <body>
+  
+  <div class="container-fluid">
+                         <!--select list-->
+        <div class="row row-cols-1 row-cols-md-2 g-4 select" style="height: auto;">
+            <div class="col-md-10" style="margin-top: 0; padding: 0;" >
+              {{Quant}} results for {{searchQuery!}}
+            </div> 
+            <div class="col-md-2 mb-3" style="margin-top: 0; padding-top: 0;"> 
+                <select class="form-select" (change)="onSortChange($event)" >
+                    <option value="featured"> Sort by :Featured</option>
+                    <option value="lowToHigh">Price: Low to High</option>
+                    <option value="highToLow">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+        <hr style="margin: 0px; padding: 0px;">
+                   <!--body-->
+      <div class="row" style="padding-top: 5px;">
+          <!--first div-->
+          <div class="col-2 details">
+            <p style="margin-bottom: 5px;">Fulfilled by Amazon</p>
+            <div class="squre"></div>
+            |<span class="Fulfilledspan">Fulfilled by Amazon</span> 
+
+            <p style="margin-bottom: 1px; margin-top: 8px;">Eligible for Free Shipping</p>
+            <div class="squre"></div><span> &nbsp;Free Shipping</span><br>
+            <span class="Fulfilledspan">All customers get FREE Shipping on orders shipped by Amazon</span>
+            
+            <p style="margin-bottom: 1px; margin-top: 8px;">Delivery Day</p>
+            <div class="squre"></div>
+            <span class="Fulfilledspan">&nbsp;Get It by Tomorrow</span><br>
+
+            <p  style="margin-bottom: 1px; margin-top: 8px;">Price<br>
+            <span (click)="filterByPrice(0, 50)">Up to 50 EGP</span><br>
+            <span (click)="filterByPrice(51, 100)">50 to 100 EGP</span><br>
+            <span (click)="filterByPrice(101, 300)">100 to 300 EGP</span><br>
+            <span (click)="filterByPrice(301, 1500)">300 to 1500 EGP</span><br>
+            <span (click)="filterByPrice(1501, 2500)">1500 to 2500 EGP</span><br>
+            <span (click)="filterByPrice(2501, Above_2500)">Above 2500</span><br>
+            <input class="priceinput"  #minButton placeholder="Min" >
+            <input class="priceinput"  #maxButton  placeholder="Max">
+            <button (click)="filterByPrice(+minButton.value,+ maxButton.value)" class="go">Go</button>
+          </p>
+            <!-- <i class="fas fa-chevron-left"></i>
+            <span class="Fulfilledspan">&nbsp;Any Department</span><br> -->
+          </div>    
+                    <!--end-->
+              <!--secound div--show proudects dive ---->
+          <div class="col-10 showproudects" > 
+
+                <div class="row-cols-1 row-cols-md-1" style=" padding: 0px; margin: 0px;">
+                  <h6>Results</h6>
+                  <p style="padding: 0px !important; margin: 0px;">Price and other details may vary, based on product size and colour.</p>
+                </div>     
+
+                <div class="row row-cols-1 row-cols-md-4 g-4 card1" style="padding-top: 0px;margin-top: 0px;">
+                    <ng-container *ngFor="let product of paginatedProducts; let i = index" >   
+                     
+                      <div class="col " (click)="NavigateToDetails(product.id)">
+                        <div class="card carddetails">
+                            <div class=" cardimg">
+                                <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
+                            </div>
+                            <div class="card-body">
+                              <h5 class="card-title">{{ product.name }}</h5>
+                              <h5 class="card-title">{{ product.description }}</h5>
+                              <h5 class="card-title"><sup>EGP</sup> {{ product.price }}<sup>00</sup></h5>
+                            </div>
+                        </div>
+                      </div>
+                    </ng-container><br>
+                </div>
+                <div class="serchandpagination">
+                    <div class="container related">
+                      <h4 class="div-title">Related searches</h4>
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                      </div>
+                  </div>
+                   <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">
+                        <a class="page-link" href="javascript:void(0)" (click)="changePage(i+1)">{{i + 1}}</a>
+                      </li>
+                    </ul>
+                  </nav>  
+              </div>
+         </div>
+       </div>
+      <!--end-->
+   </div>
+   <!--end first fluid-->
+   <div>
+    
+   </div>
+ </body>
+</html>

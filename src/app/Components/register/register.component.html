@@ -1,34 +1,36 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="text-center">Register</h3>
-          </div>
-          <div class="card-body">
-            <form (ngSubmit)="register()">
-              <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>
-              </div>
-              <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
-              </div>
-              <div class="form-group">
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
-              </div>
-              <div *ngIf="errorMessage" class="alert alert-danger" [innerHTML]="errorMessage"></div>
-              <button type="submit" class="btn btn-success btn-block">Register</button>
-            </form>
-          </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="amazon-icon-container">
+        <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png">
+       </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Create Account</h3>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="register()">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password:</label>
+              <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger" [innerHTML]="errorMessage"></div>
+            <button type="submit" class="btn btn-success btn-block registerbtn">Register</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

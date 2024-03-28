@@ -8,6 +8,6 @@ export interface Iproduct {
     productDescription?: string;
     colors?: string[];
     itemimages?: string[];
-    price?: number;
+    price: number;
     BrandName?:string;
 }

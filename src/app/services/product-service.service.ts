@@ -24,4 +24,8 @@ export class ProductServiceService {
    
     
   }
+  filterdbynameProducts(name: string): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`);
+  }
 }
+

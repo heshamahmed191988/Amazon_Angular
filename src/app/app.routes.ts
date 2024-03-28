@@ -11,6 +11,7 @@ import { authGuard } from './guards/auth.guard';
 import { ProductsComponent } from './Components/products/products.component';
 import { ReviewComponent } from './Components/review/review.component';
 import { CartComponent } from './Components/cart/cart.component';
+import { SearchForProudectComponentComponent } from './Components/search-for-proudect-component/search-for-proudect-component.component';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,7 @@ export const routes: Routes = [
             {path: 'review', component: ReviewComponent,},
             {path: 'About', component: AboutUsComponent},
             {path: 'ContactUs', component: ContactUsComponent},
+            {path: 'SearchForProudectComponent/:name', component: SearchForProudectComponentComponent },
             {path: 'Details/:id', component: ProductDetailsComponent,canActivate:[authGuard]},
         ],
     },
