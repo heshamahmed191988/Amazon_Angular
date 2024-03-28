@@ -82,6 +82,16 @@ export class ProductDetailsComponent implements OnInit {
         }
       });
     });
+    this.activatedrouter.paramMap.subscribe((paramMap) => {
+      this.currentId = Number(paramMap.get('id'));
+      this._ProductServiceService.getProductById(this.currentId).subscribe({
+        next: (res) => {
+          this.currentProduct = res;
+          this.productStateService.changeProductId(this.currentId); // Update product ID state
+        },
+        error: (err) => console.log(err)
+      });
+    });
 
     // this.setUserid()
     this.payPalConfig = this._PaypalService.payPalConfig;
