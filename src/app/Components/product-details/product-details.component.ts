@@ -70,18 +70,18 @@ export class ProductDetailsComponent implements OnInit {
     //paypal
     this._PaypalService.initConfig();
 
-    this.activatedrouter.paramMap.subscribe((paramMap) => {
-      this.currentId = Number(paramMap.get('id'));
-      this._ProductServiceService.getProductById(this.currentId).subscribe({
-        next: (res) => {
-          this.currentProduct = res;
-          // console.log(this.currentProduct.productimages[0])
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      });
-    });
+    // this.activatedrouter.paramMap.subscribe((paramMap) => {
+    //   this.currentId = Number(paramMap.get('id'));
+    //   this._ProductServiceService.getProductById(this.currentId).subscribe({
+    //     next: (res) => {
+    //       this.currentProduct = res;
+    //       // console.log(this.currentProduct.productimages[0])
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //     }
+    //   });
+    // });
     this.activatedrouter.paramMap.subscribe((paramMap) => {
       this.currentId = Number(paramMap.get('id'));
       this._ProductServiceService.getProductById(this.currentId).subscribe({
@@ -114,7 +114,7 @@ export class ProductDetailsComponent implements OnInit {
   setUserid() {
     this._AuthService.getCurrentUserId().subscribe(user => {
       this.UserId = user.userId
-      console.log(this.UserId)
+      //console.log(this.UserId)
     })
   }
 }

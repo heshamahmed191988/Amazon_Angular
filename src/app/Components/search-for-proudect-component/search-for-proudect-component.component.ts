@@ -33,7 +33,7 @@ export class SearchForProudectComponentComponent implements OnInit {
               this.searchResults = res;
               this.Quant = this.searchResults.length;
               this.sortProducts(this.sortBy);
-              console.log(this.searchResults);
+              //console.log(this.searchResults);
             } else {
               console.log('Invalid response format');
             }

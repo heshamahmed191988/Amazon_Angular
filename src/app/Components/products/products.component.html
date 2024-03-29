@@ -1,5 +1,5 @@
 <div class="layout" [dir]="'dir'|translate">
-
+<div class="container">
 <div class="row g-4 my-5">
     <ng-container *ngFor="let product of paginatedProducts">
       <div class="col-6 col-md-3" (click)="NavigateToDetails(product.id)">
@@ -24,6 +24,7 @@
       </div>
     </ng-container>
   </div>
+</div>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">

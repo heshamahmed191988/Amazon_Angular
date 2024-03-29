@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles.css or styles.scss
+*,
+*::before,
+*::after {
+  padding: 0% !important;
+  margin: 0% !important;
+} */
+
+/* If you're using Angular Material, you might need more specific overrides */
+/* ::ng-deep .mat-component-class {
+  padding: 0 !important;
+  margin: 0 !important;
+} */
+
+/* html, body {
+    overflow-x: hidden;
+  } */
