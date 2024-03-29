@@ -24,16 +24,8 @@ export class ProductServiceService {
   filterdbynameProducts(name: string): Observable<Iproduct[]> {
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`);
   }
+
+getproudectbycategory(categoryid: number): Observable<Iproduct[]> {
+  return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/bycatogry?catid=${categoryid}`);
 }
-//   filterdbynameProducts(name: string): Observable<Iproduct[]>{
-//     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`)
-    
-//   }
-// }
-// filterdbynameProducts(name: string): Observable<Iproduct[]> {
-//   return this.httpclient.get<any>(`${environment.baseUrl}/api/Product/searchname?name=${name}`)
-//     .pipe(
-//       map(response => response.entities || []) // Use map operator to transform the response
-//     );
-// }
-// }
+}

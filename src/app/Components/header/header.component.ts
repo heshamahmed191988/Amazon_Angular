@@ -5,6 +5,7 @@ import { Icategory } from '../../models/icategory';
 import { CategoryServiceService } from '../../services/category-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
+import {  EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -15,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent implements OnInit{
   categories: Icategory[] = [];
   searchQuery: string = '';
+  @Output() categorySelected = new EventEmitter<number>();
+
+  //@Output() categorySelected = new EventEmitter<number>(); 
   constructor(private authService: AuthService, private router: Router,private _CategoryService: CategoryServiceService) {}
 
   ngOnInit(): void {
@@ -41,6 +45,10 @@ export class HeaderComponent implements OnInit{
       this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
       console.log(this.searchQuery)
     }
+  }
+  
+  selectCategory(categoryId: number): void {
+    this.categorySelected.emit(categoryId);
   }
   
 }

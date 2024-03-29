@@ -1,66 +1,72 @@
-<header>
-  <div class="navbar">
-      <div class="nav-logo border">
-          <div class="logo"></div>
-      </div>
 
-      <div class="nav-address border">
-          <p class="address-first">Deliver to</p>
-          <div class="address-icon">
-              <i class="fa-solid fa-location-dot"></i>
-              <p class="address-second">India</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" ><img class="logo" src="https://zeevector.com/wp-content/uploads/Amazon-Logo-White@zeevector.png"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+     
+        <span class=" nav-item" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
+          <a class="Deliver nav-link "  style="color: white; margin: 2px; width: 90px;" staria-current="page" href="#" >
+            <span style="color: #d9dbda; margin-right: 10px;">Deliver to</span> <br><i class="fas fa-map-marker-alt"></i>Egypt</a>
+          </span>      
+      
+     <div class="input-group mb-3" style="margin-top: 15px;">
+      <div class="input-group-prepend">
+        <span class="nav-item dropdown" style="margin-right: 0px; color: black;">
+          <a class="All  nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span style="color: black;">All</span>
+          </a>
+          <ul class="dropdown-menu">
+             <li *ngFor="let category of categories">
+                <a class="dropdown-item" href="#" (click)="selectCategory(category.id)">{{ category.name }}</a>
+              </li>
+              
+          </ul>        
+          </span>
+      </div>
+      <input type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" [(ngModel)]="searchQuery" >
+      <button class="btn form-btn " type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;" (click)="searchProducts()"></i>
+      </button>
+     
+        <span class="nav-item">
+          <div class="Flagdiv dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" >En
+              </a>       
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Egypt</a></li>
+                <li><a class="dropdown-item" href="#">Arabic </a></li>
+              </ul>
           </div>
-      </div>
+        </span>
 
-      <div class="nav-search">
-          <select class="search-select">
-              <option>All</option>
-          </select>
+          <span class="nav-item">
+          <a class="nav-link "  style="color: white;" staria-current="page" href="#">
+            <span style="color: #d9dbda;">Hello,Sign in</span> <br>Acount &Lists</a>
+          </span> 
+          
+          <div style="margin: 2px;">
+            <a class="nav-link "  style="color: white;" staria-current="page" href="#">
+              <br><span>Order</span>
+            </a>          
+          </div>
+          <button [routerLink]="'/login'" class="btn btn-primary">login</button>
+          <button (click)="logout()" class="btn btn-secondary">logout</button>
+          <button  [routerLink]="'/register'" class="btn btn-primary">register</button>
 
-          <!-- <input class="search-input" type="text" placeholder="Seach Amazon" >
-
-          <div class="search-icon" (click)="searchProducts()">
-              <i class="fa-solid fa-magnifying-glass"></i>
-          </div> -->
-          <input class="search-input" type="text" placeholder="Search Amazon" [(ngModel)]="searchQuery">
-            <div class="search-icon" (click)="searchProducts()">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-
-      </div>
-
-      <div class="nav-signin border">
-          <p><span class="nav-first">Hello, Sign in</span></p>
-          <p class="nav-second">Account & List</p>
-      </div>
-
-      <div class="nav-return border">
-          <p><span class="nav-first">Return</span></p>
-          <p class="nav-second">& Orders</p>
-      </div>
-
-      <div class="nav-cart border">
-          <i class="fa-solid fa-cart-shopping"></i>
-          Cart
-      </div>
+          <div style="margin: 2px;">
+            <a class="nav-link "  style="color: white;" staria-current="page" href="#" style="margin-bottom:10px ;">
+              <br><i class="fas fa-shopping-cart" style="font-size:30px;"></i>Cart
+            </a>          
+          </div>
+    </div>     
+    </div>
   </div>
-
-  <div class="panel">
-      <div class="panel-all">
-          <i class="fa-solid fa-bars"></i>
-          All
-      </div>
-
-      <div class="panel-ops">
-          <p>Today's Deals</p>
-          <p>Customer Services</p>
-          <p>Registry</p>
-          <p>Gift Cards</p>
-          <p>Sell</p>
-      </div>
-
-      <div class="panel-deals">
-          Shop deals in Electronic
-      </div>
-  </div>
-</header>
+</nav>
+                 <!--Div under nav-->
+<div class="nav2">lol</div>
+    

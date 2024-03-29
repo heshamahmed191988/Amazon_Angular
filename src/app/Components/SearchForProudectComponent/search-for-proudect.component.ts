@@ -104,6 +104,4 @@ export class SearchForProudectComponent implements OnInit {
       this.currentPage = 1;
       this.updatePaginatedProducts();
     }
-    
-
 }
