@@ -141,41 +141,7 @@ filterByBrand(brand: string): void {
     }
   });
 }
-// filterByBrand(brand: string): void {
-//   this._productService.filterdbybrandname(brand).subscribe({ 
-//     next: (res: any) => {  
-//       if (res) {
-        
-//         this.searchResults = res.filter(product => product.brandName === brand);
-//         this.Quant = this.searchResults.length;
-//         this.sortProducts(this.sortBy);
-//       } else {
-//         console.log('Invalid response format');
-//       }
-//     },
-//     error: (err) => {
-//       console.log(err);
-//     }
-//   });
-// }
-// filterByBrand(brand: string): void {
-//   this._productService.filterdbybrandname(brand).subscribe({ 
-//     next: (res: Iproduct[]) => {  
-//       if (res) {
-//         this.searchResults = this.searchResults.filter(product => product.brandName === brand);
-//         this.searchResults = res.filter((product: Iproduct) => product.brandName === brand);
-//         console.log(this.searchResults);
-//         this.Quant = this.searchResults.length;
-//         this.sortProducts(this.sortBy);
-//       } else {
-//         console.log('Invalid response format');
-//       }
-//     },
-//     error: (err) => {
-//       console.log(err);
-//     }
-//   });
-// }
+
 
 
 calculateProductRatings(): void {
