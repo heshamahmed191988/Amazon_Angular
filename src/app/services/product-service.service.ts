@@ -12,7 +12,7 @@ export class ProductServiceService {
   constructor(private httpclient:HttpClient) { }
 
   getAllProducts(): Observable<Iproduct[]>{
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all`)
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Category`)
   }
 
   //  getProductById(id: number): Observable<Iproduct> {
@@ -20,12 +20,18 @@ export class ProductServiceService {
   //  }
 
   getProductById(id: number): Observable<Iproduct> {
-    return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product?id=${id}`);
+    return this.httpclient.get<Iproduct>(`http://localhost:5110/api/Product?id=${id}`);
    
     
   }
   filterdbynameProducts(name: string): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`);
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/searchname?name=${name}`);
+  }
+  filterdbybrandname(name: string): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/searchbrand?name=${name}`);
+  }
+  getbrandsname(): Observable<Iproduct[]>{
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/brands`)
   }
 }
 

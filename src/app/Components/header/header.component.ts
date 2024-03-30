@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   categories: Icategory[] = [];
   lang="";
   searchQuery: string = '';
+  selectedCategory: string = 'All';
 
   constructor(private authService: AuthService, private router: Router,
     private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
@@ -72,13 +73,27 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('lang', lang);
     this.translate.use(lang);
   }
+  // searchProducts(): void {
+  //   if (this.searchQuery !== '') {
+  //     this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
+  //     console.log(this.searchQuery)
+  //   }
+  // }
+
   searchProducts(): void {
     if (this.searchQuery !== '') {
-      this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
-      console.log(this.searchQuery)
+      let searchUrl = `/SearchForProudectComponent/${this.searchQuery}`;
+      if (this.selectedCategory !== 'All') {
+        searchUrl += `?category=${this.selectedCategory}`;
+      }
+      this.router.navigateByUrl(searchUrl);
     }
   }
-
+  
+  selectCategory(category: string) {
+    this.selectedCategory = category;
+  }
+  
 }
 
 

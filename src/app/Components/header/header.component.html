@@ -1,3 +1,4 @@
+<!--header component work!-->
 <div class="layout mx-0 p-o " [dir]="'dir'|translate">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -18,18 +19,25 @@
       <div class="input-group-prepend">
         <span class="nav-item dropdown" style="margin-right: 0px; color: black;">
           <a class="All  nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span style="color: black;">{{'header.all'|translate}}</span>
+            <span style="color: black;">{{'header.all'|translate}}</span> 
           </a>
-          <ul class="dropdown-menu" >
+          <!-- <ul class="dropdown-menu" >
             @for (category of categories; track $index) {
                 <li >
                   <a class="dropdown-item" href="#" >{{ category.name }}</a>
                 </li>
                }
-            </ul>         
+            </ul>          -->
+
+            <ul class="dropdown-menu">
+              <li *ngFor="let category of categories" (click)="selectCategory(category.name)">
+                <a class="dropdown-item" href="#" [class.active]="selectedCategory === category.name">{{ category.name }}</a>
+              </li>
+            </ul>
+            
           </span>
       </div>
-      <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" >
+      <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" (keyup.enter)="searchProducts()" >
       <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
       </button>
      

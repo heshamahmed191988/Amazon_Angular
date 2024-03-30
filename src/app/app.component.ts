@@ -9,10 +9,9 @@ import { OrderComponent } from './Components/order/order.component';
 import { ReviewComponent } from './Components/review/review.component';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-
 import { NgxPayPalModule } from 'ngx-paypal';
 
-
+// TranslateService
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -24,7 +23,7 @@ export class AppComponent {
   title = 'lecture1';
   constructor(private translate: TranslateService) {
    this.translate.setDefaultLang('en');
-   this.translate.use(localStorage.getItem('lang') || 'en');
-  
-  }
+   this.translate.use(localStorage.getItem('lang') || 'en');
+  
+  }
 }

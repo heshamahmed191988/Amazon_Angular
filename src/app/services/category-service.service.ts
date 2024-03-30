@@ -15,7 +15,7 @@ export class CategoryServiceService {
 
 getAllCategory():Observable<Icategory[]>
 {
-  //return this.httpclient.get<Icategory[]>(`http://localhost:5110/api/Category`);
+ // return this.httpclient.get<Icategory[]>(`http://localhost:5110/api/Category`);
     return this.httpclient.get<Icategory[]>(`${environment.baseUrl}/api/category`);
 }
   
