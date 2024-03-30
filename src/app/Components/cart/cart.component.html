@@ -18,7 +18,8 @@
             <td>
               <h3>{{ item.productDescription }}</h3>
               <p>In Stock</p>
-              <h6>Color: {{item.colors}}</h6>
+              <!-- <h6>Color: {{item.colors}}</h6> -->
+              <h6>quantity: {{item.quantity}}</h6>
               <button (click)="Remove(item)"><a href="">Delete</a></button>
             </td>
             <td>{{item.price}}</td>
@@ -32,3 +33,5 @@
     </div>
   </div>
 </ng-template>
+
+<ngx-paypal [config]="payPalConfig"></ngx-paypal>

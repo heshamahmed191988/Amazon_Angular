@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IorderId } from '../models/iorder-id';
 import { IcreatrOrder } from '../models/icreatr-order';
 import { IUpdateOrder } from '../models/iupdate-order';
 import { IResultUpdate } from '../models/iresult-update';
+import { Iorderuserid } from '../models/iorderuserid';
+import { Iorderdetails } from '../models/iorderdetails';
 
 
 @Injectable({
@@ -13,9 +15,16 @@ import { IResultUpdate } from '../models/iresult-update';
 })
 export class OrderService {
   constructor(private httpclient:HttpClient) { }
-  getOrerById(UserId:string):Observable<IorderId>{
-    return this.httpclient.get<IorderId>(`${environment.baseUrl}/api/Order/${UserId}`);
+  getOrerByUserId(UserId:string):Observable<Iorderuserid[]>{
+    return this.httpclient.get<Iorderuserid[]>(`${environment.baseUrl}/api/Order/${UserId}`);
   }
+
+
+  getorderdetails(orderid:number):Observable<Iorderdetails[]>
+  {
+    return this.httpclient.get<Iorderdetails[]>(`${environment.baseUrl}/api/Order/orderid?orderId=${orderid}`)
+  }
+
 
 
   CreateOrder(create:IcreatrOrder):Observable<IorderId>{
@@ -24,15 +33,30 @@ export class OrderService {
       orderQuantities: create.orderQuantities
     });
     }
-    
-  updateOrder(update:IUpdateOrder):Observable<IResultUpdate>
-  {
-    return this.httpclient.put<IResultUpdate>(`${environment.baseUrl}/api/Order`,JSON.stringify(update));
-  }
 
-  DeleteOrder(id:number): void
+  // updateOrder(update:IUpdateOrder):Observable<IResultUpdate>
+  // {
+  //   console.log(JSON.stringify(update))
+  //   return this.httpclient.put<IResultUpdate>(`${environment.baseUrl}/api/Order`,JSON.stringify(update));
+  // }
+  updateOrder(update: IUpdateOrder): Observable<IResultUpdate> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    // Ensure you use backticks here
+    return this.httpclient.put<IResultUpdate>(`
+      ${environment.baseUrl}/api/Order`, // Ensure this is the correct endpoint
+      JSON.stringify(update),
+      httpOptions
+  );
+}
+
+  DeleteOrder(id:number):Observable<void>
   {
-   this.httpclient.delete(`${environment.baseUrl}/api/Order/${id}`);
+    return this.httpclient.delete<void>(`${environment.baseUrl}/api/Order/${id}`);
   }
 
   createPayment(orderid:number):Observable<void>

@@ -96,9 +96,9 @@ export class ProductDetailsComponent implements OnInit {
     // this.setUserid()
     this.payPalConfig = this._PaypalService.payPalConfig;
   }
-  addToOrder(currentProduct:Iproduct){
-    this._Cart.addtoOrder(currentProduct);
-  }  
+  addToCart(product: Iproduct, quantity: number) {
+    this._Cart.addtoOrder(product,quantity);
+}
 
   buy(value: string) {
     this.Quantity = Number(value);
