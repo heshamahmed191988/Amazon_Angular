@@ -20,12 +20,13 @@ export class OrderComponent implements OnInit{
   public orders: Iorderuserid[] = []
   public orderdetails:Iorderdetails[]= []
   public updateorder:IUpdateOrder ={orderId:1,productId:1,quantity:1,orderItemId:1}
-  public UserId:string = ""
+  public UserId:string = "2c534a51-7abd-46dc-86e6-eb6a97cdbf5c"
 constructor(private _OrderService:OrderService,private _AuthService:AuthService)
 {
 
 }
-  ngOnInit(): void {
+
+ngOnInit(): void {
     this.setUserid();
     this._OrderService.getOrerByUserId(this.UserId).subscribe({
       next:(res)=>{
@@ -37,7 +38,6 @@ constructor(private _OrderService:OrderService,private _AuthService:AuthService)
     })
   }
 setUserid() {
-  debugger
     this._AuthService.getCurrentUserId().subscribe(user => {
       this.UserId = user.userId
       console.log(this.UserId)

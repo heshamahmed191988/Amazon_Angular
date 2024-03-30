@@ -41,7 +41,6 @@ export class CartComponent implements OnInit{
     this._PaypalService.updateOrderData.subscribe(
       {
         next:(res)=>{
-          debugger
             this.order.userID = this.UserId;
             this.order.orderQuantities = [];
             for(const item of this.product)
@@ -54,12 +53,10 @@ export class CartComponent implements OnInit{
               }
             )
           }
-
         }
       }
     )
     this._PaypalService.create = this.order;
-    this.emptyOrder();
   }
 
 //To calc NUmber on vart items we shoud do it in navbar
