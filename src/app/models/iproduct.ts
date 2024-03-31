@@ -3,11 +3,19 @@ export interface Iproduct {
     itemscolor?: string[];
     productImages?: string[];
     productimages?: string[];
-    name?: string;
-    description?:string;
+    nameAr: string;
+    nameEn: string;
+    brandNameAr:string;
+    brandNameEn:string;
+    descriptionAr:string;
+    descriptionEn:string;
     productDescription?: string;
     colors?: string[];
     itemimages?: string[];
+    StockQuantity?:number;
+    quantity?: number; 
     price: number;
-    BrandName?:string;
+    rating?:number;
+
+    //BrandName?:string;
 }

@@ -1,0 +1,42 @@
+<h1>Your orders</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Order Number</th>
+      <th scope="col">Order Status</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Total Price</th>
+      <!-- <th>Order Details</th> -->
+    </tr>
+  </thead>
+  <tbody>
+      @for (item of orders ; track item.id) {
+    <tr>
+      <td>{{item.id}}</td>
+      <td>{{item.status}}</td>
+      <td>{{item.datePlaced}}</td>
+      <td>{{item.totalPrice}}</td>
+      <!-- <button (click)="details(item.id)">Order Details</button>
+      <button (click)="delete(item.id)">Delete</button> -->
+    </tr>
+  }
+  </tbody>
+</table>
+
+  @for(order of orderdetails ; track order.orderitemid)
+  {
+  <div class="container col-12">
+    <p>Product Name{{order.productname}}</p>
+    <p>Date{{order.datePlaced}}</p>
+    <p>Total Price{{order.totalPrice}}</p>
+    <p>Order Status{{order.status}}</p>
+    @if (order.status == "Pending") {
+      <p>Quantity {{order.quantity}}</p>
+    <span>Quantity</span><input type="number" value="order.quantity" #inp/>
+    <button   (click)="updateQuantity(order,inp.value)">Update</button>
+    }@else {
+      <p>Quantity{{order.quantity}}</p>
+    }
+
+  </div>
+<br/>}

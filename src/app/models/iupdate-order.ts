@@ -1,5 +1,7 @@
 export interface IUpdateOrder {
+    productId:number;
+    quantity:number;
     orderId:number;
-    ProductId:number;
-    Quantity:number;
-}
+    orderItemId:number;
+    totalPrice:number;
+  }

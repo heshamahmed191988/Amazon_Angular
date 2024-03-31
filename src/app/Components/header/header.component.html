@@ -23,7 +23,12 @@
           <ul class="dropdown-menu" >
             @for (category of categories; track $index) {
                 <li >
-                  <a class="dropdown-item" href="#" >{{ category.name }}</a>
+                  <a class="dropdown-item" href="#" > <div *ngFor="let category of categories">
+                    {{ getCategoryName(category) }}
+                  </div>
+
+
+                  </a>{{'header.login'|translate}}
                 </li>
                }
             </ul>         
@@ -56,7 +61,7 @@
           </span> 
           
           <div style="margin: 2px;">
-            <a class="nav-link "  style="color: white;" staria-current="page" href="#">
+            <a class="nav-link "  style="color: white;" staria-current="page" routerLink="/Order" routerLinkActive="router-link-active">
               <br><span>{{'header.Order'|translate}}</span>
             </a>          
           </div>
@@ -65,7 +70,7 @@
           <button  [routerLink]="'/register'" class="btn btn-primary">{{'header.register'|translate}}</button>
 
           <div style="margin: 2px;">
-            <a class="nav-link "  style="color: white;" staria-current="page" href="#" style="margin-bottom:10px ;" routerLink="/Cart" routerLinkActive="router-link-active" >
+            <a class="nav-link "  style="color: white;" staria-current="page" style="margin-bottom:10px ;" routerLink="/Cart" routerLinkActive="router-link-active" >
               <br><i class="fas fa-shopping-cart" style="font-size:30px;">{{totalITeam}}</i>
             </a>          
           </div>

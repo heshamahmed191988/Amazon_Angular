@@ -27,7 +27,8 @@ export const routes: Routes = [
             {path: 'About', component: AboutUsComponent},
             {path: 'ContactUs', component: ContactUsComponent},
             {path: 'SearchForProudectComponent/:name', component: SearchForProudectComponentComponent },
-            {path: 'Details/:id', component: ProductDetailsComponent,canActivate:[authGuard]},
+            {path: 'Details/:id', component: ProductDetailsComponent,},
+            // canActivate:[authGuard]
         ],
     },
     {path: 'login', component: LoginComponent},

@@ -1,63 +1,59 @@
 import { Injectable } from '@angular/core';
-import { Iproduct } from '../models/iproduct';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-
+import { Iproduct } from '../models/iproduct';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ICartService {
+  private cartItems: Iproduct[] = [];
+  private cartItemsSubject = new BehaviorSubject<Iproduct[]>([]);
 
-  public cartItems: Iproduct[] = [];
-  public productList = new BehaviorSubject<Iproduct[]>([]);
-
-  constructor(private httpclient: HttpClient) {
-    // Load cart items from local storage on initialization
-    const savedCartItems = localStorage.getItem('cartItems');
-    if (savedCartItems) {
-      this.cartItems = JSON.parse(savedCartItems);
-      this.productList.next(this.cartItems);
-    }
+  constructor() {
+    this.loadCartItems();
   }
 
   getProduct() {
-    return this.productList.asObservable();
+    return this.cartItemsSubject.asObservable();
   }
 
-  getProduc(product: Iproduct) {
-    this.cartItems.push(product);
+  addtoOrder(product: Iproduct, quantity: number) {
+    const existingProductIndex = this.cartItems.findIndex(item => item.id === product.id);
+    if (existingProductIndex !== -1) {
+      // If the product exists, update its quantity
+      this.cartItems[existingProductIndex].quantity = (this.cartItems[existingProductIndex].quantity || 0) + quantity;
+    } else {
+      // If the product doesn't exist, add it with the specified quantity
+      const productToAdd = { ...product, quantity };
+      this.cartItems.push(productToAdd);
+    }
     this.saveCartItems();
-  }
-  addtoOrder(product: Iproduct) {
-    this.cartItems.push(product);
-    this.saveCartItems();
-    this.getTotalPrice();
   }
 
   getTotalPrice(): number {
-    let total = 0;
-    this.cartItems.forEach(item => {
-      total += item.price ? item.price : 0;
-    });
-    return total;
+    return this.cartItems.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
   }
 
-  removeOrderIteam(product: Iproduct) {
-    this.cartItems = this.cartItems.filter(item => item.id !== product.id);
+  removeOrderItem(productId: number) {
+    this.cartItems = this.cartItems.filter(item => item.id !== productId);
     this.saveCartItems();
   }
 
-  removeallOrder() {
+  removeAllOrder() {
     this.cartItems = [];
     this.saveCartItems();
   }
 
+  private loadCartItems() {
+    const savedCartItems = localStorage.getItem('cartItems');
+    if (savedCartItems) {
+      this.cartItems = JSON.parse(savedCartItems);
+      this.cartItemsSubject.next(this.cartItems);
+    }
+  }
+
   private saveCartItems() {
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
-    this.productList.next(this.cartItems);
+    this.cartItemsSubject.next(this.cartItems);
   }
 }
-
-

@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router,
     private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
   ngOnInit(): void {
+ 
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
       this.isloggd = loggedStatus;
@@ -78,7 +79,15 @@ export class HeaderComponent implements OnInit {
       console.log(this.searchQuery)
     }
   }
-
+  getCategoryName(category: Icategory): string {
+    return this.lang === 'en' ? category.nameEn : category.nameAr;
+  }
 }
+
+
+
+ 
+
+
 
 

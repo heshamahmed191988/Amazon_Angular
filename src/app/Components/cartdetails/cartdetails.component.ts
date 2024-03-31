@@ -20,11 +20,17 @@ export class CartdetailsComponent  implements OnInit{
     id: 0,
     itemscolor: [],
     productimages: [],
-    name: '',
+    nameEn: '',
+    nameAr: '',
+    brandNameAr: '',
+    brandNameEn: '',
+    descriptionAr: '',
+    descriptionEn: '',
+    productDescription: '',
     colors: [],
     itemimages: [],
-    description: '',
-    productDescription: '',
+    StockQuantity: 0,
+    quantity: 0,
     price: 0
   };
   // currentproudect:Iproduct|null=null;
@@ -51,10 +57,9 @@ ngOnInit(): void {
   });
  
 }
-addToOrder(currentProduct:Iproduct){
-  this._Cart.addtoOrder(currentProduct);
+addToOrder(currentProduct: Iproduct, quantity: string): void {
+  this._Cart.addtoOrder(currentProduct, Number(quantity));
 }
 
 }
-
 

@@ -10,8 +10,8 @@
             [src]="'data:image/jpg;base64,' + product.productImages[0]" 
             alt="Card image cap">
                    <div class="card-body">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">{{product.description}}</p>
+            <h5 class="card-title">{{ getProductName(product)}}</h5>
+            <p class="card-text">{{getProductDescription(product)}}</p>
             <p class="card-text">{{product.price | currency}}</p>
             <p class="card-text">Colors:</p>
             <ul>

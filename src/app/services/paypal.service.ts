@@ -135,4 +135,3 @@ export class PaypalService {
         this.showError = false;
     }
 }
-

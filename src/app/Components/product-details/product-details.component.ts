@@ -15,7 +15,7 @@ import { IcreatrOrder } from '../../models/icreatr-order';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { ICartService } from '../../services/icart.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -26,19 +26,23 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProductDetailsComponent implements OnInit {
   public Quantity: number = 1;
   public UserId: string = "";
-  // "b52e9fa3-7d3c-495b-83e4-38bcbd60710c";
+  // "82b5b776-9a7a-4556-99e6-983e9509064d;
   public order: IcreatrOrder = { userID: "", orderQuantities: [] }
   public total: number = 0
+  lang: string = 'en';
 
-
-  currentProduct: Iproduct = {
+  public currentProduct: Iproduct = {
     id: 0,
     itemscolor: [],
     productimages: [],
-    name: '',
+    nameAr: '',
+    nameEn: '',
+    brandNameAr: '',
+    brandNameEn: '',
+    descriptionAr: '',
+    descriptionEn: '',
     colors: [],
     itemimages: [],
-    description: '',
     productDescription: '',
     price: 0
   };
@@ -48,7 +52,11 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private activatedrouter: ActivatedRoute
     , private location: Location, private route: Router,
     private _ProductServiceService: ProductServiceService,
-    private _PaypalService: PaypalService, private _AuthService: AuthService,private _Cart:ICartService,private productStateService: ProductStateService) {
+    private _PaypalService: PaypalService,
+     private _AuthService: AuthService,
+     private _Cart:ICartService,
+     private translate: TranslateService,
+     private productStateService: ProductStateService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
@@ -67,6 +75,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
+    this.translate.use(this.lang);
+    // Subscribe to language changes
+    this.translate.onLangChange.subscribe(langChangeEvent => {
+      this.lang = langChangeEvent.lang;
+    });
     //paypal
     this._PaypalService.initConfig();
 
@@ -96,10 +110,24 @@ export class ProductDetailsComponent implements OnInit {
     // this.setUserid()
     this.payPalConfig = this._PaypalService.payPalConfig;
   }
-  addToOrder(currentProduct:Iproduct){
-    this._Cart.addtoOrder(currentProduct);
-  }  
+  // addToOrder(currentProduct:Iproduct){
+  //   this._Cart.addtoOrder(currentProduct);
+  // }  
+  addToCart(product: Iproduct, quantity: number) {
+    this._Cart.addtoOrder(product, quantity);
+  }
 
+  getTotalPrice() {
+    return this._Cart.getTotalPrice();
+  }
+
+  removeItem(productId: number) {
+    this._Cart.removeOrderItem(productId);
+  }
+
+  clearCart() {
+    this._Cart.removeAllOrder();
+  }
   buy(value: string) {
     this.Quantity = Number(value);
   }
@@ -113,11 +141,25 @@ export class ProductDetailsComponent implements OnInit {
 
   setUserid() {
     this._AuthService.getCurrentUserId().subscribe(user => {
-      this.UserId = user.userId
+      this.UserId = user.userId;
       //console.log(this.UserId)
     })
   }
-}
+
+  getProductName(product: Iproduct): string {
+    return this.lang === 'en' ? product.nameEn : product.nameAr;
+  }
+
+  getProductDescription(product: Iproduct): string {
+    return this.lang === 'en' ? product.descriptionEn : product.descriptionAr;
+  }
+
+  getBrandName(product: Iproduct): string {
+    return this.lang === 'en' ? product.brandNameEn : product.brandNameAr;
+  }
+
+  }
+
 
 
 

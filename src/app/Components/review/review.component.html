@@ -45,8 +45,10 @@
               <h5>Your User Name: {{ reviewForm.get('userName')?.value }}</h5>
           </div> -->
 
-          <button type="submit"(click)="submitReviewAndReload()" [disabled]="!reviewForm.valid" class="btn btn-primary">Submit Review</button>
-      </form>
+          <button type="submit" [disabled]="!canSubmitReview || !reviewForm.valid" class="btn btn-primary" (click)="submitReviewAndReload()">Submit Review</button>          <div *ngIf="!canSubmitReview" class="alert alert-info" role="alert">
+            You have already reviewed this product. Thank you!
+          </div>
+        </form>
   </div>
 <div class="container mt-5">
   <!-- Review Display Section -->
@@ -59,7 +61,7 @@
           <!-- Reviewer's name with a larger person icon -->
           <h5 class="card-title d-flex align-items-center">
             <i class="bi bi-person-fill me-2" style="font-size: 1.5rem;"></i>
-            {{ reviewForm.get('userName')?.value }}
+            {{ review.userName || 'Anonymous' }}
           </h5>
           <!-- Rating using stars -->
           <p class="card-text">
@@ -71,9 +73,8 @@
             </span>
           </p>
           <!-- Review comment -->
-          <p class="card-text"><strong>Reviewd on:</strong> {{ review.datePosted |date: 'MMMM dd,yyyy'}}</p>
+          <p class="card-text"><strong>Reviewed on:</strong> {{ review.datePosted | date: 'MMMM dd, yyyy' }}</p>
           <p class="card-text"><strong>Comment:</strong> "{{ review.comment }}"</p>
-         
         </div>
       </div>
     </div>
@@ -83,7 +84,6 @@
       </div>
     </ng-template>
   </div>
-</div>
 
 
   <!-- Form to Submit a Review -->

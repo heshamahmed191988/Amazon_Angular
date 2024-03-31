@@ -18,10 +18,12 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
   reviews: ReviewUserDTO[] = [];
+  reviewUserNames: string[] = []; // Array to store usernames
+
   reviewForm: FormGroup;
   @Input() productId: number = 0;
   private destroy$ = new Subject<void>();
-  
+  canSubmitReview: boolean = true; // New flag to control form availability
 
   constructor(
     private reviewService: ReviewService,
@@ -30,9 +32,9 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
     private productStateService: ProductStateService
   ) {
     this.reviewForm = this.fb.group({
-      productId: [''], // Initially empty, will be set from input or state service
+      productId: [''],
       userId: [''],
-      userName:[''], 
+      userName: [''],
       rating: [null, [Validators.required, Validators.min(1), Validators.max(5)]],
       comment: ['', Validators.required]
     });
@@ -41,13 +43,12 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['productId'] && this.productId > 0) {
       this.reviewForm.get('productId')?.setValue(this.productId);
-      this.loadReviews(); // Load reviews if productId input changes
+      this.loadReviews();
     }
   }
 
   ngOnInit(): void {
     this.setUserId();
-
     this.productStateService.currentProductId$
       .pipe(
         takeUntil(this.destroy$),
@@ -56,7 +57,7 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe(id => {
         this.productId = id;
         this.reviewForm.get('productId')?.setValue(this.productId);
-        this.loadReviews(); // Reload reviews when productId changes via service
+        this.loadReviews();
       });
   }
 
@@ -64,7 +65,6 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
   setProductId(): void {
     if (this.productId) {
       this.reviewForm.get('productId')?.setValue(this.productId);
@@ -96,11 +96,15 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadReviews(): void {
-   
     if (this.productId) {
       this.reviewService.getReviewsByProductId(this.productId).subscribe({
         next: (reviews) => {
           this.reviews = reviews;
+          // Update to store usernames for each review
+          this.reviewUserNames = reviews.map(review => review.userName || 'Anonymous');
+          // Check if the current user has already submitted a review
+          const currentUser = this.reviewForm.get('userId')?.value;
+          this.canSubmitReview = !this.reviews.some(review => review.userID === currentUser);
         },
         error: (err) => console.error('Error loading reviews:', err)
       });
@@ -110,19 +114,26 @@ export class ReviewComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   submitReview(): void {
-    if (this.reviewForm.valid) {
+    if (this.reviewForm.valid && this.canSubmitReview) {
       this.reviewService.postReview(this.reviewForm.value).subscribe({
         next: () => {
           this.loadReviews(); // Refresh the reviews list
           this.reviewForm.reset({
-            productId: this.productId, // Preserve productId after reset
-            userId: this.reviewForm.get('userId')?.value // Preserve userId after reset
+            productId: this.productId,
+            userId: this.reviewForm.get('userId')?.value
+            
           });
+          window.location.reload();
         },
         error: (err) => console.error('Error submitting review:', err)
       });
     }
   }
+  // submitReviewAndReload(): void {
+  //   this.submitReview();
+  //   window.location.reload();
+  // }
+
    getStars(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
 }
@@ -133,4 +144,5 @@ submitReviewAndReload(): void {
     window.location.reload();
   }
 
-}}
+}
+}
