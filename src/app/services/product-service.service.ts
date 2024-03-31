@@ -21,8 +21,6 @@ export class ProductServiceService {
 
   getProductById(id: number): Observable<Iproduct> {
     return this.httpclient.get<Iproduct>(`http://localhost:5110/api/Product?id=${id}`);
-   
-    
   }
   filterdbynameProducts(name: string): Observable<Iproduct[]> {
     return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/searchname?name=${name}`);
@@ -32,6 +30,13 @@ export class ProductServiceService {
   }
   getbrandsname(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/brands`)
+  }
+ 
+  getproudectsbycatogry(id: number): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/bycatogry?catid=${id}`);
+  }
+  filterProductsByCategoryAndName(categoryId: number, name: string): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`);
   }
 }
 

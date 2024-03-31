@@ -12,5 +12,6 @@ export interface Iproduct {
     BrandName?:string;
     rating?:number;
     category?: string;
-    brandName?:string;
+    CategoryID?:number;
+    categoryId?:number
 }

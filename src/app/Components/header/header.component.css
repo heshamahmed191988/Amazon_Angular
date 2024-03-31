@@ -9,7 +9,6 @@
 {
     color: white;
     font-size: 15px;
- 
 }
 .navbar-brand img{
     padding-bottom:10px;
@@ -109,3 +108,37 @@ input.Searchinput.form-control {
     background-color: #232f3e;
 }
 
+.catselect
+{
+    width: auto;
+    background-color: #949497;
+    color: #000000;
+}
+.catselect option
+{
+    color: black;
+    padding: 3px;
+    background-color: white;
+}
+.catselect:focus 
+{
+  border:2px solid #E67A00 !important;
+  outline-color: white;
+
+ }
+ .nav-link2 {
+  padding: 2px;
+  color:#c3c5c4;
+  height: 5vh;
+  margin-top: 5vh;
+}
+.nav-link2:hover {
+    
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.nav-link2:visited,
+.nav-link2:active,
+.nav-link2:focus {
+    color: white;
+}

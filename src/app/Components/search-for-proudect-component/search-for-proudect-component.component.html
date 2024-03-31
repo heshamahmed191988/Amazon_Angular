@@ -1,43 +1,5 @@
 
-<!-- <div class="d-flex justify-content-end">
-  <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col mb-3">
-      <select class="form-select" (change)="onSortChange($event)" style="width: 200px;">
-        <option value="featured"> Sort by :Featured</option>
-        <option value="lowToHigh">Price: Low to High</option>
-        <option value="highToLow">Price: High to Low</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  <ng-container *ngFor="let product of paginatedProducts; let i = index" >
-   
-    <div class="col" (click)="NavigateToDetails(product.id)">
-      <div class="card">
-        <img 
-        [src]="'data:image/jpg;base64,' + product.productImages[0]" >
-        <div class="card-body">
-          <h5 class="card-title">Name: {{ product.name }}</h5>
-          <h5 class="card-title">Description: {{ product.description }}</h5>
-          <h5 class="card-title">Price: {{ product.price }}</h5>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-</div>
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">
-      <a class="page-link" href="javascript:void(0)" (click)="changePage(i+1)">{{i + 1}}</a>
-    </li>
-  </ul>
-</nav> -->
-<!--search for proudct component work!-->
-
+<!--search proudect component-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,6 +62,7 @@
             <p style="margin-bottom: 1px; margin-top: 8px;">Delivery Day</p>
             <div class="squre"></div>
             <span class="Fulfilledspan">&nbsp;Get It by Tomorrow</span><br>
+            
             <!--filter by rating-->
                
             <span (click)="filterByRating(5)">
@@ -162,6 +125,44 @@
                               <h5 class="card-title">{{ product.name }}</h5>
                               <h5 class="card-title">{{ product.description }}</h5>
                               <h5 class="card-title"><sup>EGP</sup> {{ product.price }}<sup>00</sup></h5>
+                              <h5 class="card-title">{{ product.rating }}</h5>
+                            
+                              @if (product.rating && product.rating > 0 && product.rating <= 1) 
+                               {
+                                <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                               }
+                               @else if (product.rating && product.rating > 1 && product.rating < 2) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                               }
+                               @else if (product.rating && product.rating ==2 ) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                               }
+                               @else if (product.rating && product.rating > 2 && product.rating < 3) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                               }
+                           
+                               @else if (product.rating && product.rating ==3) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                               }
+                               @else if (product.rating && product.rating > 4 && product.rating < 5) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                               }
+                               @else if (product.rating && product.rating ==4 ) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                               }
+                               @else if (product.rating && product.rating ==5 ) 
+                               {
+                                 <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                               }
+                              
+                          
+                          
                             </div>
                         </div>
                       </div>

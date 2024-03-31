@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   categories: Icategory[] = [];
   lang="";
   searchQuery: string = '';
-  selectedCategory: string = 'All';
+  selectedCategoryId: number = 0
 
   constructor(private authService: AuthService, private router: Router,
     private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
@@ -73,27 +73,46 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('lang', lang);
     this.translate.use(lang);
   }
-  // searchProducts(): void {
-  //   if (this.searchQuery !== '') {
-  //     this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
-  //     console.log(this.searchQuery)
-  //   }
-  // }
-
-  searchProducts(): void {
-    if (this.searchQuery !== '') {
-      let searchUrl = `/SearchForProudectComponent/${this.searchQuery}`;
-      if (this.selectedCategory !== 'All') {
-        searchUrl += `?category=${this.selectedCategory}`;
+ 
+  
+ 
+//   searchProducts(): void {
+//     if (this.searchQuery.trim() !== '') {
+//         if (this.selectedCategoryId) {
+//             this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}/${this.searchQuery}`);
+//         } else {
+//             this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
+//         }
+//     }
+// }
+searchProducts(): void {
+  if (this.searchQuery.trim() !== '') {
+      if (this.selectedCategoryId) {
+          this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}/${this.searchQuery}`);
+      } else {
+          this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
       }
-      this.router.navigateByUrl(searchUrl);
-    }
+  } else {
+      if (this.selectedCategoryId) {
+          this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}`);
+      } else {
+          this.router.navigateByUrl(`/SearchForProudectComponent`);
+      }
   }
-  
-  selectCategory(category: string) {
-    this.selectedCategory = category;
+}
+
+  selectCategory(categoryId: number) {
+    this.selectedCategoryId = categoryId;
   }
-  
+ 
+  onCategoryChange(): void {
+    this.router.navigate(['/SearchForProudectComponent', this.selectedCategoryId, {
+        name: this.searchQuery,
+        categoryId: this.selectedCategoryId
+    }]);
+}
+
+
 }
 
 
