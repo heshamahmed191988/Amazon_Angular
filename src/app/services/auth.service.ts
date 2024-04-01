@@ -86,5 +86,14 @@ return this.isloggedstate;
       })
     );
   }
-
+  GetAddressIdByUserId(userId: string): Observable<any> {
+    const headers = this.getAuthHeaders();
+    const url = `${environment.baseUrl}/api/Account/addressid/${userId}`;
+    return this.http.get(url, { headers: headers, responseType: 'text' }).pipe(
+      catchError(error => {
+        // Error handling logic
+        return throwError(error);
+      })
+    );
+  }
 }

@@ -16,6 +16,7 @@ import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { ICartService } from '../../services/icart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AddressSharedService } from '../../services/address-shared.service';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -27,9 +28,12 @@ export class ProductDetailsComponent implements OnInit {
   public Quantity: number = 1;
   public UserId: string = "";
   // "82b5b776-9a7a-4556-99e6-983e9509064d;
-  public order: IcreatrOrder = { userID: "", orderQuantities: [] }
+  adressId:number = 0;
+
+  public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
   public total: number = 0
   lang: string = 'en';
+  public isAddressSubmitted: boolean = false;
 
   public currentProduct: Iproduct = {
     id: 0,
@@ -56,13 +60,16 @@ export class ProductDetailsComponent implements OnInit {
      private _AuthService: AuthService,
      private _Cart:ICartService,
      private translate: TranslateService,
-     private productStateService: ProductStateService) {
+     private productStateService: ProductStateService
+     ,private router:Router,private addressshared:AddressSharedService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
 
         this.order.userID = this.UserId;
         this.order.orderQuantities = [];
+        this.order.addressId=this.adressId;
+
         this.order.orderQuantities.push({
           quantity: this.Quantity,
           productID: this.currentId,
@@ -81,8 +88,12 @@ export class ProductDetailsComponent implements OnInit {
     this.translate.onLangChange.subscribe(langChangeEvent => {
       this.lang = langChangeEvent.lang;
     });
+
     //paypal
     this._PaypalService.initConfig();
+    this.addressshared.addressSubmitted$.subscribe(submitted => {
+      this.isAddressSubmitted = submitted;
+    });
 
     // this.activatedrouter.paramMap.subscribe((paramMap) => {
     //   this.currentId = Number(paramMap.get('id'));
@@ -142,6 +153,7 @@ export class ProductDetailsComponent implements OnInit {
   setUserid() {
     this._AuthService.getCurrentUserId().subscribe(user => {
       this.UserId = user.userId;
+      this.getaddressidbyuserid(this.UserId);
       //console.log(this.UserId)
     })
   }
@@ -156,6 +168,23 @@ export class ProductDetailsComponent implements OnInit {
 
   getBrandName(product: Iproduct): string {
     return this.lang === 'en' ? product.brandNameEn : product.brandNameAr;
+  }
+
+  gottoAddress() {
+    this.getaddressidbyuserid(this.UserId);
+    this.router.navigate(['/address']);
+  }
+  getaddressidbyuserid(userid: string) {
+    if (!userid) return;
+  
+    this._AuthService.GetAddressIdByUserId(userid).subscribe({
+      next: (data) => {
+        // Assuming 'data' correctly represents the address ID you need
+        this.adressId = +data; // Correctly update adressId with the received data
+        this.order.addressId = this.adressId; // Now update the order with the correct address ID
+      },
+      error: (error) => console.log(error)
+    });
   }
 
   }

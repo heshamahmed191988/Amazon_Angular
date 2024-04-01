@@ -8,4 +8,5 @@ export interface Iorderdetails {
     productname:string
     productid:number
     orderid:number
+    addressId?:number
 }

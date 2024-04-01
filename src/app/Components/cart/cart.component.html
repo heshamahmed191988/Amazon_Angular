@@ -34,5 +34,9 @@
   </div>
 </ng-template>
 
-<ngx-paypal [config]="payPalConfig"></ngx-paypal>
+<div class="text-center">
+  <button *ngIf="!isAddressSubmitted" (click)="gottoAddress()">Enter Shipping Address</button>
+</div>
+
+<ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
 <button  (click)="emptyOrder()"> Delete All Cart</button>

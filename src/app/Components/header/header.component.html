@@ -4,9 +4,7 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/register']" ><img class="logo" src="https://zeevector.com/wp-content/uploads/Amazon-Logo-White@zeevector.png"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+   
     <div class="collapse navbar-collapse" id="navbarScroll">
      
         <span class=" nav-item" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
@@ -15,7 +13,21 @@
           </span>      
       
      <div class="input-group mb-3" style="margin-top: 15px;">
-      <div class="input-group-prepend">
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+        <option value="0">All</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.nameEn }}</option>
+    </select>
+    
+
+  </div>
+  <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" (keyup.enter)="searchProducts()" >
+  <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
+  </button>
+    
+    
+    
+    
+      <!-- <div class="input-group-prepend">
         <span class="nav-item dropdown" style="margin-right: 0px; color: black;">
           <a class="All  nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span style="color: black;">{{'header.all'|translate}}</span>
@@ -36,7 +48,7 @@
       </div>
       <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" >
       <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
-      </button>
+      </button> -->
      
         <span class="nav-item">
           <div class="Flagdiv dropdown">
@@ -76,7 +88,5 @@
           </div>
     </div>     
     </div>
-  </div>
-</nav>
-</div>              <!--Div under nav-->
+            <!--Div under nav-->
     

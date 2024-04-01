@@ -5,4 +5,5 @@ export interface IResultUpdate {
     DatePlaced:string;
     Quantity:number;
     ProducutId:number;
+    addressId?:number;
 }

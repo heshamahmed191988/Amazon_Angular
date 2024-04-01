@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { Iorderdetails } from '../../models/iorderdetails';
 import{ IUpdateOrder } from '../../models/iupdate-order'
 import { Iproduct } from '../../models/iproduct';
+import { IcreatrOrder } from '../../models/icreatr-order';
 
 @Component({
   selector: 'app-order',
@@ -16,9 +17,13 @@ import { Iproduct } from '../../models/iproduct';
   imports: [CommonModule,FormsModule,ProductsComponent],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
+  
 })
 export class OrderComponent implements OnInit{
   public currentProduct: Iproduct | undefined;
+  public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
+  adressId:number = 0;
+
    orders: Iorderuserid[] = []
    orderdetails:Iorderdetails[]= []
   public updateorder:IUpdateOrder ={orderId:1,productId:1,quantity:1,orderItemId:1,totalPrice:1}
@@ -31,7 +36,6 @@ constructor(private _OrderService:OrderService,private _AuthService:AuthService)
 
 ngOnInit(): void {
     this.setUserid();
-    
   }
 setUserid() {
     this._AuthService.getCurrentUserId().subscribe(user => {
@@ -46,7 +50,7 @@ setUserid() {
           console.log(err)
         }
       })
-      
+      this.getaddressidbyuserid(this.UserId);
     })
   }
   details(orderid: number) {
@@ -85,4 +89,18 @@ setUserid() {
          console.log(err);
        }
 })}
+
+getaddressidbyuserid(userid: string) {
+  if (!userid) return;
+
+  this._AuthService.GetAddressIdByUserId(userid).subscribe({
+    next: (data) => {
+      // Assuming 'data' correctly represents the address ID you need
+      this.adressId = +data; // Correctly update adressId with the received data
+      this.order.addressId = this.adressId; // Now update the order with the correct address ID
+    },
+    error: (error) => console.log(error)
+  });
 }
+}
+

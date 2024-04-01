@@ -36,5 +36,13 @@ export class ProductServiceService {
   getbrandsname(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/brands`)
   }
+
+
+  getproudectsbycatogry(id: number): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/bycatogry?catid=${id}`);
+  }
+  filterProductsByCategoryAndName(categoryId: number, name: string): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`);
+  }
 }
 

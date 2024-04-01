@@ -1,0 +1,33 @@
+<!-- create-address.component.html -->
+
+<div class="container">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input type="text" id="street" class="form-control" formControlName="street">
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" class="form-control" formControlName="city">
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" id="state" class="form-control" formControlName="state">
+      </div>
+      <div class="form-group">
+        <label for="zipCode">Zip Code</label>
+        <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
+      </div>
+      <div class="form-group">
+        <label for="userID">User ID</label>
+        <input type="text" id="userID" class="form-control" formControlName="userID">
+      </div>
+       <!-- <div class="form-group">
+        <label for="userID">User ID</label>
+        <input type="text" id="userID" class="form-control" formControlName="userID">
+      </div> -->
+      <!-- Assuming orderIds would be selected from a list, multiselect, or similar -->
+      <button type="submit" class="btn btn-primary" [disabled]="!addressForm.valid">Submit</button>
+    </form>
+  </div>
+  

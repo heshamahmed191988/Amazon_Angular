@@ -23,6 +23,9 @@ export class HeaderComponent implements OnInit {
   categories: Icategory[] = [];
   lang="";
   searchQuery: string = '';
+  selectedCategoryId: number = 0;
+
+
 
   constructor(private authService: AuthService, private router: Router,
     private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
@@ -74,14 +77,32 @@ export class HeaderComponent implements OnInit {
     this.translate.use(lang);
   }
   searchProducts(): void {
-    if (this.searchQuery !== '') {
-      this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
-      console.log(this.searchQuery)
+    if (this.searchQuery.trim() !== '') {
+        if (this.selectedCategoryId) {
+            this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}/${this.searchQuery}`);
+        } else {
+            this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
+        }
+    } else {
+        if (this.selectedCategoryId) {
+            this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}`);
+        } else {
+            this.router.navigateByUrl(`/SearchForProudectComponent`);
+        }
     }
   }
   getCategoryName(category: Icategory): string {
     return this.lang === 'en' ? category.nameEn : category.nameAr;
   }
+  selectCategory(categoryId: number) {
+    this.selectedCategoryId = categoryId;
+  }
+  onCategoryChange(): void {
+    this.router.navigate(['/SearchForProudectComponent', this.selectedCategoryId, {
+        name: this.searchQuery,
+        categoryId: this.selectedCategoryId
+    }]);
+}
 }
 
 

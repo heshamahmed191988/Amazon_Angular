@@ -16,7 +16,7 @@ export class PaypalService {
     public showError: boolean = false
     public orderid : number = 0;
     public updateOrderData: BehaviorSubject<any> = new BehaviorSubject<any>({});
-    public create: IcreatrOrder = {} as IcreatrOrder;
+    public create: IcreatrOrder = {userID:"",orderQuantities:[],addressId:0} ;
 
     constructor(private _OrderService: OrderService) { }
 
@@ -90,7 +90,7 @@ export class PaypalService {
                         console.log(a)
                         this.orderid = a.entity.id
                         this._OrderService.createPayment(this.orderid).subscribe(a =>{
-                            console.log(a);
+                           // console.log(a);
                         })
                     })
                 }

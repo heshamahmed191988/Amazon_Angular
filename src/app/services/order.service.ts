@@ -30,30 +30,41 @@ export class OrderService {
   CreateOrder(create:IcreatrOrder):Observable<IorderId>{
     return this.httpclient.post<IorderId>(`${environment.baseUrl}/api/Order`, {
       userID: create.userID,
-      orderQuantities: create.orderQuantities
+      orderQuantities: create.orderQuantities,
+       addressId: create.addressId
     });
     }
 
-  // updateOrder(update:IUpdateOrder):Observable<IResultUpdate>
-  // {
-  //   console.log(JSON.stringify(update))
-  //   return this.httpclient.put<IResultUpdate>(`${environment.baseUrl}/api/Order`,JSON.stringify(update));
-  // }
-  updateOrder(update: IUpdateOrder): Observable<IResultUpdate> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
 
-    // Ensure you use backticks here
-    return this.httpclient.put<IResultUpdate>(`
-      ${environment.baseUrl}/api/Order`, // Ensure this is the correct endpoint
-      JSON.stringify(update),
-      httpOptions
+//   updateOrder(update: IUpdateOrder): Observable<IResultUpdate> {
+//     const httpOptions = {
+//       headers: new HttpHeaders({
+//         'Content-Type': 'application/json'
+//       })
+//     };
+
+//     // Ensure you use backticks here
+//     return this.httpclient.put<IResultUpdate>(`
+//       ${environment.baseUrl}/api/Order`, // Ensure this is the correct endpoint
+//       JSON.stringify(update),
+//       httpOptions
+//   );
+// }
+
+
+updateOrder(update: IUpdateOrder): Observable<IResultUpdate> {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  return this.httpclient.put<IResultUpdate>(
+    `${environment.baseUrl}/api/Order`, // Make sure this URL is correct
+    update, // No need to stringify when using HttpClient and the correct headers
+    httpOptions
   );
 }
-
   DeleteOrder(id:number):Observable<void>
   {
     return this.httpclient.delete<void>(`${environment.baseUrl}/api/Order/${id}`);

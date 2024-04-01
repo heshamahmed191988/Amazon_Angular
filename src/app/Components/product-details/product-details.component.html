@@ -73,7 +73,8 @@
           </div>
         </li>
         <li class="list-group-item text-center" >  <button class="btn btn-primary" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >Add to Cart</button>
-          <li class="list-group-item text-center">  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+          <li class="list-group-item text-center" > <button  *ngIf="!isAddressSubmitted" (click)="gottoAddress()">Enter Shipping Address</button>
+          <li class="list-group-item text-center">  <ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
           </li>
           <!-- <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
           <li class="list-group-item">Vestibulum at eros</li>

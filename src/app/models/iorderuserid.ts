@@ -5,4 +5,5 @@ export interface Iorderuserid {
     datePlaced:string
     totalPrice:number
     status:string
+    addressId?:number
 }

@@ -1,4 +1,5 @@
-<h1>Your orders</h1>
+
+<!-- <h1>Your orders</h1>
 <table class="table">
   <thead>
     <tr>
@@ -6,23 +7,26 @@
       <th scope="col">Order Status</th>
       <th scope="col">Order Date</th>
       <th scope="col">Total Price</th>
+      <th scope="col">address id</th> -->
       <!-- <th>Order Details</th> -->
-    </tr>
+    <!-- </tr>
   </thead>
-  <tbody>
-      @for (item of orders ; track item.id) {
+  <tbody> -->
+      <!-- @for (item of orders ; track item.id) {
     <tr>
       <td>{{item.id}}</td>
       <td>{{item.status}}</td>
       <td>{{item.datePlaced}}</td>
       <td>{{item.totalPrice}}</td>
+      <td>{{order.addressId}}</td> -->
+
       <!-- <button (click)="details(item.id)">Order Details</button>
       <button (click)="delete(item.id)">Delete</button> -->
-    </tr>
+    <!-- </tr>
   }
   </tbody>
-</table>
-
+</table> -->
+<!-- 
   @for(order of orderdetails ; track order.orderitemid)
   {
   <div class="container col-12">
@@ -36,7 +40,40 @@
     <button   (click)="updateQuantity(order,inp.value)">Update</button>
     }@else {
       <p>Quantity{{order.quantity}}</p>
+    } -->
+<!-- 
+  </div>
+<br/>} -->
+
+
+
+<div class="container col-6 col-xs-12 ">
+  <h1>Your orders</h1>
+
+        @for (item of orders ; track item.id) {
+          <div class="ordertotal">
+        <div class="order">
+        <div>Date Placed<div>{{item.datePlaced|date}}</div></div>
+        <div>Order Status <div>{{item.status}}</div></div>
+        <div>Total <div>{{item.totalPrice}}$</div></div>
+      </div>
+      <div class="details">
+      <h6>Ring No-Drill Mount for Ring Video Boorbell(2nd Gen)</h6>
+        <button (click)="details(item.id)" class="btn">View your item</button>
+      </div>
+      </div>
     }
+    <h3 class="title">Order Item</h3>
+  @for(order of orderdetails ; track order.orderitemid)
+  {
+  <div class="orderitem col-12 col-xs-12">
+    <p>Product Name : {{order.productname}}</p>
+    <p>Date : {{order.datePlaced|date:'yyyy-MM-dd'}}</p>
+    <p>Total Price : {{order.totalPrice}}</p>
+    <p>Order Status : {{order.status}}</p>
+    <p>Quantity : {{order.quantity}}</p>
 
   </div>
-<br/>}
+  <br/>
+  }
+</div>

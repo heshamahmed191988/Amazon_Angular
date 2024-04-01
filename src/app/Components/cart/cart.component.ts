@@ -12,6 +12,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { PaypalService } from '../../services/paypal.service';
 import { IcreatrOrder } from '../../models/icreatr-order';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { AddressSharedService } from '../../services/address-shared.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,16 +25,20 @@ import { AuthService } from '../../services/auth.service';
 export class CartComponent implements OnInit{
   // public totalITeam:number=0
   public grandToltal! :number
+  public isAddressSubmitted: boolean = false;
+    adressId:number = 0;
   public product:Iproduct[]=[]
   payPalConfig: IPayPalConfig | undefined;
    UserId: string = "";
   //82b5b776-9a7a-4556-99e6-983e9509064d
-  public order: IcreatrOrder = { userID: "", orderQuantities: [] }
+  public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0}
 
-  constructor(private _Cart:ICartService,private _PaypalService: PaypalService, private _AuthService: AuthService)
+  constructor(private _Cart:ICartService,private _PaypalService: PaypalService, private _AuthService: AuthService
+    ,private router:Router,private addressshared:AddressSharedService)
   {
     this.setUserid();
     console.log(this.UserId);
+   
     this._Cart.getProduct()
 .subscribe(res=>{
   this.product=res
@@ -44,6 +50,7 @@ export class CartComponent implements OnInit{
         next:(res)=>{
             this.order.userID = this.UserId;
             this.order.orderQuantities = [];
+            this.order.addressId=this.adressId;
             for(const item of this.product)
             {
               const Quantity = item.quantity !== undefined ? item.quantity : 0;
@@ -63,6 +70,9 @@ export class CartComponent implements OnInit{
 //To calc NUmber on vart items we shoud do it in navbar
 ngOnInit(): void {
   this._PaypalService.initConfig();
+  this.addressshared.addressSubmitted$.subscribe(submitted => {
+    this.isAddressSubmitted = submitted;
+  });
   //  this._Cart.getProduct()
   //  .subscribe(res=>{
   //   this.totalITeam=res.length;
@@ -86,10 +96,34 @@ this._Cart.removeAllOrder(); // Clears the entire cart
 
 
 setUserid() {
-  this._AuthService.getCurrentUserId().subscribe(user => {
-    this.UserId = user.userId
-    //console.log(this.UserId)
-  })
+  this._AuthService.getCurrentUserId().subscribe({
+    next: (user) => {
+      this.UserId = user.userId;
+      // Now that we have the UserId, let's fetch the addressId
+      this.getaddressidbyuserid(this.UserId);
+    },
+    error: (error) => console.log(error)
+  });
 }
+
+gottoAddress() {
+  this.getaddressidbyuserid(this.UserId);
+  this.router.navigate(['/address']);
+}
+
+getaddressidbyuserid(userid: string) {
+  if (!userid) return;
+
+  this._AuthService.GetAddressIdByUserId(userid).subscribe({
+    next: (data) => {
+      // Assuming 'data' correctly represents the address ID you need
+      this.adressId = +data; // Correctly update adressId with the received data
+      this.order.addressId = this.adressId; // Now update the order with the correct address ID
+    },
+    error: (error) => console.log(error)
+  });
+}
+
+
 
 }

@@ -26,23 +26,25 @@ export class SearchForProudectComponentComponent implements OnInit {
   lang: string = 'en'; 
   brands: any[] = [];
   filteredResults: Iproduct[] = [];
-  selectedCategory: string = 'All';// Default language
+  selectedCategoryId: number = 0;
+
+  selectedCategory: string = 'All';
   constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService,private translate:TranslateService,private reviewService:ReviewService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.searchQuery = paramMap.get('name') ?? '';
-      if (this.searchQuery !== '') {
+      this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
+      this.loadProducts();
+       console.log( this.selectedCategoryId);
+      if (this.searchQuery !== '' && this.selectedCategoryId==0) { 
         this._productService.filterdbynameProducts(this.searchQuery).subscribe({
           next: (res: any) => {
             if (res ) {
               this.searchResults = res;
-             // this.Quant = this.searchResults.length;
               this.sortProducts(this.sortBy);
               this.calculateProductRatings();
               this.Quant = this.searchResults.length;
-              //this.filteredResults = [...this.searchResults]; 
-              //console.log(this.searchResults);
             } else {
               console.log('Invalid response format');
             }
@@ -72,26 +74,26 @@ export class SearchForProudectComponentComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
 
-    this.route.paramMap.subscribe(paramMap => {
-      this.searchQuery = paramMap.get('name') ?? '';
-      if (this.searchQuery !== '') {
-        this._productService.filterdbynameProducts(this.searchQuery).subscribe({
-          next: (res: any) => {
-            if (res ) {
-              this.searchResults = res;
-              this.Quant = this.searchResults.length;
-              this.sortProducts(this.sortBy);
-              //console.log(this.searchResults);
-            } else {
-              console.log('Invalid response format');
-            }
-          },
-          error: (err) => {
-            console.log(err);
-          }
-        });
-      }
-    });
+    // this.route.paramMap.subscribe(paramMap => {
+    //   this.searchQuery = paramMap.get('name') ?? '';
+    //   if (this.searchQuery !== '') {
+    //     this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+    //       next: (res: any) => {
+    //         if (res ) {
+    //           this.searchResults = res;
+    //           this.Quant = this.searchResults.length;
+    //           this.sortProducts(this.sortBy);
+    //           //console.log(this.searchResults);
+    //         } else {
+    //           console.log('Invalid response format');
+    //         }
+    //       },
+    //       error: (err) => {
+    //         console.log(err);
+    //       }
+    //     });
+    //   }
+    // });
   }
 
   sortProducts(sortOption: string): void {
@@ -162,13 +164,14 @@ export class SearchForProudectComponentComponent implements OnInit {
     }
 
     filterByBrand(brand: string): void {
-      this._productService.filterdbybrandname(brand).subscribe({
-        next: (res: any) => {
+      this._productService.filterdbybrandname(brand).subscribe({ 
+        next: (res: any) => {  
           if (res) {
+            // this.filteredResults=this.searchResults.filter(product => product.BrandName ===brand);
+            // console.log( this.filteredResults);
             this.searchResults = res;
-            this.filteredResults = this.searchResults.filter((product: any) => product.BrandName === brand);
-            console.log(this.filteredResults);
-            this.Quant = this.filteredResults.length;
+            console.log(this.searchResults)
+            this.Quant = this.searchResults.length;
             this.sortProducts(this.sortBy);
           } else {
             console.log('Invalid response format');
@@ -207,8 +210,66 @@ this.reviewService.getReviewsByProductId(product.id!).subscribe({
 }
 }
     
-    filterByRating(minRating: number): void {
-      this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
-    }
+filterByRating(minRating: number): void {
+  this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
+}
 
+loadProducts(): void {
+  if (this.searchQuery !== '') {
+    if (this.selectedCategoryId === 0) {
+      this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+        next: (res: any) => {
+          if (res) {
+            this.searchResults = res;
+            this.Quant = this.searchResults.length;
+            this.sortProducts(this.sortBy);
+            this.calculateProductRatings();
+          } else {
+            console.log('Invalid response format');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    } else {
+      this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery).subscribe({
+        next: (res: Iproduct[]) => {
+          if (res) {
+            this.searchResults = res;
+            this.sortedProducts=res;
+            console.log( "llok" ,this.searchResults );
+            this.Quant = this.searchResults.length;
+            this.sortProducts(this.sortBy);
+            this.calculateProductRatings();
+          } else {
+            console.log('Invalid response format');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+      
+    }
+  } else {
+    this.filterProductsByCategory();
+  }
+}
+
+    filterProductsByCategory(): void {
+      if (this.selectedCategoryId !== 0) {
+          this._productService.getproudectsbycatogry(this.selectedCategoryId).subscribe({
+              next: (res) => {
+                  this.searchResults = res;
+                  this.Quant = this.searchResults.length;
+                  this.sortProducts(this.sortBy);
+                  this.calculateProductRatings();
+              },
+              error: (error) => {
+                  console.error('Error fetching products by category:', error);
+              }
+          });
+      }
+    }    
 }
