@@ -4,10 +4,10 @@
     <ng-container *ngFor="let product of paginatedProducts">
       <div class="col-6 col-md-3" (click)="NavigateToDetails(product.id)">
         <div class="card">
-        
-            <img class="card-img-top" 
-            *ngIf="product.productImages && product.productImages.length > 0" 
-            [src]="'data:image/jpg;base64,' + product.productImages[0]" 
+
+            <img class="card-img-top"
+            *ngIf="product.productImages && product.productImages.length > 0"
+            [src]="'data:image/jpg;base64,' + product.productImages[0]"
             alt="Card image cap">
                    <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>

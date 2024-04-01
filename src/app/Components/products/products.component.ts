@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { ProductServiceService } from '../../services/product-service.service';
 import { Iproduct } from '../../models/iproduct';
 import { TranslateModule } from '@ngx-translate/core';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @Component({
- 
+
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,TranslateModule],
+  imports: [CommonModule,TranslateModule,NgxPaginationModule],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
@@ -18,7 +19,6 @@ export class ProductsComponent implements OnInit {
   paginatedProducts: Iproduct[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 4; // Adjust based on your preference
-
   constructor(private router: Router, private productService: ProductServiceService) {}
 
   ngOnInit(): void {

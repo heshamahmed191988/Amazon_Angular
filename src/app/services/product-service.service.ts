@@ -14,15 +14,14 @@ export class ProductServiceService {
   getAllProducts(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all`)
   }
-
   //  getProductById(id: number): Observable<Iproduct> {
   //   return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product/${id}`)
   //  }
 
   getProductById(id: number): Observable<Iproduct> {
     return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product?id=${id}`);
-   
-    
+
+
   }
   filterdbynameProducts(name: string): Observable<Iproduct[]> {
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`);
