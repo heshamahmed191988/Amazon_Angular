@@ -42,17 +42,17 @@ ngOnInit(): void {
       next: (res) => {
         this.currentProduct = res;
        // console.log(this.currentProduct.productimages[0])
-      
+
       },
       error: (err) => {
         console.log(err);
       }
     });
   });
- 
+
 }
-addToOrder(currentProduct:Iproduct){
-  this._Cart.addtoOrder(currentProduct);
+addToOrder(currentProduct:Iproduct,quantity:string){
+  this._Cart.addtoOrder(currentProduct,Number(quantity));
 }
 
 }

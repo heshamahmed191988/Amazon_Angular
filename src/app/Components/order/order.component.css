@@ -1,0 +1,43 @@
+.container{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.ordertotal{
+  border-radius: 10px;
+  border: 1px solid rgb(116, 115, 115);
+  margin-top: 2rem;
+}
+.order{
+  display: flex;
+  border-radius: 10px;
+  background-color: rgb(155 150 150 / 37%);
+  justify-content: space-between;
+  padding: 1.2vw;
+}
+.btn{
+  border: 1px solid gray;
+  margin: 0.5vw;
+}
+.orderitem{
+  margin-top: 2vw;
+  padding-left: 3vw;
+  font-size: 1.3vw;
+  font-weight: bold;
+  color:rgb(102 90 99) ;
+}
+.details{
+  padding:2vw;
+}
+.title{
+  margin-top: 2vw;
+  padding-left: 1.5vw;
+  color:rgb(102 90 99) ;
+}
+@media (max-width: 500px) {
+  .orderitem{
+  font-size:2.5vw;
+  }
+  .container{
+  width: 100%;
+  }
+}

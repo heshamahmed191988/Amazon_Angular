@@ -8,7 +8,7 @@
         object-fit: cover; /* Ensures the image covers the area, may clip the image */
       }
     }
-  
+
     /* For larger screens, you might want to set a different fixed height for secondary images */
     @media (min-width: 769px) {
       .secondary-img {
@@ -63,12 +63,12 @@
           <li class="list-group-item"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
           <li class="list-group-item">payment details </li>
           <li class="list-group-item"> <div class="mb-3">
-           
-            <input type="number" class="form-control" id="quantityInput" placeholder="Quantity">
+
+            <input type="number" #quantity class="form-control" id="quantityInput" placeholder="Quantity">
           </div>
         </li>
 
-          <li class="list-group-item text-center" >  <button class="btn btn-primary" (click)="addToOrder(currentProduct)" routerLink="Cart" routerLinkActive="router-link-active"  >Add to Cart</button>
+          <li class="list-group-item text-center" >  <button class="btn btn-primary" (click)="addToOrder(currentProduct,quantity.value)" routerLink="Cart" routerLinkActive="router-link-active"  >Add to Cart</button>
 
           </li>
           <li class="list-group-item text-center">  <button type="button" class="btn btn-warning ">By Now</button>
@@ -78,4 +78,4 @@
       </div>
 
   </div>
-</div> 
+</div>

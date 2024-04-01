@@ -17,17 +17,16 @@ import{ IUpdateOrder } from '../../models/iupdate-order'
   styleUrl: './order.component.css'
 })
 export class OrderComponent implements OnInit{
+  [x: string]: any;
   public orders: Iorderuserid[] = []
   public orderdetails:Iorderdetails[]= []
   public updateorder:IUpdateOrder ={orderId:1,productId:1,quantity:1,orderItemId:1}
   public UserId:string = "2c534a51-7abd-46dc-86e6-eb6a97cdbf5c"
 constructor(private _OrderService:OrderService,private _AuthService:AuthService)
 {
-
 }
 
 ngOnInit(): void {
-    this.setUserid();
     this._OrderService.getOrerByUserId(this.UserId).subscribe({
       next:(res)=>{
         this.orders = res
@@ -38,6 +37,7 @@ ngOnInit(): void {
     })
   }
 setUserid() {
+  debugger
     this._AuthService.getCurrentUserId().subscribe(user => {
       this.UserId = user.userId
       console.log(this.UserId)
@@ -72,6 +72,7 @@ setUserid() {
       {
         next:(res)=>{
           console.log("deleted successfully");
+          // this.location.reload();
         },
         error:(err)=>{
           console.log(err);
