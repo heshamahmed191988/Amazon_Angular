@@ -14,7 +14,6 @@ export class ICartService {
   public productList = new BehaviorSubject<Iproduct[]>([]);
 
   constructor(private httpclient: HttpClient) {
-    // Load cart items from local storage on initialization
     const savedCartItems = localStorage.getItem('cartItems');
     if (savedCartItems) {
       this.cartItems = JSON.parse(savedCartItems);
@@ -31,9 +30,15 @@ export class ICartService {
     this.saveCartItems();
   }
   addtoOrder(product: Iproduct) {
-    this.cartItems.push(product);
+    const existingProduct = this.cartItems.find(item => item.id === product.id);
+    if (existingProduct) {
+      existingProduct.StockQuantity = (existingProduct.StockQuantity ?? 1) + 1;
+    } else {
+      this.cartItems.push({ ...product, StockQuantity: 1 });
+    }
     this.saveCartItems();
     this.getTotalPrice();
+    
   }
 
   getTotalPrice(): number {
@@ -45,8 +50,17 @@ export class ICartService {
   }
 
   removeOrderIteam(product: Iproduct) {
-    this.cartItems = this.cartItems.filter(item => item.id !== product.id);
+    const existingProductIndex = this.cartItems.findIndex(item => item.id === product.id);
+  if (existingProductIndex !== -1) {
+    const existingProduct = this.cartItems[existingProductIndex];
+    if (existingProduct.StockQuantity && existingProduct.StockQuantity > 1) {
+      existingProduct.StockQuantity -= 1;
+    } else {
+      this.cartItems.splice(existingProductIndex, 1); 
+    }
     this.saveCartItems();
+    this.getTotalPrice();
+  }
   }
 
   removeallOrder() {
@@ -59,5 +73,3 @@ export class ICartService {
     this.productList.next(this.cartItems);
   }
 }
-
-

@@ -8,6 +8,7 @@
       <div class="con">
         <h2>Shopping Cart</h2>
         <p><a href="#">Select all items</a></p>
+      
       </div>
       <hr>
       <table class="table table-responsive">
@@ -22,6 +23,7 @@
               <button (click)="Remove(item)"><a href="">Delete</a></button>
             </td>
             <td>{{item.price}}</td>
+            <td>{{item.StockQuantity}}</td>
           </tr>
         </tbody>
       </table>

@@ -25,9 +25,10 @@ export class CartdetailsComponent  implements OnInit{
     itemimages: [],
     description: '',
     productDescription: '',
-    price: 0
+    price: 0,
+    StockQuantity: 1
   };
-  // currentproudect:Iproduct|null=null;
+
   currentId:number=0;
 constructor(private activatedrouter: ActivatedRoute
   ,private location:Location,private route: Router
@@ -41,7 +42,7 @@ ngOnInit(): void {
     this._ProductServiceService.getProductById(this.currentId).subscribe({
       next: (res) => {
         this.currentProduct = res;
-       // console.log(this.currentProduct.productimages[0])
+     
       
       },
       error: (err) => {

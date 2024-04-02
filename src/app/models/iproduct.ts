@@ -10,4 +10,5 @@ export interface Iproduct {
     itemimages?: string[];
     price: number;
     BrandName?:string;
+    StockQuantity?:number
 }

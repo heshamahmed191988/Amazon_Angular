@@ -12,6 +12,7 @@ import { ProductsComponent } from './Components/products/products.component';
 import { ReviewComponent } from './Components/review/review.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { SearchForProudectComponentComponent } from './Components/search-for-proudect-component/search-for-proudect-component.component';
+import { HomeComponent } from './Components/home/home.component';
 
 export const routes: Routes = [
     {
@@ -19,7 +20,7 @@ export const routes: Routes = [
         component: MainLayoutComponent,
         children: [
             {path: '', redirectTo: 'Home', pathMatch: 'full'},
-            {path: 'Home', component: ProductsComponent,},
+            {path: 'Home', component: HomeComponent,},
             {path: 'Order', component: OrderComponent,},
             {path: 'Cart', component: CartComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
