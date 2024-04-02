@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { deal } from '../../models/deal';
-
 import { DealService } from '../../services/deal.service';
 
 @Component({
