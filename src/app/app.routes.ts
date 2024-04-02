@@ -13,14 +13,16 @@ import { ReviewComponent } from './Components/review/review.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { SearchForProudectComponentComponent } from './Components/search-for-proudect-component/search-for-proudect-component.component';
 import { AddressComponent } from './Components/address/address.component';
+import { MainComponent } from './Components/main/main.component';
 
 export const routes: Routes = [
     {
         path: '', 
         component: MainLayoutComponent,
         children: [
-            {path: '', redirectTo: 'Home', pathMatch: 'full'},
+            {path: '', redirectTo: 'main', pathMatch: 'full'},
             {path: 'Home', component: ProductsComponent,},
+            {path: 'main', component: MainComponent,},
             {path: 'Order', component: OrderComponent,},
             {path: 'Cart', component: CartComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
@@ -30,6 +32,7 @@ export const routes: Routes = [
             {path: 'ContactUs', component: ContactUsComponent},
             {path: 'SearchForProudectComponent/:name', component: SearchForProudectComponentComponent },
             {path: 'SearchForProudectComponent/:categoryId/:name', component: SearchForProudectComponentComponent },
+            { path: 'SearchForProudectComponent', component: SearchForProudectComponentComponent },
             {path: 'Details/:id', component: ProductDetailsComponent,},
             // canActivate:[authGuard]
         ],

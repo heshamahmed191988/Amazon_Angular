@@ -42,42 +42,45 @@
   </div>
 
     <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
-      <h4 class="box-title mt-5">Product description</h4>
-      <p>{{ getProductDescription(currentProduct)}}</p><hr>
-      <p>{{ getBrandName(currentProduct)}}</p><hr>
+      <!-- <h4 class="box-title mt-5">Product description</h4> -->
+      <h4>{{ getProductDescription(currentProduct)}}</h4><hr>
+      <h4 class="list-group-item text-center" >{{ getProductName(currentProduct)}}</h4><hr>
+      <h5>{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</h5><hr>
       <h2 class="mt-5">
-        <sup>EGP</sup>{{currentProduct.price}}<sup>00</sup>
+        <sup>EGP</sup>{{currentProduct.price}}<sup>.00</sup>
       </h2>
-      <span>All prices include VAT.</span>
-        <h6>Buy with installments and pay EGP 21.43 for 60 months with select banks.</h6>
-        <h4>Item Colors:{{currentProduct.itemscolor}}</h4>
-      <h3 class="box-title mt-5">Key Highlights</h3>
+      <span>{{'detail.All prices include VAT'|translate}}.</span>
+        <h6>{{'detail.Buy with installments and pay EGP 21.43 for 60 months with select banks.'|translate}}</h6>
+        <!-- <h4>Item Colors:{{currentProduct.itemscolor}}</h4> -->
+      <h3 class="box-title mt-5">{{'detail.Key Highlights'|translate}}</h3>
       <ul class="list-unstyled">
-          <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
-          <li><i class="fa fa-check text-success"></i>Designed to foster easy portability</li>
-          <li><i class="fa fa-check text-success"></i>Perfect furniture to flaunt your wonderful collectibles</li>
+          <li><i class="fa fa-check text-success"></i>{{'detail.Sturdy structure'|translate}}</li>
+          <li><i class="fa fa-check text-success"></i>{{'detail.Designed to foster easy portability'|translate}}</li>
+          <!-- <li><i class="fa fa-check text-success"></i>Perfect furniture to flaunt your wonderful collectibles</li> -->
+         <br>
+         <br>
       </ul>
 
       
   </div>
   
-  <div class="last col-lg-2  mt-3 mx-4 " style="width: 21%;">
+<div class="last col-12 col-lg-2 mt-3 mx-lg-4" style="width: auto;">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
-          <li class="list-group-item">payment details </li>
+          <li class="list-group-item text-center"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
+          <li class="list-group-item text-center"> {{'detail.payment details'|translate}}</li>
           <li class="list-group-item"> <div class="mb-3">
            
              <input type="number" [(ngModel)]="Quantity" [value]="Quantity" class="form-control" id="quantityInput" placeholder="Quantity"  >
              <!-- name="Quantity" [(ngModel)]="Quantity"> -->
           </div>
         </li>
-        <li class="list-group-item text-center" >  <button class="btn btn-primary" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >Add to Cart</button>
-          <li class="list-group-item text-center" > <button  *ngIf="!isAddressSubmitted" (click)="gottoAddress()">Enter Shipping Address</button>
+        <li class="list-group-item text-center" >  <button class="btn-buy-now w-100" style="background-color: #f7ca00;border-radius: 12px;" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >{{'detail.Add to Cart'|translate}}</button>
+          <li class="list-group-item text-center" > <button class=" btn-add-to-cart w-100" style="background-color: #fa8900;border-radius: 12px;" *ngIf="!isAddressSubmitted" (click)="gottoAddress()">{{'detail.Buy Now'|translate}}</button>
           <li class="list-group-item text-center">  <ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
           </li>
           <!-- <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
-          <li class="list-group-item">Vestibulum at eros</li>
+          <!-- <li class="list-group-item">Vestibulum at eros</li> -->
         </ul>
       </div>
 

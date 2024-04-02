@@ -30,6 +30,8 @@ export class CartComponent implements OnInit{
   public product:Iproduct[]=[]
   payPalConfig: IPayPalConfig | undefined;
    UserId: string = "";
+   public isCartEmpty: boolean = true;
+
   //82b5b776-9a7a-4556-99e6-983e9509064d
   public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0}
 
@@ -72,6 +74,13 @@ ngOnInit(): void {
   this._PaypalService.initConfig();
   this.addressshared.addressSubmitted$.subscribe(submitted => {
     this.isAddressSubmitted = submitted;
+  });
+
+  this._Cart.getProduct().subscribe(res => {
+    this.product = res;
+    this.grandToltal = this._Cart.getTotalPrice();
+    // Update the isCartEmpty based on the products list
+    this.isCartEmpty = res.length === 0;
   });
   //  this._Cart.getProduct()
   //  .subscribe(res=>{

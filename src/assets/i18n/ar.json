@@ -38,5 +38,36 @@
     "footer":{
         "egypt":"egypty",
         "Deliver to": "deliver to"
+    },
+
+    "detail":{
+        "Buy Now": "اشترى الان ",
+        "Add to Cart": "اضف الى السلة",
+        "payment details": " تفاصيل الدفع ",
+        "All prices include VAT":"جميع الأسعار تشمل ضريبة القيمة المضافة",
+        "Buy with installments and pay EGP 21.43 for 60 months with select banks.":"اشترِ بالأقساط وادفع 21.43 جنيه مصري لمدة 60 شهرًا مع بعض البنوك المختارة",
+        "Brand Name": " البراند",
+        "Key Highlights":"ابرز النقاط",
+        "Sturdy structure":"تصميم رائع",
+        "Designed to foster easy portability":"مصمم مع سهولة عالية فى التنقل "
+
+
+
+
+
+    },
+    "review":{
+        "Submit a Review":"قدّم تقييمًا",
+        "Rating": "التقييم",
+        "Your Comment":"اضف تعليقك",
+        "Submit Review":"انشر تقييمك",
+        "You have already reviewed this product. Thank you!":"لقد قمت بتقييم هذا المنتج من قبل شكرا لك ",
+        "Reviewed on":"تاريخ التعليق",
+        "Comment":"التعليق",
+        "Customer Review":"تعليقات العملاء"
+
+
+
+
     }
 }

@@ -33,5 +33,31 @@
     "footer":{
         "egypt":"egypty",
         "Deliver to": "deliver to"
+    },
+
+    "detail":{
+        "Buy Now": "Buy Now",
+        "Add to Cart": "Add to Cart",
+        "payment details": "payment details",
+        "All prices include VAT":"All prices include VAT",
+        "Buy with installments and pay EGP 21.43 for 60 months with select banks.":"Buy with installments and pay EGP 21.43 for 60 months with select banks.",
+        "Brand Name": "Brand Name",
+        "Key Highlights":"Key Highlights",
+        "Sturdy structure":"Sturdy structure",
+        "Designed to foster easy portability":"Designed to foster easy portability"
+    } ,
+
+   
+    "review":{
+        "Submit a Review":"Submit a Review",
+       "Rating": "Rating",
+       "Your Comment":"Your Comment",
+       "Submit Review":"Submit Review",
+       "You have already reviewed this product. Thank you!":"You have already reviewed this product. Thank you!",
+       "Reviewed on":"Reviewed on",
+       "Comment":"Comment",
+       "Customer Review":"Customer Reviews"
     }
+
+  
 }

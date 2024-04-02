@@ -69,7 +69,8 @@
     
 </head>
  <body>
-  
+  <div class="layout" [dir]="'dir'|translate">
+
   <div class="container-fluid">
                          <!--select list-->
         <div class="row row-cols-1 row-cols-md-2 g-4 select" style="height: auto;">
@@ -162,7 +163,7 @@
                               <h5 class="card-title">{{ getProductName(product) }}</h5>
                               <h5 class="card-title">{{ getProductDescription(product) }}</h5>
                               <h5 class="card-title"><sup>EGP</sup> {{ product.price }}<sup>00</sup></h5>
-                              <h5 class="card-title">{{ product.rating }}</h5>
+                              <!-- <h5 class="card-title">{{ product.rating }}</h5> -->
                             
                               @if (product.rating && product.rating > 0 && product.rating <= 1) 
                                {
@@ -230,6 +231,7 @@
    <!--end first fluid-->
    <div>
     
+   </div>
    </div>
  </body>
 </html>

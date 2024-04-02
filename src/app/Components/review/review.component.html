@@ -8,7 +8,7 @@
 
     <div class="review-form-section">
       <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="border p-4 rounded shadow">
-          <h4 class="mb-3">Submit a Review</h4>
+          <h4 class="mb-3">{{'review.Submit a Review'|translate}}</h4>
 
           <!-- Read-only Product ID field (hidden) -->
           <div class="mb-3 d-none">
@@ -24,7 +24,7 @@
 
           <!-- Rating Selection -->
           <div class="mb-3">
-              <label for="rating" class="form-label">Rating</label>
+              <label for="rating" class="form-label">{{'review.Rating'|translate}}</label>
               <select formControlName="rating" id="rating" class="form-select">
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -36,7 +36,7 @@
 
           <!-- Comment Field -->
           <div class="mb-3">
-              <label for="comment" class="form-label">Your Comment</label>
+              <label for="comment" class="form-label">{{'review.Your Comment'|translate}}</label>
               <textarea formControlName="comment" id="comment" placeholder="Your Comment" class="form-control" rows="3"></textarea>
           </div>
 
@@ -45,15 +45,15 @@
               <h5>Your User Name: {{ reviewForm.get('userName')?.value }}</h5>
           </div> -->
 
-          <button type="submit" [disabled]="!canSubmitReview || !reviewForm.valid" class="btn btn-primary" (click)="submitReviewAndReload()">Submit Review</button>          <div *ngIf="!canSubmitReview" class="alert alert-info" role="alert">
-            You have already reviewed this product. Thank you!
+          <button type="submit" [disabled]="!canSubmitReview || !reviewForm.valid" class="btn btn-primary" (click)="submitReviewAndReload()">{{'review.Submit Review'|translate}}</button><div *ngIf="!canSubmitReview" class="alert alert-info" role="alert">
+            {{'review.You have already reviewed this product. Thank you!'|translate}}
           </div>
         </form>
   </div>
 <div class="container mt-5">
   <!-- Review Display Section -->
   <div class="review-display-section mb-5">
-    <h3 class="mb-3">Customer Reviews</h3>
+    <h3 class="mb-3">{{'review.Customer Review'|translate}}</h3>
     <div *ngIf="reviews.length; else noReviewsTemplate">
       <!-- Each review is wrapped in a Bootstrap card with a shadow effect -->
       <div *ngFor="let review of reviews" class="card mb-3 shadow-sm">
@@ -65,7 +65,7 @@
           </h5>
           <!-- Rating using stars -->
           <p class="card-text">
-            <strong>Rating:</strong>
+            <strong>{{'review.Rating'|translate}}:</strong>
             <span class="star-rating">
               <ng-container *ngFor="let star of getStars(review.rating || 0)">
                 <i class="fas fa-star"></i>
@@ -73,8 +73,8 @@
             </span>
           </p>
           <!-- Review comment -->
-          <p class="card-text"><strong>Reviewed on:</strong> {{ review.datePosted | date: 'MMMM dd, yyyy' }}</p>
-          <p class="card-text"><strong>Comment:</strong> "{{ review.comment }}"</p>
+          <p class="card-text"><strong>{{'review.Reviewed on'|translate}}:</strong> {{ review.datePosted | date: 'MMMM dd, yyyy' }}</p>
+          <p class="card-text"><strong>{{'review.Comment'|translate}}:</strong> "{{ review.comment }}"</p>
         </div>
       </div>
     </div>

@@ -3,13 +3,13 @@ import { Iproduct } from '../../models/iproduct';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductServiceService } from '../../services/product-service.service';
 import { CommonModule } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReviewService } from '../../services/review.service';
 
 @Component({
   selector: 'app-search-for-proudect-component',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TranslateModule],
   templateUrl: './search-for-proudect-component.component.html',
   styleUrl: './search-for-proudect-component.component.css'
 })
@@ -55,6 +55,30 @@ export class SearchForProudectComponentComponent implements OnInit {
         });
       }
     });
+    this.route.paramMap.subscribe(paramMap => {
+      this.searchQuery = paramMap.get('name') ?? '';
+      this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
+
+      this.loadProducts();
+      if (this.searchQuery !== '') {
+        this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+          next: (res: any) => {
+            if (res ) {
+              this.searchResults = res;
+              this.Quant = this.searchResults.length;
+              this.sortProducts(this.sortBy);
+              this.calculateProductRatings();
+              //console.log(this.searchResults);
+            } else {
+              console.log('Invalid response format');
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      }
+    });
 
     this._productService.getbrandsname().subscribe({
       next: (res) => {
@@ -74,26 +98,7 @@ export class SearchForProudectComponentComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
 
-    // this.route.paramMap.subscribe(paramMap => {
-    //   this.searchQuery = paramMap.get('name') ?? '';
-    //   if (this.searchQuery !== '') {
-    //     this._productService.filterdbynameProducts(this.searchQuery).subscribe({
-    //       next: (res: any) => {
-    //         if (res ) {
-    //           this.searchResults = res;
-    //           this.Quant = this.searchResults.length;
-    //           this.sortProducts(this.sortBy);
-    //           //console.log(this.searchResults);
-    //         } else {
-    //           console.log('Invalid response format');
-    //         }
-    //       },
-    //       error: (err) => {
-    //         console.log(err);
-    //       }
-    //     });
-    //   }
-    // });
+  
   }
 
   sortProducts(sortOption: string): void {
@@ -252,8 +257,31 @@ loadProducts(): void {
       });
       
     }
-  } else {
-    this.filterProductsByCategory();
+  } 
+  else 
+  {
+    if(this.selectedCategoryId === 0) {
+     
+      this._productService.getAllProducts().subscribe({
+        next: (res: any) => {
+          if (res) {
+            this.searchResults = res;
+            console.log( this.searchResults ,"yees");
+            this.Quant = this.searchResults.length;
+            this.sortProducts(this.sortBy);
+            this.calculateProductRatings();
+          } else {
+            console.log('Invalid response format');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    } else {
+      
+      this.filterProductsByCategory();
+    }
   }
 }
 
@@ -264,7 +292,10 @@ loadProducts(): void {
                   this.searchResults = res;
                   this.Quant = this.searchResults.length;
                   this.sortProducts(this.sortBy);
+                  
                   this.calculateProductRatings();
+                  this.loadProducts();
+
               },
               error: (error) => {
                   console.error('Error fetching products by category:', error);
