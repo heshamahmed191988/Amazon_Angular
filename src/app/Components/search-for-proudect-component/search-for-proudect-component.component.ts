@@ -209,6 +209,53 @@ filterByRating(minRating: number): void {
   this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
 }
 
+// loadProducts(): void {
+//   if (this.searchQuery !== '') {
+//     if (this.selectedCategoryId === 0) {
+//       this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+//         next: (res: any) => {
+//           if (res) {
+//             this.searchResults = res;
+//             this.Quant = this.searchResults.length;
+//             this.sortProducts(this.sortBy);
+//             this.calculateProductRatings();
+//           } else {
+//             console.log('Invalid response format');
+//           }
+//         },
+//         error: (err) => {
+//           console.log(err);
+//         }
+//       });
+//     } else {
+//       this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery).subscribe({
+//         next: (res: Iproduct[]) => {
+//           if (res) {
+//             this.searchResults = res;
+//             this.sortedProducts=res;
+//             console.log( "llok" ,this.searchResults );
+//             this.Quant = this.searchResults.length;
+//             this.sortProducts(this.sortBy);
+//             this.calculateProductRatings();
+//           } else {
+//             console.log('Invalid response format');
+//           }
+//         },
+//         error: (err) => {
+//           console.log(err);
+//         }
+//       });
+      
+//     }
+//   } else {
+//     this.filterProductsByCategory();
+//   }
+// }
+
+
+
+
+
 loadProducts(): void {
   if (this.searchQuery !== '') {
     if (this.selectedCategoryId === 0) {
@@ -247,8 +294,31 @@ loadProducts(): void {
       });
       
     }
-  } else {
-    this.filterProductsByCategory();
+  } 
+  else 
+  {
+    if(this.selectedCategoryId === 0) {
+     
+      this._productService.getAllProducts().subscribe({
+        next: (res: any) => {
+          if (res) {
+            this.searchResults = res;
+            console.log( this.searchResults ,"yees");
+            this.Quant = this.searchResults.length;
+            this.sortProducts(this.sortBy);
+            this.calculateProductRatings();
+          } else {
+            console.log('Invalid response format');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    } else {
+      
+      this.filterProductsByCategory();
+    }
   }
 }
 

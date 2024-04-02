@@ -112,7 +112,5 @@ searchProducts(): void {
     }]);
 }
 
-
 }
-
 
