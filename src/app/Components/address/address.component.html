@@ -1,7 +1,8 @@
 <!-- create-address.component.html -->
-
-<div class="container">
-    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+<div class="checkout col-12 d-lg-block d-md-none d-xs-none">CheckOut</div>
+<div class="container col-lg-6 col-md-12 col-xs-12">
+  <h1>Add New Address</h1>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="col-12">
       <div class="form-group">
         <label for="street">Street</label>
         <input type="text" id="street" class="form-control" formControlName="street">
@@ -27,7 +28,6 @@
         <input type="text" id="userID" class="form-control" formControlName="userID">
       </div> -->
       <!-- Assuming orderIds would be selected from a list, multiselect, or similar -->
-      <button type="submit" class="btn btn-primary" [disabled]="!addressForm.valid">Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!addressForm.valid">Add Address</button>
     </form>
   </div>
-  

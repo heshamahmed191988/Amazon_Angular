@@ -17,7 +17,7 @@ import { IcreatrOrder } from '../../models/icreatr-order';
   imports: [CommonModule,FormsModule,ProductsComponent],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
-  
+
 })
 export class OrderComponent implements OnInit{
   public currentProduct: Iproduct | undefined;
@@ -29,9 +29,11 @@ export class OrderComponent implements OnInit{
   public updateorder:IUpdateOrder ={orderId:1,productId:1,quantity:1,orderItemId:1,totalPrice:1}
   UserId:string = ""
   // 82b5b776-9a7a-4556-99e6-983e9509064d
+  filteredOrders: Iorderuserid[] = [];
+  searchTerm: string = '';
+
 constructor(private _OrderService:OrderService,private _AuthService:AuthService)
 {
-
 }
 
 ngOnInit(): void {
@@ -41,10 +43,11 @@ setUserid() {
     this._AuthService.getCurrentUserId().subscribe(user => {
       this.UserId = user.userId
       console.log(this.UserId)
-      
+
       this._OrderService.getOrerByUserId(this.UserId).subscribe({
         next:(res)=>{
-          this.orders = res
+          this.orders = res;
+          this.filteredOrders=res;
         },
         error:(err)=>{
           console.log(err)
@@ -64,7 +67,7 @@ setUserid() {
     this.updateorder.quantity = Number(quantity);
     this.updateorder.orderId = orderupdate.orderid;
     this.updateorder.orderItemId = orderupdate.orderitemid;
-    
+
     this._OrderService.updateOrder(this.updateorder).subscribe({
       next: (res) => {
         console.log(res);
@@ -76,7 +79,7 @@ setUserid() {
       }
     });
   }
-  
+
 
 
   delete(id:number){
@@ -101,6 +104,15 @@ getaddressidbyuserid(userid: string) {
     },
     error: (error) => console.log(error)
   });
+}
+searchByOrderStatus() {
+  debugger
+  if(this.searchTerm==''){
+    this.filteredOrders == this.orders;
+  }
+  else{
+  this.filteredOrders = this.orders.filter(order => order.status.toLowerCase() === this.searchTerm.toLowerCase());
+  }
 }
 }
 
