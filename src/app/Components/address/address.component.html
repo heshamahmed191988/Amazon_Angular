@@ -1,31 +1,33 @@
 <!-- create-address.component.html -->
-
-<div class="container mt-4 shadow p-3 mb-5 bg-white rounded">
-  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="row g-3">
-    <div class="col-md-12">
-      <label for="city" class="form-label">City</label>
-      <input type="text" id="city" class="form-control" formControlName="city">
-    </div>
-   
-    <div class="col-md-12">
-      <label for="street" class="form-label">Street</label>
-      <input type="text" id="street" class="form-control" formControlName="street">
-    </div>
-   
-    <div class="col-md-6">
-      <label for="state" class="form-label">State</label>
-      <input type="text" id="state" class="form-control" formControlName="state">
-    </div>
-    <div class="col-md-6">
-      <label for="zipCode" class="form-label">Zip Code</label>
-      <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
-    </div>
-    <div class="d-none"> <!-- Hide User ID field -->
-      <label for="userID" class="form-label">User ID</label>
-      <input type="text" id="userID" class="form-control" formControlName="userID">
-    </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary" [disabled]="!addressForm.valid">Submit</button>
-    </div>
-  </form>
-</div>
+<div class="checkout col-12 d-lg-block d-md-none d-xs-none">CheckOut</div>
+<div class="container col-lg-6 col-md-12 col-xs-12">
+  <h1>Add New Address</h1>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="col-12">
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input type="text" id="street" class="form-control" formControlName="street">
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" class="form-control" formControlName="city">
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" id="state" class="form-control" formControlName="state">
+      </div>
+      <div class="form-group">
+        <label for="zipCode">Zip Code</label>
+        <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
+      </div>
+      <div class="form-group d-none">
+        <label for="userID">User ID</label>
+        <input type="text" id="userID" class="form-control" formControlName="userID">
+      </div>
+       <!-- <div class="form-group">
+        <label for="userID">User ID</label>
+        <input type="text" id="userID" class="form-control" formControlName="userID">
+      </div> -->
+      <!-- Assuming orderIds would be selected from a list, multiselect, or similar -->
+      <button type="submit" class="btn btn-primary" [disabled]="!addressForm.valid">Add Address</button>
+    </form>
+  </div>

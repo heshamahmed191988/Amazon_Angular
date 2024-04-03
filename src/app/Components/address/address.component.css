@@ -1,0 +1,27 @@
+.container{
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    padding: 2vw;
+  }
+  form{
+    margin-top: 2vw;
+  }
+  .checkout{
+    background-color: gray;
+    padding: 2vw;
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: bold;
+  }
+  .btn{
+    background-color: #ffd814;
+    color: rgb(0, 0, 0);
+    margin-top: 1vw;
+    border:none;
+    font-weight: bold;
+  }
+  input{
+    background-color: #808080ab;
+  }

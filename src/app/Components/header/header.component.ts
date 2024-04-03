@@ -8,6 +8,7 @@ import { RegisterComponent } from '../register/register.component';
 import { ICartService } from '../../services/icart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+//import { RouteService } from '../../services/route.service';
 
 
 @Component({
@@ -75,6 +76,7 @@ export class HeaderComponent implements OnInit {
   changelanguage(lang: any) {
     localStorage.setItem('lang', lang);
     this.translate.use(lang);
+   
   }
   searchProducts(): void {
     if (this.searchQuery.trim() !== '') {
