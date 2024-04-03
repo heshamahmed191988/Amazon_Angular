@@ -5,7 +5,10 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
 * {
     box-sizing: border-box;
 }
-
+.card-product-containe{
+    position: relative !important;
+    top:-130px
+}
 .parent {
     margin: 0;
     background-color: #f9f9f9 !important;
@@ -607,6 +610,14 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
   
     
     }
+    .card-product-containe{
+        position: relative !important;
+        top:-10px
+    }
+    .shop-link{
+        width: 100%;
+    }
+    
 }
 
 /* For mobile devices (portrait and landscape) */
@@ -639,15 +650,31 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
     align-items: center;
    
    }
- 
+   .card-product-containe{
+    position: relative !important;
+    top:0px
 }
 
 
+ 
+}
+.shop-section{
+    background-color:#e3e6e6;
+}.shop-link{
+    /* max-width:31%; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: white;
+} */
+
+/* 
 
 .hero-section {
     height: 400px;
     background-position: center;
     background-size: cover;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
   
   /* Shop Section */
@@ -665,7 +692,8 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
     display: flex;
     cursor: pointer;
     flex-direction: column;
-    white-space: nowrap;
+ height:550px;
+
     margin: 20px;
    
   }
@@ -692,3 +720,37 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
     color: #c7511f;
     text-decoration: underline;
   }
+  .gallerybox { 
+    overflow-x: auto; 
+} 
+  
+.imgbox img { 
+    width: 400px; 
+    height: 200px; 
+    margin-right: 5px; 
+    border-radius: 20px; 
+    /* border: 2px solid rgb(138, 138, 128);  */
+} 
+  
+.imgbox { 
+    display: flex; 
+    flex-wrap: nowrap; 
+}
+.gall1{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.today_deals_product_list {
+    padding: 50px;
+}
+.today_deals_product_list img{
+    border: none;
+    margin: 5px;
+    border-radius: 0;
+    width: 100%;
+  
+    
+}
+.deal2{
+    background-color:#e3e6e6;
+}

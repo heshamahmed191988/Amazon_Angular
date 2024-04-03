@@ -27,6 +27,7 @@ export class SearchForProudectComponentComponent implements OnInit {
   brands: any[] = [];
   filteredResults: Iproduct[] = [];
   selectedCategoryId: number = 0;
+  randomProducts: Iproduct[] = [];
 
   selectedCategory: string = 'All';
   constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService,private translate:TranslateService,private reviewService:ReviewService) {}
@@ -97,7 +98,7 @@ export class SearchForProudectComponentComponent implements OnInit {
       this.lang = langChangeEvent.lang;
       // Optionally, refresh data that depends on the current language here
     });
-
+    this.RandomProducts();
   
   }
 
@@ -257,6 +258,7 @@ loadProducts(): void {
       });
       
     }
+    this.RandomProducts();
   } 
   else 
   {
@@ -303,4 +305,61 @@ loadProducts(): void {
           });
       }
     }    
+
+    ///select according to category
+// RandomProducts(): void {
+//   if (this.selectedCategoryId === 0) {
+//     this._productService.getAllProducts().subscribe({
+//       next: (res: Iproduct[]) => {
+//         this.randomProducts = this.getRandomProducts(res);
+//       },
+//       error: (err) => {
+//         console.error('Error fetching random products:', err);
+//       }
+//     });
+//   } else {
+//     this._productService.getproudectsbycatogry(this.selectedCategoryId).subscribe({
+//       next: (res: Iproduct[]) => {
+//         this.searchResults = res; 
+//         this.randomProducts = this.getRandomProducts(this.searchResults);
+//       },
+//       error: (err) => {
+//         console.error('Error fetching random products:', err);
+//       }
+//     });
+//   }
+// }
+
+/////////-------------------------------new----random
+
+//select from all proudect 
+RandomProducts(): void {
+  if (this.selectedCategoryId === 0 ||this.selectedCategoryId != 0 ) {
+    this._productService.getAllProducts().subscribe({
+      next: (res: Iproduct[]) => {
+        this.searchResults = res; 
+        this.randomProducts = this.getRandomProducts(this.searchResults);
+      },
+      error: (err) => {
+        console.error('Error fetching random products:', err);
+      }
+    });
+  }
+}
+
+
+
+getRandomProducts(products: Iproduct[]): Iproduct[] {
+  let randomProducts: Iproduct[] = [];
+  let maxIndex = Math.min(6, products.length);
+  let randomIndices: number[] = [];
+  while (randomIndices.length < maxIndex) {
+    let randomIndex = Math.floor(Math.random() * products.length);
+    if (!randomIndices.includes(randomIndex)) {
+      randomIndices.push(randomIndex);
+      randomProducts.push(products[randomIndex]);
+    }
+  }
+  return randomProducts;
+}
 }

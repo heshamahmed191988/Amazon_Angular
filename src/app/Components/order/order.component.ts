@@ -23,6 +23,8 @@ export class OrderComponent implements OnInit{
   public currentProduct: Iproduct | undefined;
   public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
   adressId:number = 0;
+  searchTerm: string = '';
+  filteredOrders: Iorderuserid[] = [];
 
    orders: Iorderuserid[] = []
    orderdetails:Iorderdetails[]= []
@@ -44,7 +46,8 @@ setUserid() {
       
       this._OrderService.getOrerByUserId(this.UserId).subscribe({
         next:(res)=>{
-          this.orders = res
+          this.orders = res;
+          this.filteredOrders=res;
         },
         error:(err)=>{
           console.log(err)
@@ -101,6 +104,15 @@ getaddressidbyuserid(userid: string) {
     },
     error: (error) => console.log(error)
   });
+}
+searchByOrderStatus() {
+  debugger
+  if(this.searchTerm==''){
+    this.filteredOrders == this.orders;
+  }
+  else{
+  this.filteredOrders = this.orders.filter(order => order.status.toLowerCase() === this.searchTerm.toLowerCase());
+  }
 }
 }
 
