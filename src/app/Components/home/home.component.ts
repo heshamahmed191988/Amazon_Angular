@@ -1,12 +1,95 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DealService } from '../../services/deal.service';
+import { deal } from '../../models/deal';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-main',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css'] // Change styleUrl to styleUrls
 })
-export class HomeComponent {
+export class MainComponent implements OnInit {
+  startSlider: number = 0;
+  startSlider1: number = 0;
+  imgItem: any;
+  endSlider: number = 0;
+  endSlider1: number = 0;
+  deals: deal[] = [];
+  
+  constructor(private _deal: DealService,private router: Router) {}
 
+  ngOnInit(): void {
+    this._deal.getDeals().subscribe(deals => {
+      this.deals = deals;
+      this.imgItem = document.querySelectorAll(".today_deals_product_item");
+      if (this.imgItem) {
+        this.endSlider = (this.imgItem.length - 1) * 100;
+        this.endSlider1 = (this.imgItem.length - 1) * 100;
+      }
+    });
+  }
+
+  handleLeftBtn(): void {
+    if (this.startSlider < 0) {
+      this.startSlider = this.startSlider + 100;
+    }
+    this.translateSlider();
+  }
+
+  handleRightBtn(): void {
+    if (this.startSlider >= -this.endSlider + 100) {
+      this.startSlider = this.startSlider - 100;
+    }
+    this.translateSlider();
+  }
+  
+  handleLeftBtn1(): void {
+    if (this.startSlider1 < 0) {
+      this.startSlider1 = this.startSlider1 + 100;
+    }
+    this.translateSlider1();
+  }
+
+  handleRightBtn1(): void {
+    if (this.startSlider1 >= -this.endSlider1 + 100) {
+      this.startSlider1 = this.startSlider1 - 100;
+    }
+    this.translateSlider1();
+  }
+
+  translateSlider(): void {
+    if (this.imgItem) {
+      this.imgItem.forEach((element: any) => {
+        element.style.transform = `translateX(${this.startSlider}%)`;
+      });
+    }
+  }
+
+  translateSlider1(): void {
+    if (this.imgItem) {
+      this.imgItem.forEach((element: any) => {
+        element.style.transform = `translateX(${this.startSlider1}%)`;
+      });
+    }
+  }
+
+  openSidebarNavigation(): void {
+    const sidebarNavigationEl = document.getElementById("sidebar-container-navigation-id");
+    if (sidebarNavigationEl) {
+      sidebarNavigationEl.classList.toggle("slidebar-show");
+    }
+  }
+
+  closeSidebarNavigation(): void {
+    const sidebarNavigationEl = document.getElementById("sidebar-container-navigation-id");
+    if (sidebarNavigationEl) {
+      sidebarNavigationEl.classList.toggle("slidebar-show");
+    }
+  }
+
+  
 }

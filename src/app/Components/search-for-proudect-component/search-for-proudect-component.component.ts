@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Iproduct } from '../../models/iproduct';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductServiceService } from '../../services/product-service.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReviewService } from '../../services/review.service';
+import { Icategory } from '../../models/icategory';
 
 @Component({
   selector: 'app-search-for-proudect-component',
@@ -27,6 +28,7 @@ export class SearchForProudectComponentComponent implements OnInit {
   brands: any[] = [];
   filteredResults: Iproduct[] = [];
   selectedCategoryId: number = 0;
+  @Input() categories:Icategory[] = [];
 
   selectedCategory: string = 'All';
   constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService,private translate:TranslateService,private reviewService:ReviewService) {}

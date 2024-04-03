@@ -44,5 +44,8 @@ export class ProductServiceService {
   filterProductsByCategoryAndName(categoryId: number, name: string): Observable<Iproduct[]> {
     return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`);
   }
+
+
+
 }
 

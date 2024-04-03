@@ -1,34 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DealService } from '../../services/deal.service';
 import { deal } from '../../models/deal';
 import { CommonModule } from '@angular/common';
+import { ProductServiceService } from '../../services/product-service.service';
+import { Iproduct } from '../../models/iproduct';
+import { Icategory } from '../../models/icategory';
+import { Router, RouterLink } from '@angular/router';
+import { SearchForProudectComponentComponent } from '../search-for-proudect-component/search-for-proudect-component.component';
+import { CategoryServiceService } from '../../services/category-service.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink,SearchForProudectComponentComponent,RouterLink],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit {
+  @ViewChild('carousel', { static: true }) carousel!: ElementRef;
   startSlider: number = 0;
   startSlider1: number = 0;
   imgItem: any;
   endSlider: number = 0;
   endSlider1: number = 0;
   deals: deal[] = [];
-  constructor(private _deal:DealService)
+  CatId:number=0
+  categories:Icategory[] = [];
+  constructor(private _deal:DealService , 
+    private prd:ProductServiceService,
+    private router:Router,
+    private categoryService:CategoryServiceService)
   {
 
   }
   ngOnInit(): void {
     this._deal.getDeals().subscribe(deals => {
       this.deals = deals;
-      this.imgItem = document.querySelectorAll(".today_deals_product_item");
-      this.endSlider = (this.imgItem.length - 1) * 100;
-      this.endSlider1 = (this.imgItem.length - 1) * 100; 
+      this.endSlider = (this.deals.length - 1) * 100;
+      this.endSlider1 = (this.deals.length - 1) * 100;
     });
+
+    this.loadCategories();
   }
+
   handleLeftBtn(): void {
     if (this.startSlider < 0) {
       this.startSlider = this.startSlider + 100;
@@ -82,4 +96,29 @@ export class MainComponent implements OnInit {
       sidebarNavigationEl.classList.toggle("slidebar-show");
     }
   }
+  getProductsByCategory(categoryId: number): void {
+    this.prd.getproudectsbycatogry(categoryId).subscribe(
+      (prd) => {
+        this.categories = prd;
+      },
+      (error) => {
+        console.error('Error fetching products by category:', error);
+      }
+    );
+  }
+  navigateToSearch(name: string): void {
+    this.router.navigate(['/SearchForProductComponent', name]);
+  }
+  loadCategories(): void {
+    this.categoryService.getAllCategory().subscribe({
+      next: (categories: Icategory[]) => {
+        this.categories = categories;
+      },
+      error: (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    });
+  }
+  
+  
 }
