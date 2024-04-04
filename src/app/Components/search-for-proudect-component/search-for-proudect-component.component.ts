@@ -5,11 +5,13 @@ import { ProductServiceService } from '../../services/product-service.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReviewService } from '../../services/review.service';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 @Component({
   selector: 'app-search-for-proudect-component',
   standalone: true,
-  imports: [CommonModule,TranslateModule],
+  imports: [CommonModule,TranslateModule,NgxPaginationModule],
   templateUrl: './search-for-proudect-component.component.html',
   styleUrl: './search-for-proudect-component.component.css'
 })
@@ -17,17 +19,18 @@ export class SearchForProudectComponentComponent implements OnInit {
   searchQuery!: string;
   searchResults: Iproduct[] = [];
   sortedProducts: Iproduct[] = [];
-  sortBy: string = 'featured'; 
+  sortBy: string = 'featured';
   paginatedProducts: Iproduct[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
   Above_2500:number = 999999;
   Quant: number = 0;
-  lang: string = 'en'; 
+  lang: string = 'en';
   brands: any[] = [];
   filteredResults: Iproduct[] = [];
   selectedCategoryId: number = 0;
   randomProducts: Iproduct[] = [];
+  total:number=1;
 
   selectedCategory: string = 'All';
   constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService,private translate:TranslateService,private reviewService:ReviewService) {}
@@ -38,8 +41,8 @@ export class SearchForProudectComponentComponent implements OnInit {
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
       this.loadProducts();
        console.log( this.selectedCategoryId);
-      if (this.searchQuery !== '' && this.selectedCategoryId==0) { 
-        this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+      if (this.searchQuery !== '' && this.selectedCategoryId==0) {
+        this._productService.filterdbynameProducts(this.searchQuery,this.currentPage,this.itemsPerPage).subscribe({
           next: (res: any) => {
             if (res ) {
               this.searchResults = res;
@@ -62,7 +65,7 @@ export class SearchForProudectComponentComponent implements OnInit {
 
       this.loadProducts();
       if (this.searchQuery !== '') {
-        this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+        this._productService.filterdbynameProducts(this.searchQuery,this.currentPage,this.itemsPerPage).subscribe({
           next: (res: any) => {
             if (res ) {
               this.searchResults = res;
@@ -99,21 +102,21 @@ export class SearchForProudectComponentComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
     this.RandomProducts();
-  
+
   }
 
   sortProducts(sortOption: string): void {
     switch (sortOption) {
       case 'featured':
-       
+
         this.sortedProducts = [...this.searchResults];
         break;
       case 'lowToHigh':
-     
+
         this.sortedProducts = [...this.searchResults].sort((a, b) => a.price - b.price);
         break;
       case 'highToLow':
-        
+
         this.sortedProducts = [...this.searchResults].sort((a, b) => b.price - a.price);
         break;
       default:
@@ -130,12 +133,12 @@ export class SearchForProudectComponentComponent implements OnInit {
       const endIndex = startIndex + this.itemsPerPage;
       this.paginatedProducts = this.sortedProducts.slice(startIndex, endIndex);
     }
-    
-  
+
+
     totalPages(): number {
       return Math.ceil(this.searchResults.length / this.itemsPerPage);
     }
-  
+
     changePage(page: number) {
       this.currentPage = page;
       this.updatePaginatedProducts();
@@ -143,14 +146,14 @@ export class SearchForProudectComponentComponent implements OnInit {
     NavigateToDetails(proId: number) {
       this.router.navigateByUrl(`/Details/${proId}`);
     }
- 
+
     filterByPrice(minPrice: number, maxPrice: number): void {
       if (minPrice === 0 && maxPrice === Infinity) {
          //---------No price filter
         this.sortedProducts = [...this.searchResults];
       } else {
           //---------Filter products based on price range
-        this.sortedProducts = this.searchResults.filter(product => 
+        this.sortedProducts = this.searchResults.filter(product =>
           product.price >= minPrice && product.price <= maxPrice
         );
       }
@@ -160,18 +163,18 @@ export class SearchForProudectComponentComponent implements OnInit {
     getProductName(product: Iproduct): string {
       return this.lang === 'en' ? product.nameEn : product.nameAr;
     }
-  
+
     getProductDescription(product: Iproduct): string {
       return this.lang === 'en' ? product.descriptionEn : product.descriptionAr;
     }
-  
+
     getBrandName(product: Iproduct): string {
       return this.lang === 'en' ? product.brandNameEn : product.brandNameAr;
     }
 
     filterByBrand(brand: string): void {
-      this._productService.filterdbybrandname(brand).subscribe({ 
-        next: (res: any) => {  
+      this._productService.filterdbybrandname(brand).subscribe({
+        next: (res: any) => {
           if (res) {
             // this.filteredResults=this.searchResults.filter(product => product.BrandName ===brand);
             // console.log( this.filteredResults);
@@ -188,17 +191,17 @@ export class SearchForProudectComponentComponent implements OnInit {
         }
       });
     }
-    
-    
+
+
     calculateProductRatings(): void {
-      //---------Calculate ratings for each product 
+      //---------Calculate ratings for each product
 for (let product of this.searchResults) {
 this.reviewService.getReviewsByProductId(product.id!).subscribe({
   next: (reviews) => {
     if (reviews && reviews.length > 0)
-     {         
+     {
         let totalRating = 0
-        for (let review of reviews) 
+        for (let review of reviews)
         {
           totalRating += review.rating || 0;
         }
@@ -215,7 +218,7 @@ this.reviewService.getReviewsByProductId(product.id!).subscribe({
 });
 }
 }
-    
+
 filterByRating(minRating: number): void {
   this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
 }
@@ -223,7 +226,7 @@ filterByRating(minRating: number): void {
 loadProducts(): void {
   if (this.searchQuery !== '') {
     if (this.selectedCategoryId === 0) {
-      this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+      this._productService.filterdbynameProducts(this.searchQuery,this.currentPage,this.itemsPerPage).subscribe({
         next: (res: any) => {
           if (res) {
             this.searchResults = res;
@@ -256,14 +259,14 @@ loadProducts(): void {
           console.log(err);
         }
       });
-      
+
     }
     this.RandomProducts();
-  } 
-  else 
+  }
+  else
   {
     if(this.selectedCategoryId === 0) {
-     
+
       this._productService.getAllProducts().subscribe({
         next: (res: any) => {
           if (res) {
@@ -281,7 +284,7 @@ loadProducts(): void {
         }
       });
     } else {
-      
+
       this.filterProductsByCategory();
     }
   }
@@ -294,7 +297,7 @@ loadProducts(): void {
                   this.searchResults = res;
                   this.Quant = this.searchResults.length;
                   this.sortProducts(this.sortBy);
-                  
+
                   this.calculateProductRatings();
                   this.loadProducts();
 
@@ -304,7 +307,7 @@ loadProducts(): void {
               }
           });
       }
-    }    
+    }
 
     ///select according to category
 // RandomProducts(): void {
@@ -320,7 +323,7 @@ loadProducts(): void {
 //   } else {
 //     this._productService.getproudectsbycatogry(this.selectedCategoryId).subscribe({
 //       next: (res: Iproduct[]) => {
-//         this.searchResults = res; 
+//         this.searchResults = res;
 //         this.randomProducts = this.getRandomProducts(this.searchResults);
 //       },
 //       error: (err) => {
@@ -332,12 +335,12 @@ loadProducts(): void {
 
 /////////-------------------------------new----random
 
-//select from all proudect 
+//select from all proudect
 RandomProducts(): void {
   if (this.selectedCategoryId === 0 ||this.selectedCategoryId != 0 ) {
     this._productService.getAllProducts().subscribe({
       next: (res: Iproduct[]) => {
-        this.searchResults = res; 
+        this.searchResults = res;
         this.randomProducts = this.getRandomProducts(this.searchResults);
       },
       error: (err) => {
@@ -361,5 +364,10 @@ getRandomProducts(products: Iproduct[]): Iproduct[] {
     }
   }
   return randomProducts;
+}
+
+change(event:any){
+  this.currentPage=event;
+  this.loadProducts();
 }
 }

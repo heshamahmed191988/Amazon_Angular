@@ -17,7 +17,7 @@ import { IcreatrOrder } from '../../models/icreatr-order';
   imports: [CommonModule,FormsModule,ProductsComponent],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
-  
+
 })
 export class OrderComponent implements OnInit{
   public currentProduct: Iproduct | undefined;
@@ -43,7 +43,7 @@ setUserid() {
     this._AuthService.getCurrentUserId().subscribe(user => {
       this.UserId = user.userId
       console.log(this.UserId)
-      
+
       this._OrderService.getOrerByUserId(this.UserId).subscribe({
         next:(res)=>{
           this.orders = res;
@@ -67,7 +67,7 @@ setUserid() {
     this.updateorder.quantity = Number(quantity);
     this.updateorder.orderId = orderupdate.orderid;
     this.updateorder.orderItemId = orderupdate.orderitemid;
-    
+
     this._OrderService.updateOrder(this.updateorder).subscribe({
       next: (res) => {
         console.log(res);
@@ -79,7 +79,7 @@ setUserid() {
       }
     });
   }
-  
+
 
 
   delete(id:number){
@@ -106,9 +106,8 @@ getaddressidbyuserid(userid: string) {
   });
 }
 searchByOrderStatus() {
-  debugger
-  if(this.searchTerm==''){
-    this.filteredOrders == this.orders;
+  if(!this.searchTerm.trim()){
+    this.filteredOrders = [...this.orders];;
   }
   else{
   this.filteredOrders = this.orders.filter(order => order.status.toLowerCase() === this.searchTerm.toLowerCase());

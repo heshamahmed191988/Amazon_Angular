@@ -14,10 +14,12 @@ import { CartComponent } from './Components/cart/cart.component';
 import { SearchForProudectComponentComponent } from './Components/search-for-proudect-component/search-for-proudect-component.component';
 import { AddressComponent } from './Components/address/address.component';
 import { MainComponent } from './Components/main/main.component';
+import { AdminComponent } from './Components/admin/admin.component';
+import { EditUserComponent } from './Components/edit-user/edit-user.component';
 
 export const routes: Routes = [
     {
-        path: '', 
+        path: '',
         component: MainLayoutComponent,
         children: [
             {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -25,6 +27,8 @@ export const routes: Routes = [
             {path: 'main', component: MainComponent,},
             {path: 'Order', component: OrderComponent,},
             {path: 'Cart', component: CartComponent,},
+            {path: 'Admin', component: AdminComponent,},
+            {path: 'Edit', component: EditUserComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
             {path: 'review', component: ReviewComponent,},
             {path: 'address', component: AddressComponent,},

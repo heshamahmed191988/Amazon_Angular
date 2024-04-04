@@ -1,0 +1,10 @@
+<div class="container col-8">
+  <h1>Your Account</h1>
+  <div class="buttons">
+  <button [disabled]="UserId" class="btn col-12" routerLink="/login">login</button>
+  <button [disabled]="UserId" class="btn col-12" routerLink="/register">Register</button>
+  <button [disabled]="!UserId" class="btn col-12" (click)="logout()">Logout</button>
+  <button [disabled]="!UserId" class="btn col-12" routerLink="/Order">Your Orders</button>
+  <button [disabled]="!UserId" class="btn col-12" routerLink="/Edit">Edit Your Account</button>
+</div>
+</div>

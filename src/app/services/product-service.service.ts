@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Iproduct } from '../models/iproduct';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { Iresultproduct } from '../models/iresultproduct';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class ProductServiceService {
   getAllProducts(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all`)
   }
+  getAllProductsPagination(pagenumber:number,items:number): Observable<Iresultproduct>{
+    return this.httpclient.get<Iresultproduct>(`${environment.baseUrl}/api/Product/all?pagenumber=${pagenumber}&itemsperpage=${items}`)
+  }
 
   //  getProductById(id: number): Observable<Iproduct> {
   //   return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product/${id}`)
@@ -21,15 +25,15 @@ export class ProductServiceService {
 
   getProductById(id: number): Observable<Iproduct> {
     return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product?id=${id}`);
-   
-    
+
+
   }
-  filterdbynameProducts(name: string): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`);
+  filterdbynameProducts(name: string,pagenumber:number,items:number): Observable<Iproduct[]> {
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}&pagenumber=${pagenumber}&items=${items}`);
   }
 
 
- 
+
   filterdbybrandname(name: string): Observable<Iproduct[]> {
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchbrand?name=${name}`);
   }
