@@ -106,9 +106,8 @@ getaddressidbyuserid(userid: string) {
   });
 }
 searchByOrderStatus() {
-  debugger
-  if(this.searchTerm==''){
-    this.filteredOrders == this.orders;
+  if(!this.searchTerm.trim()){
+    this.filteredOrders = [...this.orders];;
   }
   else{
   this.filteredOrders = this.orders.filter(order => order.status.toLowerCase() === this.searchTerm.toLowerCase());

@@ -12,7 +12,7 @@ export interface Iproduct {
     productDescription?: string;
     colors?: string[];
     itemimages?: string[];
-    StockQuantity?:number;
+    stockQuantity?:number;
     quantity?: number; 
     price: number;
     rating?:number;

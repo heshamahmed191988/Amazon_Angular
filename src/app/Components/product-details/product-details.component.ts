@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ICartService } from '../../services/icart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AddressSharedService } from '../../services/address-shared.service';
+import { ReviewService } from '../../services/review.service';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -48,7 +49,8 @@ export class ProductDetailsComponent implements OnInit {
     colors: [],
     itemimages: [],
     productDescription: '',
-    price: 0
+    price: 0,
+    rating:0
   };
 
   payPalConfig: IPayPalConfig | undefined;
@@ -61,7 +63,8 @@ export class ProductDetailsComponent implements OnInit {
      private _Cart:ICartService,
      private translate: TranslateService,
      private productStateService: ProductStateService
-     ,private router:Router,private addressshared:AddressSharedService) {
+     ,private router:Router,private addressshared:AddressSharedService,
+     private reviewService: ReviewService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
@@ -82,6 +85,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
     this.translate.use(this.lang);
     // Subscribe to language changes
@@ -112,11 +116,13 @@ export class ProductDetailsComponent implements OnInit {
       this._ProductServiceService.getProductById(this.currentId).subscribe({
         next: (res) => {
           this.currentProduct = res;
+          this.fetchReviews();
           this.productStateService.changeProductId(this.currentId); // Update product ID state
         },
         error: (err) => console.log(err)
       });
     });
+    this.fetchReviews();
 
     // this.setUserid()
     this.payPalConfig = this._PaypalService.payPalConfig;
@@ -127,7 +133,24 @@ export class ProductDetailsComponent implements OnInit {
   addToCart(product: Iproduct, quantity: number) {
     this._Cart.addtoOrder(product, quantity);
   }
-
+  fetchReviews() {
+    this.reviewService.getReviewsByProductId(this.currentProduct.id!).subscribe({
+      next: (reviews) => {
+        if (reviews && reviews.length > 0) {
+          let totalRating = 0;
+          for (let review of reviews) {
+            totalRating += review.rating || 0;
+          }
+          this.currentProduct.rating = totalRating / reviews.length;
+        } else {
+          this.currentProduct.rating = 0;
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching reviews:', err);
+      }
+    });
+  }
   getTotalPrice() {
     return this._Cart.getTotalPrice();
   }

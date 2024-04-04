@@ -80,15 +80,22 @@
      
       <span style="margin-right:10px">
           <div class="nav-logo-base nav-sprite"></div>
-      </span>
-      <span  href="" aria-label="Choose a language for shopping." class="icp-button" id="icp-touch-link-language">
-        <i class="fas fa-globe"></i>
-        <select   id="Language">
-          <option value="En">English</option>
-          <option value="Arabic">Arabic</option>
-        </select>
-      </span>
-      <span>
+          <span class="nav-item">
+            <div class="Flagdiv dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="flag " src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"> {{lang | translate}}
+              </a>       
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#" (click)="changelanguage('en')">English</a></li>
+                <li><a class="dropdown-item" href="#" (click)="changelanguage('ar')">Arabic</a></li>
+              </ul>
+            </div>
+            
+                <!-- <select (click)="changelanguage($event)" name="" id="">
+                  <option [selected]="lang==='en'" value="en">{{'egypt'|translate}}English</option>
+                  <option [selected]="lang==='ar'"value="ar">{{'egypt'|translate}}Arabic</option>
+                </select> -->
+          </span>
       <style type="text/css"></style>
       <a href="" aria-label="Choose a country/region for shopping." class="icp-button d2" id="icp-touch-link-country">
         <i class="fas fa-flag-usa"></i> <span class="icp-color-base">United States</span>

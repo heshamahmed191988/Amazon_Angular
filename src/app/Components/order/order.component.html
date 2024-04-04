@@ -49,12 +49,11 @@
 
 <div class="container col-6 col-xs-12 ">
   <h1>Your orders</h1>
-  <form (ngSubmit)="searchByOrderStatus()" class="search">
-    <div>
-      <input [(ngModel)]="searchTerm" type="text" class="Searchinput" aria-label="Text input with dropdown button"  placeholder="Search By Order Status" >
-      <button class="btn "  (click)="searchByOrderStatus()"type="submit" style="margin-right: 8px;">Search Orders</button>
+    <div class="form">
+      <input type="text" class="Searchinput" aria-label="Text input with dropdown button"  placeholder="Search By Order Status" [(ngModel)]="searchTerm" (keyup.enter)="searchByOrderStatus()">
+      <button class="btn "  (click)="searchByOrderStatus()" type="submit" style="margin-right: 8px;">Search Orders</button>
     </div>
-  </form>
+
 
         @for (item of filteredOrders ; track item.id) {
           <div class="ordertotal">

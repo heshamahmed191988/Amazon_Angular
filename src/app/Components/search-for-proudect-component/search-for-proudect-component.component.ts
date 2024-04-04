@@ -99,7 +99,6 @@ export class SearchForProudectComponentComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
     this.RandomProducts();
-  
   }
 
   sortProducts(sortOption: string): void {
@@ -170,8 +169,8 @@ export class SearchForProudectComponentComponent implements OnInit {
     }
 
     filterByBrand(brand: string): void {
-      this._productService.filterdbybrandname(brand).subscribe({ 
-        next: (res: any) => {  
+      this._productService.filterdbybrandname(brand).subscribe({
+        next: (res: any) => {
           if (res) {
             // this.filteredResults=this.searchResults.filter(product => product.BrandName ===brand);
             // console.log( this.filteredResults);
@@ -188,7 +187,6 @@ export class SearchForProudectComponentComponent implements OnInit {
         }
       });
     }
-    
     
     calculateProductRatings(): void {
       //---------Calculate ratings for each product 
@@ -295,9 +293,7 @@ loadProducts(): void {
                   this.searchResults = res;
                   this.Quant = this.searchResults.length;
                   this.sortProducts(this.sortBy);
-                  
                   this.calculateProductRatings();
-                  this.loadProducts();
 
               },
               error: (error) => {

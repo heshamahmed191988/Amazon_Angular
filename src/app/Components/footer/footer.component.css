@@ -247,3 +247,15 @@ background-color: #232f3e;
     margin-left: 0;
   }
     
+
+  .flag
+{
+    width: 3vh;
+    height: 2vh;
+}
+.Flagdiv:hover
+ {
+    
+    border: 1px solid rgb(255, 255, 255);
+   
+}
