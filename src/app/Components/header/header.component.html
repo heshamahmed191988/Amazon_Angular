@@ -15,7 +15,7 @@
      <div class="input-group mb-3" style="margin-top: 15px;">
       <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
         <option value="0">All</option>
-        <option *ngFor="let category of categories" [value]="category.id">{{ category.nameEn }}</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category)}}</option>
     </select>
     
 

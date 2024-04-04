@@ -34,7 +34,7 @@ export class SearchForProudectComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
-      this.searchQuery = paramMap.get('name') ?? '';
+      this.searchQuery = paramMap.get('nameEn') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
       this.loadProducts();
        console.log( this.selectedCategoryId);
@@ -57,7 +57,7 @@ export class SearchForProudectComponentComponent implements OnInit {
       }
     });
     this.route.paramMap.subscribe(paramMap => {
-      this.searchQuery = paramMap.get('name') ?? '';
+      this.searchQuery = paramMap.get('nameEn') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
 
       this.loadProducts();
@@ -246,6 +246,7 @@ loadProducts(): void {
             this.sortedProducts=res;
             console.log( "llok" ,this.searchResults );
             this.Quant = this.searchResults.length;
+          
             this.sortProducts(this.sortBy);
             this.calculateProductRatings();
           } else {

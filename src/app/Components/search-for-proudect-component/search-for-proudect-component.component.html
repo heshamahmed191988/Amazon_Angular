@@ -205,16 +205,17 @@
                     </ng-container><br>
                 </div>
                 <div class="serchandpagination">
-                  <div class="container related">
-                    <h4 class="div-title">Related searches</h4>
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-                      <div class="col" *ngFor="let product of randomProducts" (click)="NavigateToDetails(product.id)">
-                        <i class="fas fa-search"></i>
-                        <p>{{ product.nameEn }}</p>
+                    <div class="container related">
+                      <h4 class="div-title">Related searches</h4>
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
                       </div>
-                    </div>
                   </div>
-                  
                    <nav aria-label="Page navigation example">
                     <ul class="pagination">
                       <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">

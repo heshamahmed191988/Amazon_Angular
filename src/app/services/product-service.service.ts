@@ -39,10 +39,10 @@ export class ProductServiceService {
 
 
   getproudectsbycatogry(id: number): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/bycatogry?catid=${id}`);
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/bycatogry?catid=${id}`);
   }
   filterProductsByCategoryAndName(categoryId: number, name: string): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`);
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`);
   }
 }
 
