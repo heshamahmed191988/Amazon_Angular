@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
 import { NgxPayPalModule } from 'ngx-paypal';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FooterComponent,HeaderComponent,NavBarComponent,HomeComponent,RouterOutlet,NgxPayPalModule],
+  imports: [FooterComponent,HeaderComponent,NavBarComponent,HomeComponent,RouterOutlet,NgxPayPalModule,NgxSpinnerModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

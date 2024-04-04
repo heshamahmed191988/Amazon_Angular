@@ -18,12 +18,13 @@ import { ICartService } from '../../services/icart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AddressSharedService } from '../../services/address-shared.service';
 import { ReviewService } from '../../services/review.service';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-product-details',
   standalone: true,
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
-  imports: [CommonModule, ReviewComponent,SafeBase64Pipe,TranslateModule,NgxPayPalModule,FormsModule,RouterLink]
+  imports: [CommonModule, ReviewComponent,SafeBase64Pipe,TranslateModule,NgxPayPalModule,FormsModule,RouterLink,NgxSpinnerModule]
 })
 export class ProductDetailsComponent implements OnInit {
   public Quantity: number = 1;
@@ -64,7 +65,8 @@ export class ProductDetailsComponent implements OnInit {
      private translate: TranslateService,
      private productStateService: ProductStateService
      ,private router:Router,private addressshared:AddressSharedService,
-     private reviewService: ReviewService) {
+     private reviewService: ReviewService,
+     private spinner:NgxSpinnerService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
@@ -85,6 +87,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.openspinner();
 
     this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
     this.translate.use(this.lang);
@@ -208,8 +211,14 @@ export class ProductDetailsComponent implements OnInit {
       },
       error: (error) => console.log(error)
     });
+  
   }
-
+  openspinner(){
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+  }
   }
 
 

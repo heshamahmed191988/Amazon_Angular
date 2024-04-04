@@ -106,9 +106,9 @@ export class MainComponent implements OnInit {
       }
     );
   }
-  navigateToSearch(name: string): void {
-    this.router.navigate(['/SearchForProductComponent', name]);
-  }
+  navigateToSearch(name: string, Id: number): void {
+    this.router.navigate(['/SearchForProudectComponent'], { queryParams: { name: name, categoryId: Id } });
+}
   loadCategories(): void {
     this.categoryService.getAllCategory().subscribe({
       next: (categories: Icategory[]) => {

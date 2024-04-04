@@ -154,6 +154,35 @@
        "Comment":"Comment",
        "Customer Review":"Customer Reviews"
     }
-
+    ,
+    "search":{
+       
+        "fulfilledByAmazon": "Fulfilled by Amazon",
+        "eligibleForFreeShipping": "Eligible for Free Shipping",
+        "freeShipping": "Free Shipping",
+        "deliveryDay": "Deliver Day",
+        "brand": "Brand",
+        "price": "Price",
+        "upTo50EGP": "Up to 50 EGP",
+        "50To100EGP": "50 to 100 EGP",
+        "100To300EGP": "100 to 300 EGP",
+        "300To1500EGP": "300 to 1500 EGP",
+        "1500To2500EGP": "1500 to 2500 EGP",
+        "above2500EGP": "Above 2500 EGP",
+        "min": "Min",
+        "max": "Max",
+        "go": "Go",
+        "results": "Results",
+        "priceAndDetails": "Price and other details may vary, based on product size and colour.",
+        "Sort by: Featured": "Sort by: Featured",
+        "Price: Low to High": "Price: Low to High",
+        "Price: High to Low": "Price: High to Low",
+        "All customers get FREE Shipping on orders shipped by Amazon": "All customers get FREE Shipping on orders shipped by Amazon",
+        "Get It by Tomorrow": "Get It by Tomorrow",
+        "only": "only",
+        "&up": "& up",
+        "Related searches": "Related searches"
+        
+      }
   
 }
