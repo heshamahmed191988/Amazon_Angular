@@ -10,11 +10,13 @@ import { Iorderdetails } from '../../models/iorderdetails';
 import{ IUpdateOrder } from '../../models/iupdate-order'
 import { Iproduct } from '../../models/iproduct';
 import { IcreatrOrder } from '../../models/icreatr-order';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [CommonModule,FormsModule,ProductsComponent],
+  imports: [CommonModule,FormsModule,ProductsComponent,NgxSpinnerModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
   
@@ -31,12 +33,13 @@ export class OrderComponent implements OnInit{
   public updateorder:IUpdateOrder ={orderId:1,productId:1,quantity:1,orderItemId:1,totalPrice:1}
   UserId:string = ""
   // 82b5b776-9a7a-4556-99e6-983e9509064d
-constructor(private _OrderService:OrderService,private _AuthService:AuthService)
+constructor(private _OrderService:OrderService,private _AuthService:AuthService,private animationService:AnimationService)
 {
 
 }
 
 ngOnInit(): void {
+  this.animationService.openspinner();
     this.setUserid();
   }
 setUserid() {

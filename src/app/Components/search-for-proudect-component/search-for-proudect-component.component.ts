@@ -5,11 +5,13 @@ import { ProductServiceService } from '../../services/product-service.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReviewService } from '../../services/review.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'app-search-for-proudect-component',
   standalone: true,
-  imports: [CommonModule,TranslateModule],
+  imports: [CommonModule,TranslateModule,NgxSpinnerModule],
   templateUrl: './search-for-proudect-component.component.html',
   styleUrl: './search-for-proudect-component.component.css'
 })
@@ -30,9 +32,13 @@ export class SearchForProudectComponentComponent implements OnInit {
   randomProducts: Iproduct[] = [];
 
   selectedCategory: string = 'All';
-  constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService,private translate:TranslateService,private reviewService:ReviewService) {}
+  constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService
+    ,private translate:TranslateService,
+    private reviewService:ReviewService,
+    private animationService:AnimationService) {}
 
   ngOnInit(): void {
+    this.animationService.openspinner();
     this.route.paramMap.subscribe(paramMap => {
       this.searchQuery = paramMap.get('nameEn') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
@@ -178,6 +184,8 @@ export class SearchForProudectComponentComponent implements OnInit {
             console.log(this.searchResults)
             this.Quant = this.searchResults.length;
             this.sortProducts(this.sortBy);
+            this.calculateProductRatings();
+
           } else {
             console.log('Invalid response format');
           }

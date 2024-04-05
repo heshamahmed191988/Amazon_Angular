@@ -5,11 +5,13 @@ import { ProductServiceService } from '../../services/product-service.service';
 import { Iproduct } from '../../models/iproduct';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule, TranslateModule,NgxSpinnerModule,],
+  
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
@@ -25,11 +27,12 @@ export class ProductsComponent implements OnInit {
     private productService: ProductServiceService, 
     private translate: TranslateService ,
     private spinner:NgxSpinnerService,
+    private animationService: AnimationService
     
     ) {}
 
   ngOnInit(): void {
-    this.openspinner();
+    this.animationService.openspinner();
     this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
     this.translate.use(this.lang); // Use the language with TranslateService
 
@@ -78,10 +81,5 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  openspinner(){
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 500);
-  }
+  
 }

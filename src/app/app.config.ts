@@ -18,8 +18,10 @@ export const appConfig: ApplicationConfig = {
     }
   })),importProvidersFrom(NgxSpinnerModule.forRoot({ type: 'square-jelly-box' })),
   provideAnimations(),
-  importProvidersFrom([BrowserAnimationsModule])
+  importProvidersFrom([BrowserAnimationsModule]),
+  
 ]
+
 
 
 };

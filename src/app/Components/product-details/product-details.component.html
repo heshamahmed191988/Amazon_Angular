@@ -47,7 +47,7 @@
       <!-- <h4 class="box-title mt-5">Product description</h4> -->
       <h4>{{ getProductDescription(currentProduct)}}</h4><hr>
       <h4 class="list-group-item text-center" >{{ getProductName(currentProduct)}}</h4><hr>
-      <h5>{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</h5><hr>
+      <h5 class="list-group-item text-center" >{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</h5><hr>
       <h2 class="mt-5">
         <sup>EGP</sup>{{currentProduct.price}}<sup>.00</sup>
       </h2>
@@ -113,7 +113,7 @@
              <!-- name="Quantity" [(ngModel)]="Quantity"> -->
           </div>
         </li>
-        <li class="list-group-item text-center" >  <button class="btn-buy-now w-100" style="background-color: #f7ca00;border-radius: 12px;" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >{{'detail.Add to Cart'|translate}}</button>
+        <li class="list-group-item text-center" >  <button [disabled]="!currentProduct || (currentProduct.stockQuantity !== undefined && Quantity > currentProduct.stockQuantity)"  class="btn-buy-now w-100" style="background-color: #f7ca00;border-radius: 12px;" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >{{'detail.Add to Cart'|translate}}</button>
           <li class="list-group-item text-center" > <button class=" btn-add-to-cart w-100" style="background-color: #fa8900;border-radius: 12px;" *ngIf="!isAddressSubmitted" (click)="gottoAddress()">{{'detail.Buy Now'|translate}}</button>
           <li class="list-group-item text-center">  <ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
           </li>

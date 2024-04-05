@@ -8,11 +8,13 @@ import { Icategory } from '../../models/icategory';
 import { Router, RouterLink } from '@angular/router';
 import { SearchForProudectComponentComponent } from '../search-for-proudect-component/search-for-proudect-component.component';
 import { CategoryServiceService } from '../../services/category-service.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule,RouterLink,SearchForProudectComponentComponent,RouterLink],
+  imports: [CommonModule,RouterLink,SearchForProudectComponentComponent,RouterLink,NgxSpinnerModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
@@ -29,11 +31,13 @@ export class MainComponent implements OnInit {
   constructor(private _deal:DealService , 
     private prd:ProductServiceService,
     private router:Router,
-    private categoryService:CategoryServiceService)
+    private categoryService:CategoryServiceService,
+    private animationService:AnimationService)
   {
 
   }
   ngOnInit(): void {
+    this.animationService.openspinner();
     this._deal.getDeals().subscribe(deals => {
       this.deals = deals;
       this.endSlider = (this.deals.length - 1) * 100;

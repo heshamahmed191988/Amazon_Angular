@@ -19,6 +19,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AddressSharedService } from '../../services/address-shared.service';
 import { ReviewService } from '../../services/review.service';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { AnimationService } from '../../services/animation.service';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -66,7 +67,8 @@ export class ProductDetailsComponent implements OnInit {
      private productStateService: ProductStateService
      ,private router:Router,private addressshared:AddressSharedService,
      private reviewService: ReviewService,
-     private spinner:NgxSpinnerService) {
+     private spinner:NgxSpinnerService,
+     private animationService: AnimationService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
@@ -87,7 +89,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.openspinner();
+    this.animationService.openspinner();
 
     this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
     this.translate.use(this.lang);
@@ -213,12 +215,7 @@ export class ProductDetailsComponent implements OnInit {
     });
   
   }
-  openspinner(){
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 500);
-  }
+
   }
 
 
