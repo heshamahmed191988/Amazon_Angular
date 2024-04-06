@@ -40,7 +40,7 @@ export class SearchForProudectComponentComponent implements OnInit {
   ngOnInit(): void {
     this.animationService.openspinner();
     this.route.paramMap.subscribe(paramMap => {
-      this.searchQuery = paramMap.get('nameEn') ?? '';
+      this.searchQuery = paramMap.get('name') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
       this.loadProducts();
        console.log( this.selectedCategoryId);
@@ -62,30 +62,30 @@ export class SearchForProudectComponentComponent implements OnInit {
         });
       }
     });
-    this.route.paramMap.subscribe(paramMap => {
-      this.searchQuery = paramMap.get('nameEn') ?? '';
-      this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
+    // this.route.paramMap.subscribe(paramMap => {
+    //   this.searchQuery = paramMap.get('nameEn') ?? '';
+    //   this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
 
-      this.loadProducts();
-      if (this.searchQuery !== '') {
-        this._productService.filterdbynameProducts(this.searchQuery).subscribe({
-          next: (res: any) => {
-            if (res ) {
-              this.searchResults = res;
-              this.Quant = this.searchResults.length;
-              this.sortProducts(this.sortBy);
-              this.calculateProductRatings();
-              //console.log(this.searchResults);
-            } else {
-              console.log('Invalid response format');
-            }
-          },
-          error: (err) => {
-            console.log(err);
-          }
-        });
-      }
-    });
+    //   this.loadProducts();
+    //   if (this.searchQuery !== '') {
+    //     this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+    //       next: (res: any) => {
+    //         if (res ) {
+    //           this.searchResults = res;
+    //           this.Quant = this.searchResults.length;
+    //           this.sortProducts(this.sortBy);
+    //           this.calculateProductRatings();
+    //           //console.log(this.searchResults);
+    //         } else {
+    //           console.log('Invalid response format');
+    //         }
+    //       },
+    //       error: (err) => {
+    //         console.log(err);
+    //       }
+    //     });
+    //   }
+    // });
 
     this._productService.getbrandsname().subscribe({
       next: (res) => {
@@ -230,9 +230,10 @@ loadProducts(): void {
   if (this.searchQuery !== '') {
     if (this.selectedCategoryId === 0) {
       this._productService.filterdbynameProducts(this.searchQuery).subscribe({
-        next: (res: any) => {
+        next: (res: Iproduct[]) => {
           if (res) {
             this.searchResults = res;
+            //this.sortedProducts=res;
             this.Quant = this.searchResults.length;
             this.sortProducts(this.sortBy);
             this.calculateProductRatings();
@@ -246,7 +247,7 @@ loadProducts(): void {
       });
     } else {
       this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery).subscribe({
-        next: (res: Iproduct[]) => {
+        next: (res: any) => {
           if (res) {
             this.searchResults = res;
             this.sortedProducts=res;
@@ -265,7 +266,7 @@ loadProducts(): void {
       });
       
     }
-    this.RandomProducts();
+   // this.RandomProducts();
   } 
   else 
   {

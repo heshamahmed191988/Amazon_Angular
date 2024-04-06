@@ -31,4 +31,30 @@
       font-size: 14px; /* Slightly smaller font size */
     }
   }
-  
+  .ecommerce-gallery .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .ecommerce-gallery .col-3 {
+      flex: 0 0 50%; /* Take up 50% of the container width on smaller screens */
+      max-width: 50%;
+  }
+}
+
+  .ecommerce-gallery .lightbox {
+    position: relative;
+    width: 100%;
+     /* Full width of its parent */
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+}
+
+.ecommerce-gallery .lightbox img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This ensures the image covers the area without losing its aspect ratio */
+}

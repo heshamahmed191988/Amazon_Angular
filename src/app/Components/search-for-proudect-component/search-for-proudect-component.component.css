@@ -125,7 +125,7 @@ p > span:hover
 .cardimg img
 {
    height: 40vh;
-   width: 15vw;
+   width: 18vw;
    
 }
 @media (max-width: 768px) { 

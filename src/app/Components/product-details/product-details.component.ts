@@ -32,6 +32,7 @@ export class ProductDetailsComponent implements OnInit {
   public UserId: string = "";
   // "82b5b776-9a7a-4556-99e6-983e9509064d;
   adressId:number = 0;
+  mainImageUrl!: string ; 
 
   public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
   public total: number = 0
@@ -70,7 +71,8 @@ export class ProductDetailsComponent implements OnInit {
      private spinner:NgxSpinnerService,
      private animationService: AnimationService) {
     this.setUserid();
-    this._PaypalService.updateOrderData.subscribe({
+    
+        this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
 
         this.order.userID = this.UserId;
@@ -90,6 +92,25 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.animationService.openspinner();
+    this.activatedrouter.paramMap.subscribe((paramMap) => {
+      this.currentId = Number(paramMap.get('id'));
+      this._ProductServiceService.getProductById(this.currentId).subscribe({
+          next: (res) => {
+              this.currentProduct = res;
+              // Ensure 'mainImageUrl' is set here after 'currentProduct' is updated
+              if (this.currentProduct.productimages && this.currentProduct.productimages.length > 0) {
+                  this.mainImageUrl = this.currentProduct.productimages[0];
+              } else {
+                  // Optionally, set a placeholder image if no images are available
+                  this.mainImageUrl = 'path/to/your/placeholder/image.jpg';
+              }
+              this.fetchReviews();
+              this.productStateService.changeProductId(this.currentId); // Update product ID state
+          },
+          error: (err) => console.log(err)
+      });
+  });
+
 
     this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
     this.translate.use(this.lang);
@@ -135,6 +156,10 @@ export class ProductDetailsComponent implements OnInit {
   // addToOrder(currentProduct:Iproduct){
   //   this._Cart.addtoOrder(currentProduct);
   // }  
+  updateMainImage(image: string) {
+    // Update the main image source with the clicked image
+    this.mainImageUrl = image;
+}
   addToCart(product: Iproduct, quantity: number) {
     this._Cart.addtoOrder(product, quantity);
   }

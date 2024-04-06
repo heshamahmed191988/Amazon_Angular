@@ -116,7 +116,7 @@
               {{ 'search.&up' | translate }}
             </span><br>
             <span (click)="filterByRating(2)">
-              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
               {{ 'search.&up' | translate }}
             </span><br>
             <span (click)="filterByRating(1)">
@@ -224,3 +224,31 @@
                     </div>
                   </ng-container><br>
               </div>
+
+              <div class="serchandpagination">
+                <div class="container related">
+                  <h4 class="div-title">Related searches</h4>
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                    <div class="col" *ngFor="let product of randomProducts" (click)="NavigateToDetails(product.id )">
+                      <i class="fas fa-search"></i>
+                      <p>{{getProductName(product)}}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                 <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">
+                      <a class="page-link" href="javascript:void(0)" (click)="changePage(i+1)">{{i + 1}}</a>
+                    </li>
+                  </ul>
+                </nav>  
+            </div>
+       </div>
+     </div>
+    <!--end-->
+ </div>
+ <!--end first fluid-->
+ <div>
+  
+ </div>

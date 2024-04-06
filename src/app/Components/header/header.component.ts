@@ -100,7 +100,7 @@ export class HeaderComponent implements OnInit {
     this.selectedCategoryId = categoryId;
   }
   onCategoryChange(): void {
-    this.router.navigate(['/SearchForProudectComponent', this.selectedCategoryId, {
+    this.router.navigate(['/SearchForProudectComponent',{
         name: this.searchQuery,
         categoryId: this.selectedCategoryId
     }]);

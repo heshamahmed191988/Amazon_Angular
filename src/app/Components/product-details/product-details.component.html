@@ -24,28 +24,27 @@
 <body >
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-12 col-lg-4">
-        <div class="ecommerce-gallery" data-mdb-zoom-effect="true" data-mdb-auto-height="true">
-          <div class="row py-3 shadow-5">
-            <!-- Main Image -->
-            <div class="col-12 mb-1">
-              <div class="lightbox">
-                <img [src]="currentProduct.productimages?.[0] | safeBase64" alt="Gallery image 1" class="ecommerce-gallery-main-img active w-100 img-fluid"/>
-              </div>
+        <div class="col-12 col-md-12 col-lg-4">
+            <div class="ecommerce-gallery">
+                <div class="row py-3 shadow-5">
+                    <!-- Main Image -->
+                    <div class="col-12 mb-1">
+                        <div class="lightbox">
+                            <!-- Bind main image source to 'mainImageUrl' -->
+                            <img [src]="mainImageUrl | safeBase64" alt="Gallery image 1" class="w-100 img-fluid"/>
+                        </div>
+                    </div>
+                    <!-- Secondary Images -->
+                    <div class="col-3 mt-1" *ngFor="let image of currentProduct?.productimages; let i = index">
+                        <img [src]="image | safeBase64" (click)="updateMainImage(image)" [alt]="'Gallery image ' + (i + 1)" class="w-100 img-fluid secondary-img"/>
+                    </div>
+                </div>
             </div>
-            <!-- Secondary Images -->
-            <div class="col-3 mt-1" *ngFor="let image of currentProduct?.productimages; let i = index">
-              <img [src]="image | safeBase64" [alt]="'Gallery image ' + (i + 1)" class="w-100 img-fluid secondary-img"/>
-            </div>
-      
-         
         </div>
-    </div>
-  </div>
 
     <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
       <!-- <h4 class="box-title mt-5">Product description</h4> -->
-      <h4>{{ getProductDescription(currentProduct)}}</h4><hr>
+      <h4 class="list-group-item text-center" >{{ getProductDescription(currentProduct)}}</h4><hr>
       <h4 class="list-group-item text-center" >{{ getProductName(currentProduct)}}</h4><hr>
       <h5 class="list-group-item text-center" >{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</h5><hr>
       <h2 class="mt-5">
@@ -102,7 +101,7 @@
       
   </div>
   
-<div class="last col-12 col-lg-2 mt-3 mx-lg-4" style="width: auto;">
+<div class="last col-md-12 col-lg-2 mt-3 mx-lg-4 " style="width: auto;">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-center"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>

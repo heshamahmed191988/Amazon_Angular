@@ -12,18 +12,25 @@
             <span style="color: #d9dbda; margin-right: 10px;">{{'header.Deliver'|translate}}</span> <br><i class="fas fa-map-marker-alt"></i>{{'header.egypt'|translate}}</a>
           </span>      
       
-     <div class="input-group mb-3" style="margin-top: 15px;">
-      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
-        <option value="0">All</option>
-        <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category)}}</option>
-    </select>
+          <div class="input-group mb-3" style="margin-top: 15px;">
+            <div class="input-group-prepend">
+             
+      
+                 <!-- <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategory">
+                  <option value="0">All</option>
+                  <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                </select> -->
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+                  <option value="0">All</option>
+                  <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category)}}</option>
+              </select>
+              
     
 
-  </div>
-  <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" (keyup.enter)="searchProducts()" >
-  <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
-  </button>
-    
+            </div>
+            <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" (keyup.enter)="searchProducts()">
+            <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
+            </button>
     
     
     
