@@ -116,16 +116,17 @@
                 <div class="row row-cols-1 row-cols-md-4 g-4 card1" style="padding-top: 0px;margin-top: 0px;">
                     <ng-container *ngFor="let product of paginatedProducts; let i = index" >   
                      
-                      <div class="col " (click)="NavigateToDetails(product.id)">
+                      <div class="col " *ngIf="product.stockQuantity !== 0"  (click)="NavigateToDetails(product.id )">
                         <div class="card carddetails">
                             <div class=" cardimg">
                                 <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
                             </div>
-                            <div class="card-body">
+                            
+                            <div class="card-body" >
+                              
                               <h5 class="card-title">{{ product.name }}</h5>
                               <h5 class="card-title">{{ product.description }}</h5>
-                              <h5 class="card-title"><sup>EGP</sup> {{ product.price }}<sup>00</sup></h5>
-                             
+                              <h5 class="card-title"><sup>EGP</sup> {{ product.price }}<sup>00</sup></h5>                            
                               <h5 class="card-title">{{ product.rating }}</h5>
                             
                               @if (product.rating && product.rating > 0 && product.rating <= 1) 
@@ -161,7 +162,22 @@
                                {
                                  <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
                                }
-                              
+                                                  <!--stockQuantity -->
+                               @if(product.stockQuantity === 1)
+                               {
+                                 <p style="color: #B12704; font-size: small;">Only 1 left in stock - order soon.</p>
+                               }
+                               
+                              @if(product.stockQuantity===2)
+                              {
+                                <p style="color: #B12704; font-size: small;">Only 2 left in stock - order soon.</p>
+                              }
+                              @if(product.stockQuantity===3)
+                              {
+                                <p style="color: #B12704; font-size: small;">Only 3 left in stock - order soon.</p>
+                              }
+                               
+                               
                           
                           
                             </div>
@@ -170,17 +186,16 @@
                     </ng-container><br>
                 </div>
                 <div class="serchandpagination">
-                    <div class="container related">
-                      <h4 class="div-title">Related searches</h4>
-                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
-                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
-                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
-                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
-                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
-                        <div class="col"><i class="fas fa-search"></i><p >{{searchQuery!}}</p></div>
+                  <div class="container related">
+                    <h4 class="div-title">Related searches</h4>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                      <div class="col" *ngFor="let product of randomProducts" (click)="NavigateToDetails(product.id )">
+                        <i class="fas fa-search"></i>
+                        <p>{{ product.name }}</p>
                       </div>
+                    </div>
                   </div>
+                  
                    <nav aria-label="Page navigation example">
                     <ul class="pagination">
                       <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">

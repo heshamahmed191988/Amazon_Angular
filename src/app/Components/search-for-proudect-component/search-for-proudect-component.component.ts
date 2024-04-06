@@ -25,6 +25,7 @@ export class SearchForProudectComponentComponent implements OnInit {
   brands: any[] = [];
   filteredResults: Iproduct[] = [];
   selectedCategoryId: number = 0;
+  randomProducts: Iproduct[] = [];
      constructor(
       private router: Router,private route: ActivatedRoute,
       private _productService: ProductServiceService,private reviewService: ReviewService) {}
@@ -63,7 +64,7 @@ export class SearchForProudectComponentComponent implements OnInit {
         console.error('Error fetching categories:', error);
       }
     });
-
+    this.RandomProducts();
   }
 
   sortProducts(sortOption: string): void {
@@ -111,14 +112,15 @@ export class SearchForProudectComponentComponent implements OnInit {
     filterByPrice(minPrice: number, maxPrice: number): void {
       if (minPrice === 0 && maxPrice === Infinity) {
          //---------No price filter
-        this.sortedProducts = [...this.searchResults];
+        this.sortedProducts = [...this.searchResults];        
+        
       } else {
           //---------Filter products based on price range
         this.sortedProducts = this.searchResults.filter(product => 
           product.price >= minPrice && product.price <= maxPrice
         );
+        
       }
-      
       this.currentPage = 1;
       this.updatePaginatedProducts();
     }
@@ -209,52 +211,6 @@ filterByRating(minRating: number): void {
   this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
 }
 
-// loadProducts(): void {
-//   if (this.searchQuery !== '') {
-//     if (this.selectedCategoryId === 0) {
-//       this._productService.filterdbynameProducts(this.searchQuery).subscribe({
-//         next: (res: any) => {
-//           if (res) {
-//             this.searchResults = res;
-//             this.Quant = this.searchResults.length;
-//             this.sortProducts(this.sortBy);
-//             this.calculateProductRatings();
-//           } else {
-//             console.log('Invalid response format');
-//           }
-//         },
-//         error: (err) => {
-//           console.log(err);
-//         }
-//       });
-//     } else {
-//       this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery).subscribe({
-//         next: (res: Iproduct[]) => {
-//           if (res) {
-//             this.searchResults = res;
-//             this.sortedProducts=res;
-//             console.log( "llok" ,this.searchResults );
-//             this.Quant = this.searchResults.length;
-//             this.sortProducts(this.sortBy);
-//             this.calculateProductRatings();
-//           } else {
-//             console.log('Invalid response format');
-//           }
-//         },
-//         error: (err) => {
-//           console.log(err);
-//         }
-//       });
-      
-//     }
-//   } else {
-//     this.filterProductsByCategory();
-//   }
-// }
-
-
-
-
 
 loadProducts(): void {
   if (this.searchQuery !== '') {
@@ -320,8 +276,8 @@ loadProducts(): void {
       this.filterProductsByCategory();
     }
   }
+  //  this.RandomProducts();
 }
-
 
 filterProductsByCategory(): void {
   if (this.selectedCategoryId !== 0) {
@@ -337,6 +293,61 @@ filterProductsByCategory(): void {
           }
       });
   }
+}
+///select according to category
+
+// RandomProducts(): void {
+//   if (this.selectedCategoryId === 0) {
+//     this._productService.getAllProducts().subscribe({
+//       next: (res: Iproduct[]) => {
+//         this.randomProducts = this.getRandomProducts(res);
+//       },
+//       error: (err) => {
+//         console.error('Error fetching random products:', err);
+//       }
+//     });
+//   } else {
+//     this._productService.getproudectsbycatogry(this.selectedCategoryId).subscribe({
+//       next: (res: Iproduct[]) => {
+//         this.searchResults = res; 
+//         this.randomProducts = this.getRandomProducts(this.searchResults);
+//       },
+//       error: (err) => {
+//         console.error('Error fetching random products:', err);
+//       }
+//     });
+//   }
+// }
+
+//select from all proudect 
+RandomProducts(): void {
+  if (this.selectedCategoryId === 0 ||this.selectedCategoryId != 0 ) {
+    this._productService.getAllProducts().subscribe({
+      next: (res: Iproduct[]) => {
+        this.searchResults = res; 
+        this.randomProducts = this.getRandomProducts(this.searchResults);
+      },
+      error: (err) => {
+        console.error('Error fetching random products:', err);
+      }
+    });
+  }
+}
+
+
+
+getRandomProducts(products: Iproduct[]): Iproduct[] {
+  let randomProducts: Iproduct[] = [];
+  let maxIndex = Math.min(6, products.length);
+  let randomIndices: number[] = [];
+  while (randomIndices.length < maxIndex) {
+    let randomIndex = Math.floor(Math.random() * products.length);
+    if (!randomIndices.includes(randomIndex)) {
+      randomIndices.push(randomIndex);
+      randomProducts.push(products[randomIndex]);
+    }
+  }
+  return randomProducts;
 }
 
 }

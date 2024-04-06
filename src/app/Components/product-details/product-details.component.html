@@ -42,11 +42,45 @@
   </div>
 
     <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
-      <h4 class="box-title mt-5">Product description</h4>
       <p>{{currentProduct.productDescription}}</p><hr>
       <h2 class="mt-5">
         <sup>EGP</sup>{{currentProduct.price}}<sup>00</sup>
       </h2>
+     
+       @if (currentProduct.rating && currentProduct.rating > 0 && currentProduct.rating <= 1) 
+       {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+       }
+       @else if (currentProduct.rating && currentProduct.rating > 1 && currentProduct.rating < 2) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+       }
+       @else if (currentProduct.rating && currentProduct.rating ==2 ) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+       }
+       @else if (currentProduct.rating && currentProduct.rating > 2 && currentProduct.rating < 3) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+       }
+   
+       @else if (currentProduct.rating && currentProduct.rating ==3) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+       }
+       @else if (currentProduct.rating && currentProduct.rating > 4 && currentProduct.rating < 5) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+       }
+       @else if (currentProduct.rating && currentProduct.rating ==4 ) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+       }
+       @else if (currentProduct.rating && currentProduct.rating ==5 ) 
+       {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+       }
+       <hr> 
       <span>All prices include VAT.</span>
         <h6>Buy with installments and pay EGP 21.43 for 60 months with select banks.</h6>
         <h4>Item Colors:{{currentProduct.itemscolor}}</h4>

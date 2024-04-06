@@ -16,6 +16,7 @@ import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { ICartService } from '../../services/icart.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ReviewService } from '../../services/review.service';
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -40,7 +41,8 @@ export class ProductDetailsComponent implements OnInit {
     itemimages: [],
     description: '',
     productDescription: '',
-    price: 0
+    price: 0,
+    rating:0,
   };
 
   payPalConfig: IPayPalConfig | undefined;
@@ -48,11 +50,11 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private activatedrouter: ActivatedRoute
     , private location: Location, private route: Router,
     private _ProductServiceService: ProductServiceService,
-    private _PaypalService: PaypalService, private _AuthService: AuthService,private _Cart:ICartService,private productStateService: ProductStateService) {
+    private _PaypalService: PaypalService, private _AuthService: AuthService,private _Cart:ICartService,private productStateService: ProductStateService,private reviewService: ReviewService) {
     this.setUserid();
     this._PaypalService.updateOrderData.subscribe({
       next: (data) => {
-
+      console.log(this.currentProduct.rating,"rrrr");
         this.order.userID = this.UserId;
         this.order.orderQuantities = [];
         this.order.orderQuantities.push({
@@ -82,11 +84,17 @@ export class ProductDetailsComponent implements OnInit {
     //     }
     //   });
     // });
+
+
+
+
+
     this.activatedrouter.paramMap.subscribe((paramMap) => {
       this.currentId = Number(paramMap.get('id'));
       this._ProductServiceService.getProductById(this.currentId).subscribe({
         next: (res) => {
           this.currentProduct = res;
+          this.fetchReviews();
           this.productStateService.changeProductId(this.currentId); // Update product ID state
         },
         error: (err) => console.log(err)
@@ -96,6 +104,26 @@ export class ProductDetailsComponent implements OnInit {
     // this.setUserid()
     this.payPalConfig = this._PaypalService.payPalConfig;
   }
+
+  fetchReviews() {
+    this.reviewService.getReviewsByProductId(this.currentProduct.id!).subscribe({
+      next: (reviews) => {
+        if (reviews && reviews.length > 0) {
+          let totalRating = 0;
+          for (let review of reviews) {
+            totalRating += review.rating || 0;
+          }
+          this.currentProduct.rating = totalRating / reviews.length;
+        } else {
+          this.currentProduct.rating = 0;
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching reviews:', err);
+      }
+    });
+  }
+  
   addToOrder(currentProduct:Iproduct){
     this._Cart.addtoOrder(currentProduct);
   }  

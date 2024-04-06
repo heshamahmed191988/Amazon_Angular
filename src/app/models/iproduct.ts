@@ -13,5 +13,6 @@ export interface Iproduct {
     rating?:number;
     category?: string;
     CategoryID?:number;
-    categoryId?:number
+    categoryId?:number;
+    stockQuantity?:number;
 }
