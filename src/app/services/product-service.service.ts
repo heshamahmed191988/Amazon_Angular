@@ -16,6 +16,7 @@ export class ProductServiceService {
     return this.httpclient.get<Iproduct[]>(`http://localhost:5110/api/Product/all`)
   }
 
+  
 
   getProductById(id: number): Observable<Iproduct> {
     return this.httpclient.get<Iproduct>(`http://localhost:5110/api/Product?id=${id}`);

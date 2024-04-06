@@ -276,7 +276,7 @@ loadProducts(): void {
       this.filterProductsByCategory();
     }
   }
-  //  this.RandomProducts();
+  this.RandomProducts();
 }
 
 filterProductsByCategory(): void {
@@ -295,7 +295,6 @@ filterProductsByCategory(): void {
   }
 }
 ///select according to category
-
 // RandomProducts(): void {
 //   if (this.selectedCategoryId === 0) {
 //     this._productService.getAllProducts().subscribe({
