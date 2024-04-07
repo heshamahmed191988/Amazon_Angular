@@ -12,11 +12,12 @@ import { Iproduct } from '../../models/iproduct';
 import { IcreatrOrder } from '../../models/icreatr-order';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AnimationService } from '../../services/animation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [CommonModule,FormsModule,ProductsComponent,NgxSpinnerModule],
+  imports: [CommonModule,FormsModule,ProductsComponent,NgxSpinnerModule,TranslateModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
   

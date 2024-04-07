@@ -136,7 +136,9 @@
         "Brand Name": " البراند",
         "Key Highlights":"ابرز النقاط",
         "Sturdy structure":"تصميم رائع",
-        "Designed to foster easy portability":"مصمم مع سهولة عالية فى التنقل "
+        "Designed to foster easy portability":"مصمم مع سهولة عالية فى التنقل ",
+        "Stock quantity":"الكمية المتاحة",
+        "results for":"نتائج "
 
 
 
@@ -186,5 +188,34 @@
         "&up": "وأكثر",
         "Related searches": "البحوث ذات الصلة"
         
-      }
+      },
+      "cart": {
+         "Empty Cart": "عربة فارغة",
+         "Items in your cart": "العناصر في عربتك",
+         "items": "العناصر",
+         "Description lists": "قوائم الوصف",
+         "A description list is perfect for defining terms": "تعتبر قائمة الوصف مثالية لتحديد المصطلحات",
+         "Checkout": "الدفع",
+         "Continue shopping": "متابعة التسوق",
+         "Cart Summary": "ملخص العربة",
+         "Enter Shipping Address": "إدخال عنوان الشحن",
+         "Delete All Cart": "حذف جميع المنتجات من العربة",
+         "quantity":"الكمية"
+       } ,
+
+       "order": {
+           "Your orders": "طلباتك",
+           "Search Orders": "البحث في الطلبات",
+           "Date Placed": "تاريخ الطلب",
+           "Order Status ": "حالة الطلب",
+           "Total": "الإجمالي",
+           "Ring No-Drill Mount for Ring Video Boorbell": "قاعدة بدون تثبيت لجرس فيديو رينج",
+           "View your item": "عرض العنصر الخاص بك",
+           "Order Item": "عنصر الطلب",
+           "Product Name": "اسم المنتج",
+           "Date": "تاريخ",
+           "Total Price": "السعر الإجمالي",
+           "Order Status": "حالة الطلب",
+           "Quantity": "الكمية"
+         }
 }

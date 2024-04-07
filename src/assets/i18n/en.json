@@ -140,7 +140,9 @@
         "Brand Name": "Brand Name",
         "Key Highlights":"Key Highlights",
         "Sturdy structure":"Sturdy structure",
-        "Designed to foster easy portability":"Designed to foster easy portability"
+        "Designed to foster easy portability":"Designed to foster easy portability",
+        "Stock quantity":"Stock quantity",
+        "results for":"Results for"
     } ,
 
    
@@ -183,6 +185,35 @@
         "&up": "& up",
         "Related searches": "Related searches"
         
+      },
+      "cart":{
+        "Empty Cart":"empty cart",
+        "Items in your cart":"items in your cart",
+        "items":"items",
+        "Description lists":"Description lists",
+        "A description list is perfect for defining terms":"A description list is perfect for defining terms",
+        "Checkout":"Checkout",
+        "Continue shopping":"Continue shopping",
+        "Cart Summary":"Cart Summary",
+        "Enter Shipping Address":"Enter Shipping Address",
+        " Delete All Cart":" Delete All Cart",
+        "quantity":"quantity"
+      }
+      ,
+      "order":{
+        "Your orders":"Your orders",
+        "Search Orders":"Search Orders",
+        "Date Placed":"Date Placed",
+        "Order Status ":"Order Status ",
+        "Total":"Total",
+        "Ring No-Drill Mount for Ring Video Boorbell":"Ring No-Drill Mount for Ring Video Boorbell(2nd Gen)",
+        "View your item":"View your item",
+        "Order Item":"Order Item",
+        "Product Name":"Product Name",
+        "Date":"Date",
+        "Total Price":"Total Price",
+        "Order Status":"Order Status",
+        "Quantity":"Quantity"
       }
   
 }

@@ -1,6 +1,4 @@
 <div class="Main_Page">
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
-
     <!-- slider -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -33,11 +31,10 @@
 
 <!-- Category -->
 
-<div class="container card-product-container ">
+<div class="container card-product-containe">
     <div class="row">
-        <div class="col-md-4 col-lg-6" *ngFor="let category of categories">
-            <a [routerLink]="['/SearchForProudectComponent']" [queryParams]="{ name: category.nameEn, categoryId: category.id }" style="color: black; text-decoration: none;">
-
+        <div class="col-md-4" *ngFor="let category of categories">
+            <a [routerLink]="['/SearchForProudectComponent', category.nameEn]">
                 <div class="card" style="margin-bottom: 10px;">
                     <h3 class="card-header">{{ category.nameEn }}</h3>
                     <img class="card-img-top" src="https://m.media-amazon.com/images/I/41aF1Kpc1iL._SY160_.jpg"

@@ -49,7 +49,7 @@
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 
 <div class="container col-6 col-xs-12 ">
-  <h1>Your orders</h1>
+  <h1>{{'order.Your orders'|translate}}</h1>
     <div class="form">
       <input type="text" class="Searchinput" aria-label="Text input with dropdown button"  placeholder="Search By Order Status" [(ngModel)]="searchTerm" (keyup.enter)="searchByOrderStatus()">
       <button class="btn "  (click)="searchByOrderStatus()" type="submit" style="margin-right: 8px;">Search Orders</button>
@@ -59,25 +59,25 @@
         @for (item of filteredOrders ; track item.id) {
           <div class="ordertotal">
         <div class="order">
-        <div>Date Placed<div>{{item.datePlaced|date}}</div></div>
-        <div>Order Status <div>{{item.status}}</div></div>
-        <div>Total <div>{{item.totalPrice}}$</div></div>
+        <div>{{'order.Date Placed'|translate}}<div>{{item.datePlaced|date}}</div></div>
+        <div>{{'order.Order Status'|translate }}<div>{{item.status}}</div></div>
+        <div>{{'order.Total'|translate}} <div>{{item.totalPrice}}$</div></div>
       </div>
       <div class="details">
-      <h6>Ring No-Drill Mount for Ring Video Boorbell(2nd Gen)</h6>
+      <!-- <h6>{{'order.Ring No-Drill Mount for Ring Video Boorbell'|translate}}</h6> -->
         <button (click)="details(item.id)" class="btn">View your item</button>
       </div>
       </div>
     }
-    <h3 class="title">Order Item</h3>
+    <h3 class="title">{{'order.Order Item'|translate}}</h3>
   @for(order of orderdetails ; track order.orderitemid)
   {
   <div class="orderitem col-12 col-xs-12">
-    <p>Product Name : {{order.productname}}</p>
-    <p>Date : {{order.datePlaced|date:'yyyy-MM-dd'}}</p>
-    <p>Total Price : {{order.totalPrice}}</p>
-    <p>Order Status : {{order.status}}</p>
-    <p>Quantity : {{order.quantity}}</p>
+    <p>{{'order.Product Name'|translate}} : {{order.productname}}</p>
+    <p>{{'order.Date '|translate}} : {{order.datePlaced|date:'yyyy-MM-dd'}}</p>
+    <p>{{'order.Total Price'|translate}}: {{order.totalPrice}}</p>
+    <p>{{'order.Order Status'|translate}} : {{order.status}}</p>
+    <p>{{'order.Quantity'|translate}} : {{order.quantity}}</p>
 
   </div>
   <br/>

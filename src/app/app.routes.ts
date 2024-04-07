@@ -25,7 +25,7 @@ export const routes: Routes = [
             {path: '', redirectTo: 'main', pathMatch: 'full'},
             {path: 'Home', component: ProductsComponent,},
             {path: 'main', component: MainComponent,},
-            {path: 'Order', component: OrderComponent,},
+            {path: 'Order', component: OrderComponent,canActivate:[authGuard]},
             {path: 'Cart', component: CartComponent,},
             {path: 'admin', component: AdminComponent,},
             {path: 'Edit', component: EditUserComponent,},

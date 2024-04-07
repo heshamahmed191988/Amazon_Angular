@@ -46,6 +46,8 @@
       <!-- <h4 class="box-title mt-5">Product description</h4> -->
       <h4 class="list-group-item text-center" >{{ getProductDescription(currentProduct)}}</h4><hr>
       <h4 class="list-group-item text-center" >{{ getProductName(currentProduct)}}</h4><hr>
+      <h4 class="list-group-item text-center" >{{'detail.Stock quantity'|translate}} : {{ currentProduct.stockQuantity}}</h4><hr>
+
       <h5 class="list-group-item text-center" >{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</h5><hr>
       <h2 class="mt-5">
         <sup>EGP</sup>{{currentProduct.price}}<sup>.00</sup>
@@ -122,6 +124,60 @@
       </div>
 
   </div>
+  <section class="today_deals_container deal2" style="overflow-x:auto; background-color: white;">
+    <div class="today_deals_heading">
+        <h3> Products related to this item</h3>
+    </div>
+  
+        
+        <!-- prd -->
+        <div class="gallerybox today_deals_product_list gall1"> 
+            <div class="imgbox today_deals_product_item" *ngFor="let product of randomProducts"> 
+              <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
+                <div class="discount_Contaienr" >
+                     <p class="descriptionrelated"><a href="#"> {{getProductDescription(product) }}</a> </p>
+                      
+                     @if (product.rating && product.rating > 0 && product.rating <= 1) 
+                     {
+                      <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 1 && product.rating < 2) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==2 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 2 && product.rating < 3) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                 
+                     @else if (product.rating && product.rating ==3) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 4 && product.rating < 5) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==4 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==5 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                     }
+                </div>
+                <p><sup>EGP</sup>{{ product.price }}<sup>00</sup></p>
+            </div>
+        </div>
+     
+   
+  
+        </section>
 
 <app-review ></app-review>
 </div> 

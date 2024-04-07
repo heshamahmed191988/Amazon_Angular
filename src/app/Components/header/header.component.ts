@@ -25,13 +25,14 @@ export class HeaderComponent implements OnInit {
   lang="";
   searchQuery: string = '';
   selectedCategoryId: number = 0;
+  user:string=''
 
 
 
   constructor(private authService: AuthService, private router: Router,
     private CategoryService:CategoryServiceService,private _cart:ICartService,private translate:TranslateService) {}
   ngOnInit(): void {
- 
+ this.Username();
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
       this.isloggd = loggedStatus;
@@ -66,7 +67,12 @@ export class HeaderComponent implements OnInit {
   this.translate.use(event.target.value)
   
   }
-
+  Username(){
+    this.authService.getCurrentUserDetails().subscribe(res =>{
+      this.user = res.userName;
+      console.log(res.userName);
+    })
+  }
   // changelanguage(lang:any) {
   // {
   //   const selectlanguage = lang.target.value;

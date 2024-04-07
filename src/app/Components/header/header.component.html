@@ -1,99 +1,100 @@
-<div class="layout mx-0 p-o " [dir]="'dir'|translate">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<div class="layout mx-0 p-o" [dir]="'dir' | translate">
 
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/register']" ><img class="logo" src="https://zeevector.com/wp-content/uploads/Amazon-Logo-White@zeevector.png"></a>
-   
-    <div class="collapse navbar-collapse" id="navbarScroll">
-     
-        <span class=" nav-item" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
-          <a class="Deliver nav-link "  style="color: white; margin: 2px; width: 90px;" staria-current="page" href="#" >
-            <span style="color: #d9dbda; margin-right: 10px;">{{'header.Deliver'|translate}}</span> <br><i class="fas fa-map-marker-alt"></i>{{'header.egypt'|translate}}</a>
-          </span>      
-      
-          <div class="input-group mb-3" style="margin-top: 15px;">
-            <div class="input-group-prepend">
-             
-      
-                 <!-- <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategory">
-                  <option value="0">All</option>
-                  <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-                </select> -->
-                <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
-                  <option value="0">All</option>
-                  <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category)}}</option>
-              </select>
-              
-    
-
-            </div>
-            <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" (keyup.enter)="searchProducts()">
-            <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
-            </button>
-    
-    
-    
-      <!-- <div class="input-group-prepend">
-        <span class="nav-item dropdown" style="margin-right: 0px; color: black;">
-          <a class="All  nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span style="color: black;">{{'header.all'|translate}}</span>
-          </a>
-          <ul class="dropdown-menu" >
-            @for (category of categories; track $index) {
-                <li >
-                  <a class="dropdown-item" href="#" > <div *ngFor="let category of categories">
-                    {{ getCategoryName(category) }}
-                  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+          <a class="navbar-brand" [routerLink]="['/register']"><img class="logo"
+                  src="https://zeevector.com/wp-content/uploads/Amazon-Logo-White@zeevector.png"></a>
 
 
-                  </a>{{'header.login'|translate}}
-                </li>
-               }
-            </ul>         
-          </span>
-      </div>
-      <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control" aria-label="Text input with dropdown button"  placeholder="Search Amazon.eg" >
-      <button class="btn form-btn "  (click)="searchProducts()"type="submit" style="margin-right: 8px;"><i class="fas fa-search" style="color: black;"></i>
-      </button> -->
-     
-        <span class="nav-item">
-          <div class="Flagdiv dropdown">
-            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"> {{lang | translate}}
-            </a>       
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#" (click)="changelanguage('en')">English</a></li>
-              <li><a class="dropdown-item" href="#" (click)="changelanguage('ar')">Arabic</a></li>
-            </ul>
+          <a class="link d-lg-none" href="#" style="margin-top: -4vw;"><img width="50" height="50" src="https://img.icons8.com/ios/50/menu-squared-2.png" alt="menu-squared-2"/></a>
+
+
+          <div class="collapse navbar-collapse" id="navbarScroll">
+
+              <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll">
+                  <li class="nav-item">
+                      <span class="nav-link" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
+                          <a class="Deliver" style="color: white; margin: 2px; width: 90px;" staria-current="page"
+                              href="#">
+                              <span style="color: #d9dbda; margin-right: 10px;">{{'header.Deliver' | translate}}</span>
+                              <br><i class="fas fa-map-marker-alt"></i>{{'header.egypt' | translate}}</a>
+                      </span>
+                  </li>
+              </ul>
+
+              <div class="input-group mb-3" style="margin-top: 0px; width: 9%;">
+                  <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId"
+                      (change)="onCategoryChange()" style="border-radius: 0;border-bottom-left-radius: 5px;border-top-left-radius: 5px;">
+                      <option value="0">All</option>
+                      <option *ngFor="let category of categories" [value]="category.id">{{ category.nameEn }}
+                      </option>
+                    </select>
+                </div>
+
+                <div class="in" style="display:flex;margin-top: -17px;">
+                    <input [(ngModel)]="searchQuery" type="text" class="Searchinput form-control"
+                        aria-label="Text input with dropdown button" placeholder="Search Amazon.eg"
+                        (keyup.enter)="searchProducts()" style=" max-width:90% !important; border-radius: 0;">
+                    <button class="btn btn-outline-light" (click)="searchProducts()" type="submit"
+                        style="margin-right: 8px;
+                        background-color: #febd69;
+                        border: 0;
+                        border-radius: 0;
+                        border-bottom-right-radius: 5px;
+                        border-top-right-radius: 5px;"><i class="fas fa-search"
+                            style="color:black;"></i>
+                    </button>
+                </div>
+
+                <ul class="navbar-nav" >
+                    <li class="nav-item">
+                        <div class="Flagdiv dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="flag"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg">
+                                {{lang | translate}}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#" (click)="changelanguage('en')">English</a></li>
+                                <li><a class="dropdown-item" href="#" (click)="changelanguage('ar')">Arabic</a></li>
+                            </ul>
+                        </div>
+                      </li>
+
+                      <li class="nav-item Admin-li">
+                          <a class="nav-link" style="color: white;" staria-current="page" href="#">
+                              <span style="color: #d9dbda;">{{'header.Hello' | translate}},{{user}},
+                                  {{'header.login' | translate}}</span> <br>{{'header.Acount&Lists' | translate}}</a>
+                      </li>
+                      <div class="Admin ">
+                      <a class="Admin-link" routerLink="/register">Register</a>
+                      <a  class="Admin-link" routerLink="/login">Login</a>
+                      <a class="Admin-link" routerLink="/Order">Your Orders</a>
+                      <a class="Admin-link" routerLink="/Edit">Edit Your Account</a>
+                      <a class="Admin-link">Logout</a>
+                      </div>
+
+                      <li class="nav-item">
+                          <a class="nav-link" style="color: white;padding-top: 13px;" staria-current="page" routerLink="/Order"
+                              routerLinkActive="router-link-active">
+                              <span>{{'header.Order' | translate}}</span>
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a class="nav-link" style="color: white;padding-top: 8px;" staria-current="page" style="margin-bottom:10px ;"
+                              routerLink="/Cart" routerLinkActive="router-link-active">
+                              <i class="fas fa-shopping-cart" style="font-size:30px;">{{totalITeam}}</i>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
           </div>
-          
-              <!-- <select (click)="changelanguage($event)" name="" id="">
-                <option [selected]="lang==='en'" value="en">{{'egypt'|translate}}English</option>
-                <option [selected]="lang==='ar'"value="ar">{{'egypt'|translate}}Arabic</option>
-              </select> -->
-        </span>
-
-          <span class="nav-item">
-          <a class="nav-link "  style="color: white;" staria-current="page" href="#">
-            <span style="color: #d9dbda;">{{'header.Hello'|translate}},{{'header.login'|translate}}</span> <br>{{'header.Acount&Lists'|translate}}</a>
-          </span> 
-          
-          <div style="margin: 2px;">
-            <a class="nav-link "  style="color: white;" staria-current="page" routerLink="/Order" routerLinkActive="router-link-active">
-              <br><span>{{'header.Order'|translate}}</span>
-            </a>          
-          </div>
-          <button [routerLink]="'/login'" class="btn btn-primary">{{'header.login'|translate}}</button>
-          <button (click)="logout()" class="btn btn-secondary">{{'header.logout'|translate}}</button>
-          <button  [routerLink]="'/register'" class="btn btn-primary">{{'header.register'|translate}}</button>
-
-          <div style="margin: 2px;">
-            <a class="nav-link "  style="color: white;" staria-current="page" style="margin-bottom:10px ;" routerLink="/Cart" routerLinkActive="router-link-active" >
-              <br><i class="fas fa-shopping-cart" style="font-size:30px;">{{totalITeam}}</i>
-            </a>          
-          </div>
-    </div>     
+      </nav>
     </div>
-            <!--Div under nav-->
-    
+  </body>

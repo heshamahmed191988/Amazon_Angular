@@ -33,7 +33,8 @@ export class ProductDetailsComponent implements OnInit {
   // "82b5b776-9a7a-4556-99e6-983e9509064d;
   adressId:number = 0;
   mainImageUrl!: string ; 
-
+  randomProducts: Iproduct[] = [];
+  Products: Iproduct[] = [];
   public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
   public total: number = 0
   lang: string = 'en';
@@ -143,6 +144,7 @@ export class ProductDetailsComponent implements OnInit {
         next: (res) => {
           this.currentProduct = res;
           this.fetchReviews();
+          this.RandomProducts();
           this.productStateService.changeProductId(this.currentId); // Update product ID state
         },
         error: (err) => console.log(err)
@@ -239,6 +241,49 @@ export class ProductDetailsComponent implements OnInit {
       error: (error) => console.log(error)
     });
   
+  }
+  RandomProducts(): void {
+    this._ProductServiceService.getproudectsbycatogry(this.currentProduct.id).subscribe({
+      next: (res: Iproduct[]) => {
+        this.Products = res; 
+        this.randomProducts = this.getRandomProducts(this.Products);
+      },
+      
+    });
+  
+}
+  
+  getRandomProducts(products: Iproduct[]): Iproduct[] {
+    let randomProducts: Iproduct[] = [];
+    let maxIndex = Math.min(6, products.length);
+    let randomIndices: number[] = [];
+    while (randomIndices.length < maxIndex) {
+      let randomIndex = Math.floor(Math.random() * products.length);
+      if (!randomIndices.includes(randomIndex)) {
+        randomIndices.push(randomIndex);
+        randomProducts.push(products[randomIndex]);
+      }
+    }
+    return randomProducts;
+  }
+  
+  calculateProductRating(product: Iproduct): void {
+    this.reviewService.getReviewsByProductId(product.id!).subscribe({
+      next: (reviews) => {
+        if (reviews && reviews.length > 0) {
+          let totalRating = 0;
+          for (let review of reviews) {
+            totalRating += review.rating || 0;
+          }
+          product.rating = totalRating / reviews.length;
+        } else {
+          product.rating = 0;
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching reviews:', err);
+      }
+    });
   }
 
   }

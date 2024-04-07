@@ -14,11 +14,12 @@ import { IcreatrOrder } from '../../models/icreatr-order';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AddressSharedService } from '../../services/address-shared.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule,FormsModule,ProductsComponent,ProductDetailsComponent,NgxPayPalModule],
+  imports: [CommonModule,FormsModule,ProductsComponent,ProductDetailsComponent,NgxPayPalModule,TranslateModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
