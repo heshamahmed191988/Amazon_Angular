@@ -1,298 +1,308 @@
 .navbar{
-    background-color: #0f1111;
+  background-color: #0f1111;
+  color: white;
+  max-height: 75px !important;
+  padding-top: 30px;
+}
+.navbar-brand,.nav-link,.nav-item
+{
     color: white;
-    max-height: 75px !important;
-    padding-top: 30px;
-  }
-  .navbar-brand,.nav-link,.nav-item
-  {
-      color: white;
-      font-size: 15px;
-  
-  }
-  .navbar-brand img{
-      padding-bottom:10px;
-      padding-top: 10px;
-      margin-bottom: 5px;
-      width: 10vw;
-      height: 8vh;
-  }
-  .navbar-nav .Deliver {
-      min-height: 38px !important;
-      min-width: 20% !important;
-      color: #E67A00;
-      /* padding-bottom:10px;
-      margin-bottom: 25px; */
-  }
-  
-  .logo,
-  .nav-link {
-      padding: 4px;
-  
-  }
-  .logo:hover,
-  .nav-link:hover {
-    border: 1px solid rgb(255, 255, 255);
-  }
-  
-  .nav-link:visited,
-  .nav-link:active,
-  .nav-link:focus {
-      color: white;
-  }
-  .dropdown-menu {
-      margin-left: 0;
-  }
-  
-  .form-btn {
-      background-color:#d6af3b;
-      border-radius:5px;
-      color: white;
-      height: 38px;
+    font-size: 15px;
+
+}
+.navbar-brand img{
+    padding-bottom:10px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    width: 10vw;
+    height: 8vh;
+}
+.navbar-nav .Deliver {
+    min-height: 38px !important;
+    min-width: 20% !important;
+    color: #E67A00;
+    /* padding-bottom:10px;
+    margin-bottom: 25px; */
+}
+
+.logo,
+.nav-link {
+    padding: 4px;
+
+}
+.logo:hover,
+.nav-link:hover {
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.nav-link:visited,
+.nav-link:active,
+.nav-link:focus {
+    color: white;
+}
+.dropdown-menu {
+    margin-left: 0;
+}
+
+.form-btn {
+    background-color:#d6af3b;
+    border-radius:5px;
+    color: white;
+    height: 38px;
+}
+input.form-control {
+    width: 47vw !important;
+}
+.All
+{
+    background-color:#c3c5c4 ;
+    width: 49px;
+    height: 38px;
+    border-radius: 3px;
+    padding: 8px;
+    color: black;
+}
+.All:hover
+{
+  background-color:#939393 ;
+  border: none;
+}
+
+.All:focus,
+.form-control:focus
+{
+border:2px solid #E67A00 !important;
+outline-color: white;
+
+}
+
+.dropdown-menu li:hover a{
+  background-color: #414ed6;
+  height: 30px;
+}
+
+#dropdownMenuLink
+{
+  color:white;
+}
+input.Searchinput.form-control {
+  max-height: 38px !important;
+  max-width: 60% !important;
+  outline: none;
+}
+
+.flag
+{
+  width: 3vh;
+  height: 3vh;
+}
+.Flagdiv:hover
+{
+  border: 1px solid rgb(255, 255, 255);
+}
+/* navbar2 */
+.nav2{
+    background-color: #232f3e;
+}
+.Admin{
+  position: absolute;
+  /* top: 4.9vw; */
+  z-index: 0;
+  right: 9vw;
+  background-color: #fefefeeb;
+  padding: 1vw 2vw;
+  line-height: 2;
+  border-radius: 5px;
+}
+.Admin-li:hover + .Admin,.Admin:hover{
+  z-index: 10;
+  top: 4.9vw;
+}
+.Admin-link{
+  text-decoration: none;
+  display: block;
+  color: black;
+  text-align: center;
+}
+.Admin-link:hover{
+  color:#E67A00;
+  border-bottom: 1px solid #E67A00;
+}
+.login-menu{
+  text-align: center;
+}
+.login-menu a:hover{
+  color:#E67A00;
+  border-bottom: 1px solid #E67A00;
+  background-color: white;
+}
+.login-menu .dropdown-item:hover{
+  background-color: white !important;
+}
+@media screen and (min-width:1190px) {
+.Admin{
+  top: 5.9vw;
+}
+}
+@media (max-width: 1190px) {
+  input.form-control {
+    width: 38vw !important;
+}
+.Admin{
+  top: 6.2vw;
+}
+}
+@media (min-width: 991px) and (max-width: 1190px) {
+  input.form-control {
+    width: 29vw !important;
+}
+.Admin{
+  top: 7.9vw;
+}
+.navbar-nav .nav-link{
+  font-size: 1.5vw;
+}
+}
+@media (min-width:1190px) and (max-width:1208px){
+  .Admin{
+    top: 8.2vw;
   }
   input.form-control {
-      width: 47vw !important;
-  }
-  .All
-  {
-      background-color:#c3c5c4 ;
-      width: 49px;
-      height: 38px;
-      border-radius: 3px;
-      padding: 8px;
-      color: black;
-  }
-  .All:hover
-  {
-    background-color:#939393 ;
-    border: none;
-  }
-  
-  .All:focus,
-  .form-control:focus
-  {
-  border:2px solid #E67A00 !important;
-  outline-color: white;
-  
-  }
-  
-  .dropdown-menu li:hover a{
-    background-color: #414ed6;
-    height: 30px;
-  }
-  
-  #dropdownMenuLink
-  {
-    color:white;
-  }
-  input.Searchinput.form-control {
-    max-height: 38px !important;
-    max-width: 60% !important;
-    outline: none;
-  }
-  
-  .flag
-  {
-    width: 3vh;
-    height: 3vh;
-  }
-  .Flagdiv:hover
-  {
-    border: 1px solid rgb(255, 255, 255);
-  }
-  /* navbar2 */
-  .nav2{
-      background-color: #232f3e;
-  }
-  .Admin{
-    position: absolute;
-    /* top: 4.9vw; */
+    width: 46vw !important;
+}
+}
+@media (min-width: 768px) and (max-width:990px){
+  .collapse:not(.show){
+    display: none;
     z-index: 0;
-    right: 9vw;
-    background-color: #fefefeeb;
-    padding: 1vw 2vw;
-    line-height: 2;
+    position: relative;
+    width: 100%;
+    left: 1%;
+    /* right: -43%; */
+    direction: rtl;
+    /* left: 10%;*/
+    background-color: rgb(204, 201, 201);
+    margin-top: -29px;
     border-radius: 5px;
   }
-  .Admin-li:hover + .Admin,.Admin:hover{
-    z-index: 10;
-    top: 4.9vw;
+  a{
+    color: black !important;
   }
-  .Admin-link{
-    text-decoration: none;
-    display: block;
-    color: black;
+  .in{
+    margin-left: 21vw;
+    display: flex;
+    direction: ltr;
+    position: relative;
+  }
+  .mb-3{
+    margin-top: 15px !important;
+    width: 21% !important;
+    position: relative;
+    direction: ltr;
+    right: 42%;
+  }
+  .form-select{
+    border-radius: 5px !important;
+  }
+  ul{
     text-align: center;
   }
-  .Admin-link:hover{
-    color:#E67A00;
-    border-bottom: 1px solid #E67A00;
+  .link:hover + .collapse:not(.show) {
+    z-index: 10;
+    display: block;
   }
-  @media screen and (min-width:1190px) {
-  .Admin{
-    top: 5.9vw;
+  .navbar-brand{
+    margin-top: -5vw;
   }
-  }
-  @media (max-width: 1190px) {
-    input.form-control {
-      width: 38vw !important;
-  }
-  .Admin{
-    top: 6.2vw;
-  }
-  }
-  @media (min-width: 991px) and (max-width: 1190px) {
-    input.form-control {
-      width: 29vw !important;
+  .logo{
+    padding-bottom: 16px;
+    padding-top: 0px;
+    margin-bottom: 5px;
+    width: 17vw;
+    height: 11vh;
   }
   .Admin{
-    top: 7.9vw;
+    position: relative;
+    right: -3vw;
+    margin-bottom: 4vw;
   }
-  .navbar-nav .nav-link{
-    font-size: 1.5vw;
+}
+@media (max-width: 768px) {
+  .collapse:not(.show){
+    display: none;
+    z-index: 0;
+    position: relative;
+    width: 100%;
+    left: 1%;
+    /* right: -43%; */
+    direction: rtl;
+    /* left: 10%;*/
+    background-color: rgb(204, 201, 201);
+    margin-top: -29px;
+    border-radius: 5px;
   }
+  a{
+    color: black !important;
   }
-  @media (min-width:1190px) and (max-width:1208px){
-    .Admin{
-      top: 8.2vw;
-    }
-    input.form-control {
-      width: 46vw !important;
+  .in{
+    margin-left: 21vw;
+    display: flex;
+    direction: ltr;
+    position: relative;
   }
+  .mb-3{
+    margin-top: 15px !important;
+    width: 21% !important;
+    position: relative;
+    direction: ltr;
+    right: 42%;
   }
-  @media (min-width: 768px) and (max-width:990px){
-    .collapse:not(.show){
-      display: none;
-      z-index: 0;
-      position: relative;
-      width: 100%;
-      left: 1%;
-      /* right: -43%; */
-      direction: rtl;
-      /* left: 10%;*/
-      background-color: rgb(204, 201, 201);
-      margin-top: -29px;
-      border-radius: 5px;
-    }
-    a{
-      color: black !important;
-    }
-    .in{
-      margin-left: 21vw;
-      display: flex;
-      direction: ltr;
-      position: relative;
-    }
-    .mb-3{
-      margin-top: 15px !important;
-      width: 21% !important;
-      position: relative;
-      direction: ltr;
-      right: 42%;
-    }
-    .form-select{
-      border-radius: 5px !important;
-    }
-    ul{
-      text-align: center;
-    }
-    .link:hover + .collapse:not(.show) {
-      z-index: 10;
-      display: block;
-    }
-    .navbar-brand{
-      margin-top: -5vw;
-    }
-    .logo{
-      padding-bottom: 16px;
-      padding-top: 0px;
-      margin-bottom: 5px;
-      width: 17vw;
-      height: 11vh;
-    }
-    .Admin{
-      position: relative;
-      right: -3vw;
-      margin-bottom: 4vw;
-    }
+  .form-select{
+    border-radius: 5px !important;
   }
-  @media (max-width: 768px) {
-    .collapse:not(.show){
-      display: none;
-      z-index: 0;
-      position: relative;
-      width: 100%;
-      left: 1%;
-      /* right: -43%; */
-      direction: rtl;
-      /* left: 10%;*/
-      background-color: rgb(204, 201, 201);
-      margin-top: -29px;
-      border-radius: 5px;
-    }
-    a{
-      color: black !important;
-    }
-    .in{
-      margin-left: 21vw;
-      display: flex;
-      direction: ltr;
-      position: relative;
-    }
-    .mb-3{
-      margin-top: 15px !important;
-      width: 21% !important;
-      position: relative;
-      direction: ltr;
-      right: 42%;
-    }
-    .form-select{
-      border-radius: 5px !important;
-    }
-    ul{
-      text-align: center;
-    }
-    .link:hover + .collapse:not(.show),
-     #navbarScroll:hover{
-      z-index: 10;
-      display: block;
-    }
-    .navbar-brand{
-      margin-top: -2vw;
-    }
-    .logo{
-      padding-bottom: 16px;
-      padding-top: 0px;
-      margin-bottom: 5px;
-      width: 17vw;
-      height: 11vh;
-    }
-    .Admin{
-      position: relative;
-      right: -3vw;
-      margin-bottom: 4vw;
-    }
+  ul{
+    text-align: center;
   }
-  
-  @media (max-width: 576px) {
-    .logo{
-      padding-bottom: 16px !important;
-      padding-top: 0px !important;
-      margin-bottom: 5px !important;
-      width: 17vw  !important;
-      height: 11vh !important;
-    }
-    .Admin{
-      position: relative;
-      right: -3vw;
-      margin-bottom: 4vw;
-    }
-    .link{
-      margin-top: -12vw !important;
-    }
+  .link:hover + .collapse:not(.show),
+   #navbarScroll:hover{
+    z-index: 10;
+    display: block;
   }
-  .navbar{
-      display: flex;
-      justify-content: center !important;
+  .navbar-brand{
+    margin-top: -2vw;
   }
-  
+  .logo{
+    padding-bottom: 16px;
+    padding-top: 0px;
+    margin-bottom: 5px;
+    width: 17vw;
+    height: 11vh;
+  }
+  .Admin{
+    position: relative;
+    right: -3vw;
+    margin-bottom: 4vw;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo{
+    padding-bottom: 16px !important;
+    padding-top: 0px !important;
+    margin-bottom: 5px !important;
+    width: 17vw  !important;
+    height: 11vh !important;
+  }
+  .Admin{
+    position: relative;
+    right: -3vw;
+    margin-bottom: 4vw;
+  }
+  .link{
+    margin-top: -12vw !important;
+  }
+}
+.navbar{
+    display: flex;
+    justify-content: center !important;
+}

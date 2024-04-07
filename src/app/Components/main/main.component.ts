@@ -27,6 +27,9 @@ export class MainComponent implements OnInit {
   endSlider1: number = 0;
   deals: deal[] = [];
   CatId:number=0
+  public pageNumber: number = 1;
+  public pageSize: number =3;
+
   categories:Icategory[] = [];
   constructor(private _deal:DealService , 
     private prd:ProductServiceService,
@@ -101,7 +104,7 @@ export class MainComponent implements OnInit {
     }
   }
   getProductsByCategory(categoryId: number): void {
-    this.prd.getproudectsbycatogry(categoryId).subscribe(
+    this.prd.getproudectsbycatogry(categoryId,this.pageSize,this.pageNumber).subscribe(
       (prd) => {
         this.categories = prd;
       },

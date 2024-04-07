@@ -21,8 +21,10 @@ export class SearchForProudectComponentComponent implements OnInit {
   sortedProducts: Iproduct[] = [];
   sortBy: string = 'featured'; 
   paginatedProducts: Iproduct[] = [];
-  currentPage: number = 1;
-  itemsPerPage: number = 5;
+  public pageNumber: number = 1;
+  public pageSize: number =3;
+  totalProducts: number = 10; // Represents the total number of products found
+
   Above_2500:number = 999999;
   Quant: number = 0;
   lang: string = 'en'; 
@@ -30,6 +32,8 @@ export class SearchForProudectComponentComponent implements OnInit {
   filteredResults: Iproduct[] = [];
   selectedCategoryId: number = 0;
   randomProducts: Iproduct[] = [];
+  //public pageSize = 4; 
+  //public pageNumber = 1;
 
   selectedCategory: string = 'All';
   constructor(private router: Router,private route: ActivatedRoute,private _productService: ProductServiceService
@@ -39,10 +43,12 @@ export class SearchForProudectComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.animationService.openspinner();
+    
     this.route.paramMap.subscribe(paramMap => {
       this.searchQuery = paramMap.get('name') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
       this.loadProducts();
+     
        console.log( this.selectedCategoryId);
       if (this.searchQuery !== '' && this.selectedCategoryId==0) { 
         this._productService.filterdbynameProducts(this.searchQuery).subscribe({
@@ -105,6 +111,7 @@ export class SearchForProudectComponentComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
     this.RandomProducts();
+    
   }
 
   sortProducts(sortOption: string): void {
@@ -130,21 +137,21 @@ export class SearchForProudectComponentComponent implements OnInit {
     this.sortBy = (event.target as HTMLSelectElement).value;
     this.sortProducts(this.sortBy);}
 
-    updatePaginatedProducts() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      this.paginatedProducts = this.sortedProducts.slice(startIndex, endIndex);
+    updatePaginatedProducts(): void {
+      const startIndex = (this.pageNumber - 1) * this.pageSize;
+      this.paginatedProducts = this.searchResults.slice(startIndex, startIndex + this.pageSize);
+      this.paginatedProducts = [...this.searchResults];
     }
     
   
     totalPages(): number {
-      return Math.ceil(this.searchResults.length / this.itemsPerPage);
+      return Math.ceil(this.totalProducts / this.pageSize);
     }
   
-    changePage(page: number) {
-      this.currentPage = page;
-      this.updatePaginatedProducts();
-    }
+    // changePage(page: number) {
+    //   this.currentPage = page;
+    //   this.updatePaginatedProducts();
+    // }
     NavigateToDetails(proId: number) {
       this.router.navigateByUrl(`/Details/${proId}`);
     }
@@ -159,7 +166,7 @@ export class SearchForProudectComponentComponent implements OnInit {
           product.price >= minPrice && product.price <= maxPrice
         );
       }
-      this.currentPage = 1;
+      this.pageNumber = 1;
       this.updatePaginatedProducts();
     }
     getProductName(product: Iproduct): string {
@@ -233,8 +240,10 @@ loadProducts(): void {
         next: (res: Iproduct[]) => {
           if (res) {
             this.searchResults = res;
+            
             //this.sortedProducts=res;
             this.Quant = this.searchResults.length;
+            this.updatePaginatedProducts();
             this.sortProducts(this.sortBy);
             this.calculateProductRatings();
           } else {
@@ -272,12 +281,14 @@ loadProducts(): void {
   {
     if(this.selectedCategoryId === 0) {
      
-      this._productService.getAllProducts().subscribe({
+      this._productService.getAllProducts(this.pageSize,this.pageNumber).subscribe({
         next: (res: any) => {
           if (res) {
             this.searchResults = res;
             console.log( this.searchResults ,"yees");
             this.Quant = this.searchResults.length;
+            this.updatePaginatedProducts();
+
             this.sortProducts(this.sortBy);
             this.calculateProductRatings();
           } else {
@@ -297,10 +308,12 @@ loadProducts(): void {
 
     filterProductsByCategory(): void {
       if (this.selectedCategoryId !== 0) {
-          this._productService.getproudectsbycatogry(this.selectedCategoryId).subscribe({
+          this._productService.getproudectsbycatogry(this.selectedCategoryId,this.pageSize,this.pageNumber).subscribe({
               next: (res) => {
                   this.searchResults = res;
                   this.Quant = this.searchResults.length;
+                  this.updatePaginatedProducts();
+
                   this.sortProducts(this.sortBy);
                   this.calculateProductRatings();
 
@@ -341,7 +354,7 @@ loadProducts(): void {
 //select from all proudect 
 RandomProducts(): void {
   if (this.selectedCategoryId === 0 ||this.selectedCategoryId != 0 ) {
-    this._productService.getAllProducts().subscribe({
+    this._productService.getAllProducts(this.pageSize, this.pageNumber).subscribe({
       next: (res: Iproduct[]) => {
         this.searchResults = res; 
         this.randomProducts = this.getRandomProducts(this.searchResults);
@@ -368,4 +381,53 @@ getRandomProducts(products: Iproduct[]): Iproduct[] {
   }
   return randomProducts;
 }
+
+changePage(page: number): void {
+  this.pageNumber = page;
+  this.updatePaginatedProducts();
+  this.loadProducts();
+}
+goToNextPage() {
+  if (this.pageNumber < this.totalPages()) {
+    this.changePage(this.pageNumber + 1);
+this.loadProducts();
+  }
+}
+
+goToPreviousPage() {
+  if (this.pageNumber > 1) {
+    this.changePage(this.pageNumber - 1);
+    this.loadProducts();
+
+  }
+}
+get visiblePageNumbers(): number[] {
+  let startPage: number, endPage: number;
+  const visiblePages = 3;
+  const totalPages = this.totalPages();
+
+  if (totalPages <= visiblePages) {
+    // Less than `visiblePages` total pages so show all
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    // More than `visiblePages` total pages so calculate start and end pages
+    if (this.pageNumber <= 2) {
+      startPage = 1;
+      endPage = visiblePages;
+    } else if (this.pageNumber + 1 >= totalPages) {
+      startPage = totalPages - 2;
+      endPage = totalPages;
+    } else {
+      startPage = this.pageNumber - 1;
+      endPage = this.pageNumber + 1;
+    }
+  }
+
+  // create an array of pages to ng-repeat in the pager control
+  let pages: number[] = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);
+
+  return pages;
+}
+
 }

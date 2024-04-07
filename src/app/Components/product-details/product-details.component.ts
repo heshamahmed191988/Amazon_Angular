@@ -39,7 +39,8 @@ export class ProductDetailsComponent implements OnInit {
   public total: number = 0
   lang: string = 'en';
   public isAddressSubmitted: boolean = false;
-
+  public pageNumber: number = 1;
+  public pageSize: number =3;
   public currentProduct: Iproduct = {
     id: 0,
     itemscolor: [],
@@ -243,7 +244,7 @@ export class ProductDetailsComponent implements OnInit {
   
   }
   RandomProducts(): void {
-    this._ProductServiceService.getproudectsbycatogry(this.currentProduct.id).subscribe({
+    this._ProductServiceService.getproudectsbycatogry(this.currentProduct.id,this.pageSize,this.pageNumber).subscribe({
       next: (res: Iproduct[]) => {
         this.Products = res; 
         this.randomProducts = this.getRandomProducts(this.Products);

@@ -20,8 +20,9 @@ export class ProductsComponent implements OnInit {
   paginatedProducts: Iproduct[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 4; // Adjust based on your preference
-  lang: string = 'en'; // Default language
-
+  lang: string = 'en';
+  public pageSize = 10; // Number of products to fetch
+  public pageNumber = 1;
   constructor(
     private router: Router, 
     private productService: ProductServiceService, 
@@ -42,7 +43,7 @@ export class ProductsComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
 
-    this.productService.getAllProducts().subscribe(products => {
+    this.productService.getAllProducts(this.pageSize, this.pageNumber).subscribe(products => {
       this.products = products;
       this.updatePaginatedProducts();
     });

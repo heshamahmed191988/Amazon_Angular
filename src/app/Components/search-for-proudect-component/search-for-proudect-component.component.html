@@ -236,13 +236,27 @@
                   </div>
                 </div>
                 
-                 <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">
-                      <a class="page-link" href="javascript:void(0)" (click)="changePage(i+1)">{{i + 1}}</a>
+                <nav aria-label="Page navigation example" class="mt-4">
+                  <ul class="pagination justify-content-center">
+                    <!-- Previous Button -->
+                    <li class="page-item" [class.disabled]="pageNumber === 1">
+                      <a class="page-link" href="javascript:void(0)" (click)="goToPreviousPage()">&laquo; Previous</a>
+                    </li>
+                    
+                    <!-- Page Numbers -->
+                    <li class="page-item" *ngFor="let page of visiblePageNumbers; let i = index" [class.active]="pageNumber === page">
+                      <a class="page-link" href="javascript:void(0)" (click)="changePage(page)">{{ page }}</a>
+                    </li>
+                    
+                    
+                    <!-- Next Button -->
+                    <li class="page-item" [class.disabled]="pageNumber === totalPages()">
+                      <a class="page-link" href="javascript:void(0)" (click)="goToNextPage()">Next &raquo;</a>
                     </li>
                   </ul>
-                </nav>  
+                </nav>
+                
+                
             </div>
        </div>
      </div>
