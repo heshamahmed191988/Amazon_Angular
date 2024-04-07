@@ -43,7 +43,7 @@ export class SearchForProudectComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.animationService.openspinner();
-    
+    //this.searchResults = [];
     this.route.paramMap.subscribe(paramMap => {
       this.searchQuery = paramMap.get('name') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
@@ -51,15 +51,17 @@ export class SearchForProudectComponentComponent implements OnInit {
      
        console.log( this.selectedCategoryId);
       if (this.searchQuery !== '' && this.selectedCategoryId==0) { 
-        this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+        this._productService.filterdbynameProducts(this.searchQuery,this.pageSize,this.pageNumber).subscribe({
           next: (res: any) => {
-            if (res ) {
+            if (Array.isArray(res) ) {
               this.searchResults = res;
+              
               this.sortProducts(this.sortBy);
               this.calculateProductRatings();
               this.Quant = this.searchResults.length;
             } else {
               console.log('Invalid response format');
+              this.searchResults = [];
             }
           },
           error: (err) => {
@@ -168,6 +170,7 @@ export class SearchForProudectComponentComponent implements OnInit {
       }
       this.pageNumber = 1;
       this.updatePaginatedProducts();
+      this.calculateProductRatings();
     }
     getProductName(product: Iproduct): string {
       return this.lang === 'en' ? product.nameEn : product.nameAr;
@@ -182,9 +185,9 @@ export class SearchForProudectComponentComponent implements OnInit {
     }
 
     filterByBrand(brand: string): void {
-      this._productService.filterdbybrandname(brand).subscribe({
+      this._productService.filterdbybrandname(brand,this.pageSize,this.pageNumber).subscribe({
         next: (res: any) => {
-          if (res) {
+          if (Array.isArray(res)) {
             // this.filteredResults=this.searchResults.filter(product => product.BrandName ===brand);
             // console.log( this.filteredResults);
             this.searchResults = res;
@@ -195,6 +198,7 @@ export class SearchForProudectComponentComponent implements OnInit {
 
           } else {
             console.log('Invalid response format');
+            this.searchResults = [];
           }
         },
         error: (err) => {
@@ -236,9 +240,9 @@ filterByRating(minRating: number): void {
 loadProducts(): void {
   if (this.searchQuery !== '') {
     if (this.selectedCategoryId === 0) {
-      this._productService.filterdbynameProducts(this.searchQuery).subscribe({
+      this._productService.filterdbynameProducts(this.searchQuery,this.pageSize,this.pageNumber).subscribe({
         next: (res: Iproduct[]) => {
-          if (res) {
+          if (Array.isArray(res)) {
             this.searchResults = res;
             
             //this.sortedProducts=res;
@@ -248,6 +252,7 @@ loadProducts(): void {
             this.calculateProductRatings();
           } else {
             console.log('Invalid response format');
+            this.searchResults = [];
           }
         },
         error: (err) => {
@@ -255,9 +260,9 @@ loadProducts(): void {
         }
       });
     } else {
-      this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery).subscribe({
-        next: (res: any) => {
-          if (res) {
+      this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery,this.pageSize,this.pageNumber).subscribe({
+        next: (res: Iproduct[]) => {
+          if (Array.isArray(res)) {
             this.searchResults = res;
             this.sortedProducts=res;
             console.log( "llok" ,this.searchResults );
@@ -265,9 +270,12 @@ loadProducts(): void {
           
             this.sortProducts(this.sortBy);
             this.calculateProductRatings();
+            
           } else {
             console.log('Invalid response format');
+            this.searchResults = [];
           }
+         
         },
         error: (err) => {
           console.log(err);

@@ -85,20 +85,34 @@ export class HeaderComponent implements OnInit {
    
   }
   searchProducts(): void {
-    if (this.searchQuery.trim() !== '') {
-        if (this.selectedCategoryId) {
-            this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}/${this.searchQuery}`);
-        } else {
-            this.router.navigateByUrl(`/SearchForProudectComponent/${this.searchQuery}`);
-        }
-    } else {
-        if (this.selectedCategoryId) {
-            this.router.navigateByUrl(`/SearchForProudectComponent/${this.selectedCategoryId}`);
-        } else {
-            this.router.navigateByUrl(`/SearchForProudectComponent`);
-        }
+    // Trim the searchQuery to ensure we don't navigate with just whitespace
+    const trimmedSearchQuery = this.searchQuery.trim();
+  
+    // Base URL for navigation
+    let url = '/SearchForProudectComponent';
+  
+    // Determine if there's a valid category selected (not "All")
+    const hasValidCategory = this.selectedCategoryId > 0;
+  
+    // Determine if there's a valid search query
+    const hasSearchQuery = trimmedSearchQuery !== '';
+  
+    // Construct the URL based on the presence of a valid category and/or search query
+    if (hasValidCategory && hasSearchQuery) {
+      // If both category and search query are valid, include both in the URL
+      url += `/${this.selectedCategoryId}/${trimmedSearchQuery}`;
+    } else if (hasValidCategory) {
+      // If only the category is valid (and not "All"), include it in the URL
+      url += `/${this.selectedCategoryId}`;
+    } else if (hasSearchQuery) {
+      // If only the search query is valid, include it in the URL
+      url += `/${trimmedSearchQuery}`;
     }
+  
+    // Navigate to the constructed URL
+    this.router.navigateByUrl(url);
   }
+  
   getCategoryName(category: Icategory): string {
     return this.lang === 'en' ? category.nameEn : category.nameAr;
   }

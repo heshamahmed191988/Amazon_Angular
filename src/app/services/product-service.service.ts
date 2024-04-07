@@ -34,18 +34,25 @@ export class ProductServiceService {
   //  }
 
   getProductById(id: number): Observable<Iproduct> {
+    
     return this.httpclient.get<Iproduct>(`${environment.baseUrl}/api/Product?id=${id}`);
    
     
   }
-  filterdbynameProducts(name: string): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`);
+  filterdbynameProducts(name: string,pageSize: number, pageNumber: number): Observable<Iproduct[]> {
+    let params = new HttpParams()
+    .append('pageSize', pageSize.toString())
+    .append('pageNumber', pageNumber.toString());
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchname?name=${name}`,{ params });
   }
 
 
  
-  filterdbybrandname(name: string): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchbrand?name=${name}`);
+  filterdbybrandname(name: string,pageSize: number, pageNumber: number): Observable<Iproduct[]> {
+    let params = new HttpParams()
+    .append('pageSize', pageSize.toString())
+    .append('pageNumber', pageNumber.toString());
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchbrand?name=${name}`,{ params });
   }
   getbrandsname(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/brands`)
@@ -53,8 +60,11 @@ export class ProductServiceService {
 
 
   
-  filterProductsByCategoryAndName(categoryId: number, name: string): Observable<Iproduct[]> {
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`);
+  filterProductsByCategoryAndName(categoryId: number, name: string,pageSize: number, pageNumber: number): Observable<Iproduct[]> {
+    let params = new HttpParams()
+    .append('pageSize', pageSize.toString())
+    .append('pageNumber', pageNumber.toString());
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`,{ params });
   }
 }
 
