@@ -29,6 +29,8 @@ export class MainComponent implements OnInit {
   CatId:number=0
   public pageNumber: number = 1;
   public pageSize: number =3;
+  lang!: string; 
+
 
   categories:Icategory[] = [];
   constructor(private _deal:DealService , 
@@ -56,7 +58,9 @@ export class MainComponent implements OnInit {
     }
     this.translateSlider();
   }
-
+  getcategorytName(product: Icategory): string {
+    return this.lang === 'en' ? product.nameEn : product.nameAr;
+  }
   handleRightBtn(): void {
     if (this.startSlider >= -this.endSlider + 100) {
       this.startSlider = this.startSlider - 100;

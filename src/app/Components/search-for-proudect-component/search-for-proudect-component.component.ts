@@ -22,8 +22,8 @@ export class SearchForProudectComponentComponent implements OnInit {
   sortBy: string = 'featured'; 
   paginatedProducts: Iproduct[] = [];
   public pageNumber: number = 1;
-  public pageSize: number =3;
-  totalProducts: number = 10; // Represents the total number of products found
+  public pageSize: number =12;
+  totalProducts: number =50; // Represents the total number of products found
 
   Above_2500:number = 999999;
   Quant: number = 0;
@@ -117,34 +117,50 @@ export class SearchForProudectComponentComponent implements OnInit {
   }
 
   sortProducts(sortOption: string): void {
+    this.sortBy = sortOption; // Update current sort preference
+
+    let sortOrder = 'asc'; // Default sort order
     switch (sortOption) {
-      case 'featured':
-       
-        this.sortedProducts = [...this.searchResults];
-        break;
-      case 'lowToHigh':
-     
-        this.sortedProducts = [...this.searchResults].sort((a, b) => a.price - b.price);
-        break;
-      case 'highToLow':
-        
-        this.sortedProducts = [...this.searchResults].sort((a, b) => b.price - a.price);
-        break;
-      default:
-        break;
+        case 'featured':
+            // Implement your logic for 'featured' if it involves a specific sort or is a default view
+            break;
+        case 'lowToHigh':
+            this.searchResults.sort((a, b) => a.price - b.price);
+            break;
+        case 'highToLow':
+            this.searchResults.sort((a, b) => b.price - a.price);
+            break;
+        default:
+            // Handle other sorting criteria
+            break;
     }
+
+    // After sorting searchResults, you may want to update the sortedProducts as well
+    // if you plan to use it for other purposes. If not, this line can be omitted.
+    this.sortedProducts = [...this.searchResults];
+
+    // Now, update the paginated view to reflect the new order
     this.updatePaginatedProducts();
-  }
+    // No need to reset pageNumber here unless you specifically want to start from page 1 after sorting
+}
+
   onSortChange(event: Event): void {
+    console.log("onSortChange triggered", event);
+
     this.sortBy = (event.target as HTMLSelectElement).value;
+    console.log("Sorting by:", this.sortBy);
+
     this.sortProducts(this.sortBy);}
 
     updatePaginatedProducts(): void {
       const startIndex = (this.pageNumber - 1) * this.pageSize;
-      this.paginatedProducts = this.searchResults.slice(startIndex, startIndex + this.pageSize);
+      this.paginatedProducts = this.sortedProducts.slice(startIndex, startIndex + this.pageSize);
       this.paginatedProducts = [...this.searchResults];
     }
-    
+    updatePaginatedProducts2(): void {
+      const startIndex = (this.pageNumber - 1) * this.pageSize;
+      this.paginatedProducts = this.sortedProducts.slice(startIndex, startIndex + this.pageSize);
+    }
   
     totalPages(): number {
       return Math.ceil(this.totalProducts / this.pageSize);
@@ -159,19 +175,42 @@ export class SearchForProudectComponentComponent implements OnInit {
     }
  
     filterByPrice(minPrice: number, maxPrice: number): void {
-      if (minPrice === 0 && maxPrice === Infinity) {
-         //---------No price filter
-        this.sortedProducts = [...this.searchResults];
-      } else {
-          //---------Filter products based on price range
-        this.sortedProducts = this.searchResults.filter(product => 
-          product.price >= minPrice && product.price <= maxPrice
-        );
+      // Validation for user input
+      minPrice = isNaN(minPrice) ? 0 : minPrice; // Default to 0 if input is NaN
+      maxPrice = isNaN(maxPrice) ? Infinity : maxPrice; // Default to Infinity if input is NaN
+  
+      // Ensure logical min/max values
+      if (minPrice > maxPrice) {
+          console.warn('Minimum price cannot be greater than maximum price. Reverting to default.');
+          minPrice = 0;
+          maxPrice = Infinity;
       }
+  
+      // Filter operation
+      if (minPrice === 0 && maxPrice === Infinity) {
+          // No specific price filter applied, revert to all search results
+          this.sortedProducts = [...this.searchResults];
+      } else {
+          // Filter searchResults based on price range
+          this.sortedProducts = this.searchResults.filter(product =>
+              product.price >= minPrice && product.price <= maxPrice
+          );
+      }
+  
+      // Reset to the first page
       this.pageNumber = 1;
-      this.updatePaginatedProducts();
+  
+      // Update the paginated products to reflect the newly filtered set
+      this.updatePaginatedProducts2(); // Assuming you have corrected the method name as per your code
+  
+      // Recalculate product ratings, if applicable
       this.calculateProductRatings();
-    }
+  
+      // Log the action for debugging
+      console.log(`Filtered by price: ${minPrice} to ${maxPrice}. Products found: ${this.sortedProducts.length}`);
+  }
+  
+  
     getProductName(product: Iproduct): string {
       return this.lang === 'en' ? product.nameEn : product.nameAr;
     }
@@ -188,7 +227,7 @@ export class SearchForProudectComponentComponent implements OnInit {
       this._productService.filterdbybrandname(brand,this.pageSize,this.pageNumber).subscribe({
         next: (res: any) => {
           if (Array.isArray(res)) {
-            // this.filteredResults=this.searchResults.filter(product => product.BrandName ===brand);
+            this.animationService.openspinner();
             // console.log( this.filteredResults);
             this.searchResults = res;
             console.log(this.searchResults)

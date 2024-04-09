@@ -197,7 +197,8 @@
         "Cart Summary":"Cart Summary",
         "Enter Shipping Address":"Enter Shipping Address",
         " Delete All Cart":" Delete All Cart",
-        "quantity":"quantity"
+        "quantity":"quantity",
+        "Remove item":"Remove item"
       }
       ,
       "order":{

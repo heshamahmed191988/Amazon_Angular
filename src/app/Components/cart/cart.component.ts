@@ -98,7 +98,9 @@ this.payPalConfig = this._PaypalService.payPalConfig;
 }
 
 Remove(item: Iproduct): void {
-this._Cart.removeOrderItem(item.id); // Adjusted to use the product's ID
+this._Cart.removeOrderItem(item.id);
+console.log('Cart is now empty.');
+
 }
 emptyOrder(): void {
 this._Cart.removeAllOrder(); // Clears the entire cart
@@ -134,6 +136,19 @@ getaddressidbyuserid(userid: string) {
   });
 }
 
+goBack() {
+  window.history.back();
+}
+
+increaseQuantity(item: any) {
+  item.quantity++;
+}
+
+decreaseQuantity(item: any) {
+  if (item.quantity > 1) {
+    item.quantity--;
+  }
+}
 
 
 }

@@ -31,7 +31,7 @@ export const routes: Routes = [
             {path: 'Edit', component: EditUserComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
             {path: 'review', component: ReviewComponent,},
-            {path: 'address', component: AddressComponent,},
+            {path: 'address', component: AddressComponent,canActivate:[authGuard]},
             {path: 'About', component: AboutUsComponent},
             {path: 'ContactUs', component: ContactUsComponent},
             {path: 'SearchForProudectComponent/:name', component: SearchForProudectComponentComponent },

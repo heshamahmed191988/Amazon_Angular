@@ -66,5 +66,33 @@ export class ProductServiceService {
     .append('pageNumber', pageNumber.toString());
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/ByCategoryAndName?categoryId=${categoryId}&name=${name}`,{ params });
   }
+
+  // filterProductsByCategoryAndNameandprice(categoryId: number, name: string, price: number, pageSize: number, pageNumber: number)
+  // {
+  //   let params = new HttpParams()
+  //   .append('pageSize', pageSize.toString())
+  //   .append('pageNumber', pageNumber.toString());
+  //   return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/ByCategoryAndNameSortedByPrice?categoryId=${categoryId}&name=${name}`,{ params });
+  // }
+
+  filterProductsByCategoryAndNameAndPrice(categoryId: number, sortOrder: string = 'asc', pageSize: number, pageNumber: number) {
+    let params = new HttpParams()
+      .append('pageSize', pageSize.toString())
+      .append('pageNumber', pageNumber.toString())
+      .append('sortOrder', sortOrder);
+  
+    // Conditionally append categoryId, name, and price if they are provided
+    if (categoryId !== 0) {
+      params = params.append('categoryId', categoryId.toString());
+    }
+  
+    
+  
+    
+  
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all/sorted`, { params });
+  }
+  
+  
 }
 

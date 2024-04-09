@@ -1,42 +1,97 @@
+
 <ng-container *ngIf="product.length === 0; else notEmpty">
-  empty cart
+  <h2 style="text-align: center;">{{'cart.Empty Cart'| translate}}</h2>
 </ng-container>
 
 <ng-template #notEmpty>
-  <div class="cart-tabel">
-    <div class="cart-product">
-      <div class="con">
-        <h2>Shopping Cart</h2>
-        <p><a href="#">Select all items</a></p>
+  <div class="container mt-5 mb-5">
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="ibox">
+            <div class="ibox-title">
+              <span class="pull-right">(<strong>{{ product.length }}</strong>) {{'cart.items'|translate}}</span>
+              <h5>{{'cart.Items in your cart'|translate}}</h5>
+            </div>
+            <div class="ibox-content">
+              <div class="table-responsive">
+                <table class="table shoping-cart-table">
+                  <tbody>
+                    <tr *ngFor="let item of product">
+                      <td width="90">
+                        <!-- <img [src]="item.itemimages" alt="Product Image" style="max-width: 80px;"> -->
+                      </td>
+                      <td class="desc">
+                        <h4>
+                          <h4>{{item.nameEn}}</h4>
+                          <h5 href="#" class="text-navy">{{ item.productDescription }}</h5>
+                        </h4>
+                        <p class="small">
+                          {{ item.productDescription }}
+                        </p>
+                        <dl class="small m-b-none">
+                          <dt>{{'cart.Description lists'|translate}}</dt>
+                          <dd>{{'cart.A description list is perfect for defining terms'|translate}}</dd>
+                          
+                            <div class="quantity-controls">
+                              <button class="btn btn-sm btn-secondary" (click)="decreaseQuantity(item)">
+                                <i class="fa fa-minus"></i>
+                              </button>
+                              <span class="quantity">{{ item.quantity }}</span>
+                              <button class="btn btn-sm btn-secondary" (click)="increaseQuantity(item)">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                         
+                          
+                        </dl>
+
+                        <div class="m-t-sm">
+                        
+                          <a href="#" class="text-muted" (click)="Remove(item)"><i class="fa fa-trash"></i>{{'cart.Remove item'|translate}} </a>
+                        </div>
+                      </td>
+                
+                      <td>
+                        <!-- {{ item.price | currency }} -->
+                        <s class="small text-muted">{{ item.price}}</s>
+                      </td>
+                      <td width="65">
+                        <input type="checkbox" [(ngModel)]="item.id">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+            <div class="ibox-content">
+              <button class="btn btn-white" (click)="goBack()">
+                <i class="fa fa-arrow-left"></i> {{'cart.Continue shopping' | translate}}
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-3">
+          <div class="ibox">
+            <!-- <div class="ibox-title">
+              <h5>{{'cart.Cart Summary'|translate}}</h5>
+            </div> -->
+            <!-- <div class="ibox-content">
+              <span>Total</span>
+              <h2 class="font-bold">{{ grandToltal | currency }}</h2>
+            </div> -->
+            <div class="paypal">
+              <ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
+              <button type="button" class="btn btn-warning" (click)="emptyOrder()"> {{'cart.Delete All Cart'|translate}}</button>
+              <button class="btn btn-warning" *ngIf="!isAddressSubmitted && !isCartEmpty" (click)="gottoAddress()">{{'cart.Enter Shipping Address'|translate}}</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <hr>
-      <table class="table table-responsive">
-        <tbody>
-          <tr *ngFor="let item of product; let i = index">
-            <td><input type="checkbox"></td>
-            <td><img [src]="item.itemimages" alt=""></td>
-            <td>
-              <h3>{{ item.productDescription }}</h3>
-              <p>In Stock</p>
-              <!-- <h6>Color: {{item.colors}}</h6> -->
-              <h6>quantity: {{item.quantity}}</h6>
-              <button (click)="Remove(item)"><a href="">Delete</a></button>
-            </td>
-            <td>{{item.price}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="con2">
-        <h4>Subtotal : {{grandToltal}}</h4>
-      </div>
-     <hr>
     </div>
   </div>
+
 </ng-template>
-
-
-
-
-<ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
-<button type="button" class="btn btn-warning" (click)="emptyOrder()"> Delete All Cart</button>
-<button class="btn btn-warning" *ngIf="!isAddressSubmitted && !isCartEmpty" (click)="gottoAddress()">Enter Shipping Address</button>

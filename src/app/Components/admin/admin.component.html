@@ -1,10 +1,37 @@
-<div class="container col-8">
-    <h1>Your Account</h1>
-    <div class="buttons">
-    <button [disabled]="UserId" class="btn col-12" routerLink="/login">login</button>
-    <button [disabled]="UserId" class="btn col-12" routerLink="/register">Register</button>
-    <button [disabled]="!UserId" class="btn col-12" (click)="logout()">Logout</button>
-    <button [disabled]="!UserId" class="btn col-12" routerLink="/Order">Your Orders</button>
-    <button [disabled]="!UserId" class="btn col-12" routerLink="/Edit">Edit Your Account</button>
+<h3 style="text-align: center;" class="mt-5">Your Account</h3>
+
+  <div class="parent ">
+<!-- Only show if UserId is falsy -->
+<div class="login dv" *ngIf="!UserId">
+  <img src="https://m.media-amazon.com/images/G/01/x-locale/cs/help/images/gateway/self-service/security._CB659600413_.png" alt="">
+  <button routerLink="/login">Login</button>
+</div>
+
+<!-- Only show if UserId is falsy -->
+<div class="Register dv" *ngIf="!UserId">
+  <img src="https://m.media-amazon.com/images/G/01/x-locale/cs/help/images/gateway/self-service/security._CB659600413_.png" alt="">
+  <button routerLink="/register">Register</button>
+</div>
+
+
+    <div class="logout dv" *ngIf="UserId">
+        <img src="https://m.media-amazon.com/images/G/01/x-locale/cs/help/images/gateway/self-service/security._CB659600413_.png" alt="">
+        <button [disabled]="!UserId" (click)="logout()">Logout</button>
+    </div>
+
+
   </div>
+
+  <div class="parent2 parent">
+    <div class="logout dv">
+        <img src="https://m.media-amazon.com/images/G/01/x-locale/cs/help/images/gateway/self-service/order._CB660668735_.png" alt="">
+          <button [disabled]="!UserId"  routerLink="/Order">Your Orders</button>
+    </div>
+
+    <div class="logout dv">
+        <img src="https://m.media-amazon.com/images/G/01/x-locale/cs/help/images/gateway/self-service/account._CB660668669_.png" alt="">
+       <button [disabled]="!UserId"  routerLink="/Edit">Edit Your Account</button>
+    </div>
   </div>
+  
+  <div class="din mb-4"></div>
