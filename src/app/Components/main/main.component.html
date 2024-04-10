@@ -36,7 +36,9 @@
 <div class="container card-product-containe">
     <div class="row">
         <div class="col-md-4" *ngFor="let category of categories">
-            <a [routerLink]="['/SearchForProudectComponent', category.nameEn]">
+<!-- Assuming 'category' is an object with 'nameEn' and 'id' properties -->
+<!-- Assuming you have a category object with nameEn and id properties -->
+<a [href]="'/SearchForProudectComponent;name=;categoryId=' + category.id">
                 <div class="card" style="margin-bottom: 10px;">
                     <h3 class="card-header">{{ getcategorytName(category)}}</h3>
                     <img class="card-img-top" src="https://m.media-amazon.com/images/I/41aF1Kpc1iL._SY160_.jpg"

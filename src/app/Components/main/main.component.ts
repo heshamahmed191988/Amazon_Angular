@@ -42,6 +42,7 @@ export class MainComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.lang = localStorage.getItem('lang') || 'en';
     this.animationService.openspinner();
     this._deal.getDeals().subscribe(deals => {
       this.deals = deals;
@@ -117,8 +118,15 @@ export class MainComponent implements OnInit {
       }
     );
   }
-  navigateToSearch(name: string, Id: number): void {
-    this.router.navigate(['/SearchForProudectComponent'], { queryParams: { name: name, categoryId:Id}});
+//   navigateToSearch(name: string, Id: number): void {
+//     this.router.navigate(['/SearchForProudectComponent'], { queryParams: { name: name, categoryId:Id}});
+// }
+
+navigateToSearch(name: string, Id: number): void {
+  // Construct the route path with matrix parameters manually
+  const path = `/SearchForProudectComponent;name=;categoryId=${Id}`;
+  // Use the router to navigate
+  this.router.navigateByUrl(path);
 }
   loadCategories(): void {
     this.categoryService.getAllCategory().subscribe({

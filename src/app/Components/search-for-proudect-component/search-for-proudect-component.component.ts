@@ -42,11 +42,23 @@ export class SearchForProudectComponentComponent implements OnInit {
     private animationService:AnimationService) {}
 
   ngOnInit(): void {
+  
+
     this.animationService.openspinner();
+    this.route.queryParams.subscribe(queryParams => {
+      // Extract 'page' from query params and ensure it's a positive integer
+      const pageFromQuery = parseInt(queryParams['page'], 10);
+      if (!isNaN(pageFromQuery) && pageFromQuery > 0) {
+        this.pageNumber = pageFromQuery;
+      }
+    });
+    
     //this.searchResults = [];
-    this.route.paramMap.subscribe(paramMap => {
-      this.searchQuery = paramMap.get('name') ?? '';
-      this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
+    
+    this.route.paramMap.subscribe(queryParams => {
+      
+      this.searchQuery = queryParams.get('name') ?? '';
+      this.selectedCategoryId = Number(queryParams.get('categoryId')) || 0;
       this.loadProducts();
      
        console.log( this.selectedCategoryId);
@@ -170,8 +182,12 @@ export class SearchForProudectComponentComponent implements OnInit {
     //   this.currentPage = page;
     //   this.updatePaginatedProducts();
     // }
+    // NavigateToDetails(proId: number) {
+    //   this.router.navigateByUrl(`/Details/${proId}`);
+    // }
+
     NavigateToDetails(proId: number) {
-      this.router.navigateByUrl(`/Details/${proId}`);
+      this.router.navigate([`/Details/${proId}`], { queryParams: { page: this.pageNumber } });
     }
  
     filterByPrice(minPrice: number, maxPrice: number): void {
@@ -349,7 +365,9 @@ loadProducts(): void {
     } else {
       
       this.filterProductsByCategory();
+      
     }
+
   }
 }
 
@@ -431,13 +449,21 @@ getRandomProducts(products: Iproduct[]): Iproduct[] {
 
 changePage(page: number): void {
   this.pageNumber = page;
+  this.router.navigate([], { 
+    relativeTo: this.route,
+    queryParams: { page: this.pageNumber },
+    queryParamsHandling: 'merge', // merge with existing query params
+  });
+
   this.updatePaginatedProducts();
   this.loadProducts();
+  window.scrollTo(0, 0);
 }
 goToNextPage() {
   if (this.pageNumber < this.totalPages()) {
     this.changePage(this.pageNumber + 1);
 this.loadProducts();
+window.scrollTo(0, 0);
   }
 }
 
@@ -445,6 +471,7 @@ goToPreviousPage() {
   if (this.pageNumber > 1) {
     this.changePage(this.pageNumber - 1);
     this.loadProducts();
+    window.scrollTo(0, 0);
 
   }
 }
@@ -476,5 +503,7 @@ get visiblePageNumbers(): number[] {
 
   return pages;
 }
+
+
 
 }

@@ -25,7 +25,7 @@ export class LoginComponent {
         next: (data) => {
           console.log('Login successful', data);
           localStorage.setItem('token', data.token); // Assuming 'data.token' is your JWT token
-          this.router.navigate(['/Home']);
+          this.router.navigate(['/main']);
         },
         error: (error) => {
           console.error('Login failed', error);

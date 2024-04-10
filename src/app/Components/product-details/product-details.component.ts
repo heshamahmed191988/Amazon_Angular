@@ -93,6 +93,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.animationService.openspinner();
     this.activatedrouter.paramMap.subscribe((paramMap) => {
       this.currentId = Number(paramMap.get('id'));
