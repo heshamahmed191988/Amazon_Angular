@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Iproduct } from '../models/iproduct';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { FilterCriteria } from '../models/filterCriteria';
 
 @Injectable({
   providedIn: 'root'
@@ -92,7 +93,50 @@ export class ProductServiceService {
   
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all/sorted`, { params });
   }
+
+
+  getFilteredProducts(filters: any, pageSize: number, pageNumber: number): Observable<any> {
+    // Initialize HttpParams
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('pageNumber', pageNumber.toString());
   
+    // Add other filter parameters
+    Object.keys(filters).forEach(key => {
+      if (filters[key] !== null && filters[key] !== undefined) {
+        // This ensures even complex objects or enums get sent as readable strings for the API to interpret
+        params = params.set(key, filters[key].toString());
+      }
+    });
+  
+    return this.httpclient.get<FilterCriteria>(`${environment.baseUrl}/api/Product/filtered`, { params });
+  }
+  
+
+
+
+
+
+
+
+
+
+  filterProductsByCategoryAndPriceRange(categoryId: number, minPrice: number, maxPrice: number, pageSize: number, pageNumber: number) {
+    let params = new HttpParams()
+      .append('pageSize', pageSize.toString())
+      .append('pageNumber', pageNumber.toString());
+  
+    // Conditionally append categoryId if provided and not 0
+    if (categoryId !== 0) {
+      params = params.append('categoryId', categoryId.toString());
+    }
+  
+    // Append minPrice and maxPrice to the request parameters
+    params = params.append('minPrice', minPrice.toString())
+                   .append('maxPrice', maxPrice.toString());
+  
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all/filteredprice`, { params });
+  }
   
 }
 

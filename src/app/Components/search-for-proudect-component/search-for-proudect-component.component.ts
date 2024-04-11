@@ -45,20 +45,11 @@ export class SearchForProudectComponentComponent implements OnInit {
   
 
     this.animationService.openspinner();
-    this.route.queryParams.subscribe(queryParams => {
-      // Extract 'page' from query params and ensure it's a positive integer
-      const pageFromQuery = parseInt(queryParams['page'], 10);
-      if (!isNaN(pageFromQuery) && pageFromQuery > 0) {
-        this.pageNumber = pageFromQuery;
-      }
-    });
-    
+   this.calculateProductRatings();
     //this.searchResults = [];
-    
-    this.route.paramMap.subscribe(queryParams => {
-      
-      this.searchQuery = queryParams.get('name') ?? '';
-      this.selectedCategoryId = Number(queryParams.get('categoryId')) || 0;
+    this.route.paramMap.subscribe(paramMap => {
+      this.searchQuery = paramMap.get('name') ?? '';
+      this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
       this.loadProducts();
      
        console.log( this.selectedCategoryId);
@@ -130,31 +121,24 @@ export class SearchForProudectComponentComponent implements OnInit {
 
   sortProducts(sortOption: string): void {
     this.sortBy = sortOption; // Update current sort preference
-
+  
     let sortOrder = 'asc'; // Default sort order
-    switch (sortOption) {
-        case 'featured':
-            // Implement your logic for 'featured' if it involves a specific sort or is a default view
-            break;
-        case 'lowToHigh':
-            this.searchResults.sort((a, b) => a.price - b.price);
-            break;
-        case 'highToLow':
-            this.searchResults.sort((a, b) => b.price - a.price);
-            break;
-        default:
-            // Handle other sorting criteria
-            break;
+    if (sortOption === 'highToLow') {
+      sortOrder = 'desc';
     }
+  
+    
+  
+    // Now, instead of sorting on the client side, fetch sorted data from the server
+    this._productService.filterProductsByCategoryAndNameAndPrice(this.selectedCategoryId, sortOrder, this.pageSize, this.pageNumber).subscribe((products) => {
+      this.searchResults = products; // Assuming 'searchResults' holds the fetched products
+      // Update UI based on fetched sorted products
+      this.sortedProducts = [...this.searchResults];
+      this.calculateProductRatings();
 
-    // After sorting searchResults, you may want to update the sortedProducts as well
-    // if you plan to use it for other purposes. If not, this line can be omitted.
-    this.sortedProducts = [...this.searchResults];
-
-    // Now, update the paginated view to reflect the new order
-    this.updatePaginatedProducts();
-    // No need to reset pageNumber here unless you specifically want to start from page 1 after sorting
-}
+      this.updatePaginatedProducts();
+    });
+  }
 
   onSortChange(event: Event): void {
     console.log("onSortChange triggered", event);
@@ -182,50 +166,53 @@ export class SearchForProudectComponentComponent implements OnInit {
     //   this.currentPage = page;
     //   this.updatePaginatedProducts();
     // }
-    // NavigateToDetails(proId: number) {
-    //   this.router.navigateByUrl(`/Details/${proId}`);
-    // }
-
     NavigateToDetails(proId: number) {
-      this.router.navigate([`/Details/${proId}`], { queryParams: { page: this.pageNumber } });
+      this.router.navigateByUrl(`/Details/${proId}`);
     }
  
     filterByPrice(minPrice: number, maxPrice: number): void {
       // Validation for user input
       minPrice = isNaN(minPrice) ? 0 : minPrice; // Default to 0 if input is NaN
       maxPrice = isNaN(maxPrice) ? Infinity : maxPrice; // Default to Infinity if input is NaN
-  
+    
       // Ensure logical min/max values
       if (minPrice > maxPrice) {
           console.warn('Minimum price cannot be greater than maximum price. Reverting to default.');
           minPrice = 0;
           maxPrice = Infinity;
       }
-  
-      // Filter operation
-      if (minPrice === 0 && maxPrice === Infinity) {
-          // No specific price filter applied, revert to all search results
-          this.sortedProducts = [...this.searchResults];
-      } else {
-          // Filter searchResults based on price range
-          this.sortedProducts = this.searchResults.filter(product =>
-              product.price >= minPrice && product.price <= maxPrice
-          );
-      }
-  
-      // Reset to the first page
-      this.pageNumber = 1;
-  
-      // Update the paginated products to reflect the newly filtered set
-      this.updatePaginatedProducts2(); // Assuming you have corrected the method name as per your code
-  
-      // Recalculate product ratings, if applicable
-      this.calculateProductRatings();
-  
-      // Log the action for debugging
-      console.log(`Filtered by price: ${minPrice} to ${maxPrice}. Products found: ${this.sortedProducts.length}`);
-  }
-  
+    
+      // Assuming selectedCategoryId is accessible in this context
+      // If not, adjust accordingly to fetch or use a default categoryId
+    
+      // Now, instead of locally filtering searchResults, use the API to fetch filtered results
+      this._productService.filterProductsByCategoryAndPriceRange(this.selectedCategoryId, minPrice, maxPrice, this.pageSize, this.pageNumber)
+        .subscribe({
+          next: (products) => {
+            // Assuming the response is directly the list of products
+            this.searchResults = products;
+            this.sortedProducts = [...this.searchResults]; // Ensure sortedProducts reflects the latest state
+            this.updatePaginatedProducts(); // Refresh the paginated view based on new sortedProducts
+    
+            // Optionally reset pageNumber to 1 or adjust according to response pagination details
+            this.pageNumber = 1;
+    
+            this.Quant = products.length; // Update the product count if needed
+    
+            // Recalculate product ratings for the new set of products
+            this.calculateProductRatings();
+    
+            console.log(`Filtered by price: ${minPrice} to ${maxPrice}. Products found: ${this.sortedProducts.length}`);
+          },
+          error: (error) => {
+            console.error('Error fetching filtered products:', error);
+          }
+        });
+        
+
+        
+    }
+    
   
     getProductName(product: Iproduct): string {
       return this.lang === 'en' ? product.nameEn : product.nameAr;
@@ -240,53 +227,73 @@ export class SearchForProudectComponentComponent implements OnInit {
     }
 
     filterByBrand(brand: string): void {
-      this._productService.filterdbybrandname(brand,this.pageSize,this.pageNumber).subscribe({
-        next: (res: any) => {
+      this._productService.filterdbybrandname(brand, this.pageSize, this.pageNumber).subscribe({
+        next: (res: Iproduct[]) => {
           if (Array.isArray(res)) {
-            this.animationService.openspinner();
-            // console.log( this.filteredResults);
-            this.searchResults = res;
-            console.log(this.searchResults)
+            this.searchResults = res; // Update the primary data source
+            this.sortedProducts = [...this.searchResults]; // Ensure display array is synchronized
             this.Quant = this.searchResults.length;
-            this.sortProducts(this.sortBy);
+            // Consider conditionally calling sortProducts only if sortOrder indicates a change
             this.calculateProductRatings();
-
           } else {
             console.log('Invalid response format');
             this.searchResults = [];
+            this.sortedProducts = []; // Keep both arrays in sync
           }
         },
         error: (err) => {
-          console.log(err);
+          console.error(err);
+        },
+        complete: () => {
+           // Ensure spinner is closed when operation completes
+          this.updatePaginatedProducts(); // Update the UI with the latest state
         }
       });
     }
     
     calculateProductRatings(): void {
-      //---------Calculate ratings for each product 
-for (let product of this.searchResults) {
-this.reviewService.getReviewsByProductId(product.id!).subscribe({
-  next: (reviews) => {
-    if (reviews && reviews.length > 0)
-     {         
-        let totalRating = 0
-        for (let review of reviews) 
-        {
-          totalRating += review.rating || 0;
-        }
-        product.rating = totalRating / reviews.length;
+      // Create an array to store all promises
+      const ratingPromises: Promise<void>[] = [];
+    
+      // Iterate through each product
+      for (let product of this.searchResults) {
+        // Create a promise for each product's rating calculation
+        const ratingPromise = new Promise<void>((resolve, reject) => {
+          // Fetch reviews for the product
+          this.reviewService.getReviewsByProductId(product.id!).subscribe({
+            next: (reviews) => {
+              if (reviews && reviews.length > 0) {
+                let totalRating = 0;
+                for (let review of reviews) {
+                  totalRating += review.rating || 0;
+                }
+                product.rating = totalRating / reviews.length;
+              } else {
+                product.rating = 0;
+              }
+              resolve(); // Resolve the promise once the rating calculation is done
+            },
+            error: (err) => {
+              console.error('Error fetching reviews:', err);
+              reject(err); // Reject the promise if there's an error
+            }
+          });
+        });
+        
+        ratingPromises.push(ratingPromise); // Add the promise to the array
+      }
+    
+      // Wait for all promises to resolve
+      Promise.all(ratingPromises)
+        .then(() => {
+          // All promises have resolved, ratings are calculated
+          console.log('Product ratings calculated successfully.');
+        })
+        .catch((error) => {
+          console.error('Error calculating product ratings:', error);
+        });
     }
-     else
-    {
-         product.rating = 0;
-    }
-  },
-  error: (err) => {
-    console.error('Error fetching reviews:', err);
-  }
-});
-}
-}
+    
     
 filterByRating(minRating: number): void {
   this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
@@ -318,13 +325,17 @@ loadProducts(): void {
       this._productService.filterProductsByCategoryAndName(this.selectedCategoryId, this.searchQuery,this.pageSize,this.pageNumber).subscribe({
         next: (res: Iproduct[]) => {
           if (Array.isArray(res)) {
+            
             this.searchResults = res;
+            this.sortedProducts = [...res]; // Update sortedProducts with the filtered results
+
             this.sortedProducts=res;
             console.log( "llok" ,this.searchResults );
             this.Quant = this.searchResults.length;
-          
-            this.sortProducts(this.sortBy);
+            
             this.calculateProductRatings();
+            this.sortProducts(this.sortBy);
+         
             
           } else {
             console.log('Invalid response format');
@@ -365,9 +376,7 @@ loadProducts(): void {
     } else {
       
       this.filterProductsByCategory();
-      
     }
-
   }
 }
 
@@ -449,14 +458,9 @@ getRandomProducts(products: Iproduct[]): Iproduct[] {
 
 changePage(page: number): void {
   this.pageNumber = page;
-  this.router.navigate([], { 
-    relativeTo: this.route,
-    queryParams: { page: this.pageNumber },
-    queryParamsHandling: 'merge', // merge with existing query params
-  });
-
   this.updatePaginatedProducts();
   this.loadProducts();
+  
   window.scrollTo(0, 0);
 }
 goToNextPage() {
@@ -503,7 +507,5 @@ get visiblePageNumbers(): number[] {
 
   return pages;
 }
-
-
 
 }

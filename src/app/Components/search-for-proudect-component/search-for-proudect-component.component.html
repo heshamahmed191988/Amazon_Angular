@@ -80,12 +80,13 @@
               <!-- {{Quant}}  {{'detail.results for'|translate}}"{{searchQuery!}}" -->
             </div> 
             <div class="col-md-2 mb-3" style="margin-top: 0; padding-top: 0;"> 
-                <select class="form-select" (change)="onSortChange($event)" >
-                    <option value="featured"> {{ 'search.Sort by: Featured' | translate }}</option>
-                    <option value="lowToHigh">{{ 'search.Price: Low to High' | translate }}</option>
-                    <option value="highToLow">{{ 'search.Price: High to Low' | translate }}</option>
-                </select>
-            </div>
+              <select class="form-select" (change)="onSortChange($event)">
+                  <option value="featured"> {{ 'search.Sort by: Featured' | translate }}</option>
+                  <option value="lowToHigh">{{ 'search.Price: Low to High' | translate }}</option>
+                  <option value="highToLow">{{ 'search.Price: High to Low' | translate }}</option>
+              </select>
+          </div>
+          
         </div>
         <hr style="margin: 0px; padding: 0px;">
                    <!--body-->
