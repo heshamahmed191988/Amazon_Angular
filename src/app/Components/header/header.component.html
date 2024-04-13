@@ -10,27 +10,27 @@
                     src="https://zeevector.com/wp-content/uploads/Amazon-Logo-White@zeevector.png"></a>
   
   
-            <a class="link d-lg-none" href="#" style="margin-top: -4vw;"><img width="50" height="50" src="https://img.icons8.com/ios/50/menu-squared-2.png" alt="menu-squared-2"/></a>
-  
-  
-            <div class="collapse navbar-collapse" id="navbarScroll">
-  
-                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll">
-                    <li class="nav-item">
-                        <span class="nav-link" style="margin-bottom: 25px; margin-right: 5px;text-align: center;">
-                            <a class="Deliver" style="color: white; margin: 2px; width: 90px;" staria-current="page"
-                                href="#">
-                                <span style="color: #d9dbda; margin-right: 10px;">{{'header.Deliver' | translate}}</span>
-                                <br><i class="fas fa-map-marker-alt"></i>{{'header.egypt' | translate}}</a>
-                        </span>
-                    </li>
-                </ul>
+            <!-- <a class="link d-lg-none" href="#" style="margin-top: -4vw;"><img width="50" height="50" src="https://img.icons8.com/ios/50/menu-squared-2.png" alt="menu-squared-2"/></a> -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <span class="nav-link">
+                        <a class="Deliver" href="#" style="color: white;">
+                            <span>{{'header.Deliver' | translate}}</span>
+                            <br><i class="fas fa-map-marker-alt"></i>{{'header.egypt' | translate}}</a>
+                    </span>
+                </li>
+            </ul>
   
                 <div class="input-group mb-3" style="margin-top: 0px; width: 9%;">
                     <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId"
                         (change)="onCategoryChange()" style="border-radius: 0;border-bottom-left-radius: 5px;border-top-left-radius: 5px;">
                         <option value="0">All</option>
-                        <option *ngFor="let category of categories" [value]="category.id">{{ category.nameEn }}
+                        <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category) }}
                         </option>
                       </select>
                   </div>
@@ -60,8 +60,8 @@
                                   {{lang | translate}}
                               </a>
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                  <li><a class="dropdown-item" href="#" (click)="changelanguage('en')">English</a></li>
-                                  <li><a class="dropdown-item" href="#" (click)="changelanguage('ar')">Arabic</a></li>
+                                  <li><a class="dropdown-item"  (click)="changelanguage('en')">English</a></li>
+                                  <li><a class="dropdown-item"  (click)="changelanguage('ar')">Arabic</a></li>
                               </ul>
                           </div>
                         </li>
@@ -83,11 +83,11 @@
                                   </span>                              </a>
   
                               <ul class="dropdown-menu login-menu" aria-labelledby="dropdownMenuLink">
-                                  <li><a class="dropdown-item" href="#" routerLink="/register">Register</a></li>
-                                  <li><a class="dropdown-item" href="#" routerLink="/login">Login</a></li>
-                                  <li><a class="dropdown-item" href="#" routerLink="/Edit">Edit Your Account</a></li>
-                                  <li><a class="dropdown-item" href="#" routerLink="/Order">Your Orders</a></li>
-                                  <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+                                  <li><a class="dropdown-item"  routerLink="/register">Register</a></li>
+                                  <li><a class="dropdown-item"  routerLink="/login">Login</a></li>
+                                  <li><a class="dropdown-item"  routerLink="/Edit">Edit Your Account</a></li>
+                                  <li><a class="dropdown-item"  routerLink="/Order">Your Orders</a></li>
+                                  <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
                               </ul>
                           </div>
                       </li>
@@ -102,7 +102,10 @@
                         <li class="nav-item">
                             <a class="nav-link" style="color: white;padding-top: 8px; font-size: 36px;" staria-current="page" style="margin-bottom:10px ;"
                                 routerLink="/Cart" routerLinkActive="router-link-active">
-                                <i class="fas fa-shopping-cart" style="font-size:30px;">{{totalITeam}}</i>
+                                <i class="fas fa-shopping-cart" style="margin-top: 8px;
+                                font-size: 23px;"><span style="    position: relative;
+                                top: -11px;
+                                left: 6px;">{{totalITeam}}</span></i>
                             </a>
                         </li>
                     </ul>
@@ -110,4 +113,11 @@
             </div>
         </nav>
       </div>
-    </body>
+      <nav class="navbar-sec sec-nav navbar-expand-lg navbar-dark" style="height: 3rem;">
+        <ul class="navbar-nav">
+            @for(category of categories ; track category.id){
+                <li class="nav-item"><a [href]="'/SearchForProudectComponent;name=;categoryId=' + category.id">{{getCategoryName(category)}}</a></li>
+            }
+        </ul>
+    </nav>
+ </body>

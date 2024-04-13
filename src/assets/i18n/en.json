@@ -215,6 +215,21 @@
         "Total Price":"Total Price",
         "Order Status":"Order Status",
         "Quantity":"Quantity"
-      }
+      } , "main":{
+        "Exciting deals":"Exciting deals",
+        "See all deals":"See all deals",
+        "Up to":"Up to",
+        "off":"off",
+        "Investigate a thrilling audiobook lineup":"Investigate a thrilling audiobook lineup",
+        "Shop now":"Shop now",
+        "Add a card to your account":"Add a card to your account",
+        "Save on workstation essentials":"Save on workstation essentials",
+        "Get more for your phone":"Get more for your phone",
+        "Play without limits":"Play without limits",
+        "Capture the moments":"Capture the moments"
+
+
+    }
+      
   
 }

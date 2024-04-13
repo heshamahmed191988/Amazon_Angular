@@ -17,6 +17,7 @@ export interface Iproduct {
     price: number;
     rating?:number;
     categoryId?: number;
+    brandName?:string;
 
     //BrandName?:string;
 }

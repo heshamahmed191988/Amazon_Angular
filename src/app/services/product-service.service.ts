@@ -76,20 +76,21 @@ export class ProductServiceService {
   //   return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/ByCategoryAndNameSortedByPrice?categoryId=${categoryId}&name=${name}`,{ params });
   // }
 
-  filterProductsByCategoryAndNameAndPrice(categoryId: number, sortOrder: string = 'asc', pageSize: number, pageNumber: number) {
+  filterProductsByCategoryAndNameAndPrice(categoryId: number, sortOrder: string = 'asc', pageSize: number, pageNumber: number, brandName?: string) {
     let params = new HttpParams()
       .append('pageSize', pageSize.toString())
       .append('pageNumber', pageNumber.toString())
       .append('sortOrder', sortOrder);
   
-    // Conditionally append categoryId, name, and price if they are provided
+    // Conditionally append categoryId if it is provided and not zero
     if (categoryId !== 0) {
       params = params.append('categoryId', categoryId.toString());
     }
   
-    
-  
-    
+    // Conditionally append brandName if it is provided
+    if (brandName) {
+      params = params.append('brandName', brandName);
+    }
   
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all/sorted`, { params });
   }

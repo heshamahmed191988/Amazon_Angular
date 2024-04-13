@@ -13,7 +13,7 @@ let userauthservice=inject(AuthService)
     }
     else
     {
-      alert('You must be logged in first.');
+      //alert('You must be logged in first.');
       router.navigate(['/login']);
       return false;
     }

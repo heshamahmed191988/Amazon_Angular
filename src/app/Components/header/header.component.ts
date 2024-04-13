@@ -36,7 +36,13 @@ export class HeaderComponent implements OnInit {
     // this.isloggd = this.authService.isLoggedIn();
     this.authService.getloggedstatus().subscribe((loggedStatus) => {
       this.isloggd = loggedStatus;
+      this.translate.use(this.lang); // Use the language with TranslateService
 
+      // Subscribe to language changes
+      this.translate.onLangChange.subscribe(langChangeEvent => {
+        this.lang = langChangeEvent.lang;
+        // Optionally, refresh data that depends on the current language here
+      });
       this.CategoryService.getAllCategory().subscribe({
         next: (res) => {
           this.categories = res;

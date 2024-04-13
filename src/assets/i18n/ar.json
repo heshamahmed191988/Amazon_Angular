@@ -218,5 +218,19 @@
            "Total Price": "السعر الإجمالي",
            "Order Status": "حالة الطلب",
            "Quantity": "الكمية"
-         }
+         },
+         "main":{
+           "Exciting deals":"عروض مثيرة",
+           "See all deals":"رؤية جميع العروض",
+           "Up to":"تصل إلى",
+           "off":"خصم",
+           "Investigate a thrilling audiobook lineup":"استكشاف تشكيلة مثيرة من الكتب الصوتية",
+           "Shop now":"تسوق الآن",
+           "Add a card to your account":"إضافة بطاقة إلى حسابك",
+           "Save on workstation essentials":"وفر على الأساسيات لمحطة العمل",
+           "Get more for your phone":"احصل على المزيد لهاتفك",
+           "Play without limits":"العب بلا حدود",
+           "Capture the moments":"استمتع بلحظاتك"
+       }
+   
 }

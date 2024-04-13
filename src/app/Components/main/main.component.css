@@ -754,3 +754,56 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
 .deal2{
     background-color:#e3e6e6;
 }
+
+.slick-slider {
+    width: 90%;
+    margin: auto;
+  }
+  
+  .carousel {
+    width: 100%;
+  }
+  
+  .slide {
+    margin: 0;
+  }
+  
+  .carousel,
+  .slide {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* .slide {
+    width: 200px;
+    object-fit: cover;
+  } */
+  
+  .slide img {
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .full-width-image {
+    width: 100%;
+    display: block;
+  }
+  
+  body .slick-prev,
+  body .slick-next {
+    height: 45px;
+   
+    background: grey !important;
+    z-index: 100;
+  }
+  
+  
+    
+    .div {
+      margin: 0 10px; /* Add margin before and after the section */
+    }
+    
+    .today_deals_product_container {
+      display: flex;
+     /* Enable horizontal scrolling if necessary */
+  };

@@ -24,7 +24,7 @@ export class SearchForProudectComponentComponent implements OnInit {
   public pageNumber: number = 1;
   public pageSize: number =12;
   totalProducts: number =50; // Represents the total number of products found
-
+selectedBrand: string = '';
   Above_2500:number = 999999;
   Quant: number = 0;
   lang: string = 'en'; 
@@ -46,6 +46,18 @@ export class SearchForProudectComponentComponent implements OnInit {
 
     this.animationService.openspinner();
    this.calculateProductRatings();
+   const savedState = localStorage.getItem('searchState');
+   if (savedState) {
+     const state = JSON.parse(savedState);
+     this.pageNumber = state.pageNumber;
+     this.searchQuery = state.searchQuery;
+     this.sortBy = state.sortBy;
+     this.selectedCategoryId = state.selectedCategoryId;
+     // Restore any other state variables here
+ 
+     // Since we've restored state, we might need to load products accordingly
+     //this.loadProducts();
+   }
     //this.searchResults = [];
     this.route.paramMap.subscribe(paramMap => {
       this.searchQuery = paramMap.get('name') ?? '';
@@ -59,7 +71,7 @@ export class SearchForProudectComponentComponent implements OnInit {
             if (Array.isArray(res) ) {
               this.searchResults = res;
               
-              this.sortProducts(this.sortBy);
+              //this.sortProducts(this.sortBy);
               this.calculateProductRatings();
               this.Quant = this.searchResults.length;
             } else {
@@ -119,26 +131,40 @@ export class SearchForProudectComponentComponent implements OnInit {
     
   }
 
-  sortProducts(sortOption: string): void {
-    this.sortBy = sortOption; // Update current sort preference
-  
+  sortProducts(sortOption: string, brand?: string): void {
+    this.sortBy = sortOption;
+  this.selectedBrand!=brand;
     let sortOrder = 'asc'; // Default sort order
     if (sortOption === 'highToLow') {
-      sortOrder = 'desc';
+        sortOrder = 'desc';
     }
   
-    
-  
-    // Now, instead of sorting on the client side, fetch sorted data from the server
-    this._productService.filterProductsByCategoryAndNameAndPrice(this.selectedCategoryId, sortOrder, this.pageSize, this.pageNumber).subscribe((products) => {
-      this.searchResults = products; // Assuming 'searchResults' holds the fetched products
-      // Update UI based on fetched sorted products
-      this.sortedProducts = [...this.searchResults];
-      this.calculateProductRatings();
+    console.log("Sort Order:", sortOrder); // Log to confirm what's being sent
 
-      this.updatePaginatedProducts();
+    // Pass the brand directly to the filtering method to handle it server-side
+    this._productService.filterProductsByCategoryAndNameAndPrice(
+        this.selectedCategoryId, 
+        sortOrder, 
+        this.pageSize, 
+        this.pageNumber,
+        brand // Now passing the brand to the API
+    ).subscribe({
+        next: (products) => {
+            console.log("Products after sort and brand filter:", products);
+    
+            this.searchResults = products;
+            this.sortedProducts = [...this.searchResults];
+            this.calculateProductRatings();
+            this.updatePaginatedProducts();
+           // this.Quant = this.searchResults.length;
+        },
+        error: (error) => {
+            console.error('Failed to fetch products:', error);
+        }
     });
-  }
+}
+
+  
 
   onSortChange(event: Event): void {
     console.log("onSortChange triggered", event);
@@ -146,7 +172,9 @@ export class SearchForProudectComponentComponent implements OnInit {
     this.sortBy = (event.target as HTMLSelectElement).value;
     console.log("Sorting by:", this.sortBy);
 
-    this.sortProducts(this.sortBy);}
+    // Pass the currently selected brand along with sort options
+    this.sortProducts(this.sortBy, this.selectedBrand);
+}
 
     updatePaginatedProducts(): void {
       const startIndex = (this.pageNumber - 1) * this.pageSize;
@@ -167,52 +195,57 @@ export class SearchForProudectComponentComponent implements OnInit {
     //   this.updatePaginatedProducts();
     // }
     NavigateToDetails(proId: number) {
+      const state = {
+        pageNumber: this.pageNumber,
+        searchQuery: this.searchQuery,
+        sortBy: this.sortBy,
+        selectedCategoryId: this.selectedCategoryId,
+        // Add any other state variables you need to persist
+      };
+    
+      localStorage.setItem('searchState', JSON.stringify(state));
       this.router.navigateByUrl(`/Details/${proId}`);
     }
  
-    filterByPrice(minPrice: number, maxPrice: number): void {
-      // Validation for user input
-      minPrice = isNaN(minPrice) ? 0 : minPrice; // Default to 0 if input is NaN
-      maxPrice = isNaN(maxPrice) ? Infinity : maxPrice; // Default to Infinity if input is NaN
-    
-      // Ensure logical min/max values
-      if (minPrice > maxPrice) {
-          console.warn('Minimum price cannot be greater than maximum price. Reverting to default.');
-          minPrice = 0;
-          maxPrice = Infinity;
-      }
-    
-      // Assuming selectedCategoryId is accessible in this context
-      // If not, adjust accordingly to fetch or use a default categoryId
-    
-      // Now, instead of locally filtering searchResults, use the API to fetch filtered results
-      this._productService.filterProductsByCategoryAndPriceRange(this.selectedCategoryId, minPrice, maxPrice, this.pageSize, this.pageNumber)
-        .subscribe({
-          next: (products) => {
-            // Assuming the response is directly the list of products
-            this.searchResults = products;
-            this.sortedProducts = [...this.searchResults]; // Ensure sortedProducts reflects the latest state
-            this.updatePaginatedProducts(); // Refresh the paginated view based on new sortedProducts
-    
-            // Optionally reset pageNumber to 1 or adjust according to response pagination details
-            this.pageNumber = 1;
-    
-            this.Quant = products.length; // Update the product count if needed
-    
-            // Recalculate product ratings for the new set of products
-            this.calculateProductRatings();
-    
-            console.log(`Filtered by price: ${minPrice} to ${maxPrice}. Products found: ${this.sortedProducts.length}`);
-          },
-          error: (error) => {
-            console.error('Error fetching filtered products:', error);
-          }
-        });
-        
+    filterByPrice(minPrice: number, maxPrice: number, brand?: string): void {
+  // Validation for user input
+  minPrice = isNaN(minPrice) ? 0 : minPrice; // Default to 0 if input is NaN
+  maxPrice = isNaN(maxPrice) ? Infinity : maxPrice; // Default to Infinity if input is NaN
 
-        
-    }
-    
+  // Ensure logical min/max values
+  if (minPrice > maxPrice) {
+    console.warn('Minimum price cannot be greater than maximum price. Reverting to default.');
+    minPrice = 0;
+    maxPrice = Infinity;
+  }
+
+  // Clear any previous brand filter if none is provided now
+  if (!brand) {
+    this.selectedBrand = ''; // Ensure no brand is selected if none provided
+  } else {
+    this.selectedBrand = brand; // Update the current brand
+  }
+
+  this._productService.filterProductsByCategoryAndPriceRange(this.selectedCategoryId, minPrice, maxPrice, this.pageSize, this.pageNumber)
+  .subscribe({
+    next: (products) => {
+      const filteredByBrand = (this.selectedBrand && this.selectedBrand !== '') ?
+        products.filter(product => product.brandNameEn.toLowerCase() === this.selectedBrand.toLowerCase()) :
+        products;
+
+      this.searchResults = filteredByBrand;
+      this.sortedProducts = [...this.searchResults];
+      this.updatePaginatedProducts();
+      this.pageNumber = 1; // Reset to first page with new filter
+      this.Quant = filteredByBrand.length;
+
+      this.calculateProductRatings();
+
+      console.log(`Filtered by price: ${minPrice} to ${maxPrice}${this.selectedBrand ? ' and brand: ' + this.selectedBrand : ''}. Products found: ${this.sortedProducts.length}`);
+    },
+    error: (error) => console.error('Error fetching filtered products:', error)
+  });
+}
   
     getProductName(product: Iproduct): string {
       return this.lang === 'en' ? product.nameEn : product.nameAr;
@@ -227,6 +260,7 @@ export class SearchForProudectComponentComponent implements OnInit {
     }
 
     filterByBrand(brand: string): void {
+      this.selectedBrand = brand;
       this._productService.filterdbybrandname(brand, this.pageSize, this.pageNumber).subscribe({
         next: (res: Iproduct[]) => {
           if (Array.isArray(res)) {
@@ -250,7 +284,23 @@ export class SearchForProudectComponentComponent implements OnInit {
         }
       });
     }
-    
+
+    clearBrandFilter(): void {
+      this.selectedBrand = '';
+      this.loadProducts(); // Method to fetch all products or restore original state
+    }
+    processProductResponse(res: Iproduct[]): void {
+      if (Array.isArray(res)) {
+        this.searchResults = res;
+        this.sortedProducts = [...this.searchResults];
+        this.Quant = this.searchResults.length;
+        this.calculateProductRatings();
+      } else {
+        console.log('Invalid response format');
+        this.searchResults = [];
+        this.sortedProducts = [];
+      }
+    }
     calculateProductRatings(): void {
       // Create an array to store all promises
       const ratingPromises: Promise<void>[] = [];
@@ -294,7 +344,17 @@ export class SearchForProudectComponentComponent implements OnInit {
         });
     }
     
-    
+    loadFilteredProducts(): void {
+      if (this.selectedBrand) {
+        this.filterByBrand(this.selectedBrand);
+      } else if (this.selectedCategoryId !== 0) {
+        this.filterProductsByCategory();
+      } else if (this.searchQuery !== '') {
+        this.loadProducts();  // Your existing method that handles search queries
+      } else {
+        this.loadProducts();  // Method to load all products without any filters
+      }
+    }
 filterByRating(minRating: number): void {
   this.paginatedProducts = this.sortedProducts.filter(product => product.rating !== undefined && product.rating >= minRating);
 }
@@ -310,7 +370,7 @@ loadProducts(): void {
             //this.sortedProducts=res;
             this.Quant = this.searchResults.length;
             this.updatePaginatedProducts();
-            this.sortProducts(this.sortBy);
+            //this.sortProducts(this.sortBy);
             this.calculateProductRatings();
           } else {
             console.log('Invalid response format');
@@ -327,14 +387,17 @@ loadProducts(): void {
           if (Array.isArray(res)) {
             
             this.searchResults = res;
-            this.sortedProducts = [...res]; // Update sortedProducts with the filtered results
+           // this.sortedProducts = [...res]; // Update sortedProducts with the filtered results
 
-            this.sortedProducts=res;
+            //this.sortedProducts=res;
             console.log( "llok" ,this.searchResults );
             this.Quant = this.searchResults.length;
-            
+            this.updatePaginatedProducts();
             this.calculateProductRatings();
-            this.sortProducts(this.sortBy);
+
+
+           
+            //this.sortProducts(this.sortBy);
          
             
           } else {
@@ -363,7 +426,7 @@ loadProducts(): void {
             this.Quant = this.searchResults.length;
             this.updatePaginatedProducts();
 
-            this.sortProducts(this.sortBy);
+            //this.sortProducts(this.sortBy);
             this.calculateProductRatings();
           } else {
             console.log('Invalid response format');
@@ -388,7 +451,7 @@ loadProducts(): void {
                   this.Quant = this.searchResults.length;
                   this.updatePaginatedProducts();
 
-                  this.sortProducts(this.sortBy);
+                  //this.sortProducts(this.sortBy);
                   this.calculateProductRatings();
 
               },
@@ -459,14 +522,14 @@ getRandomProducts(products: Iproduct[]): Iproduct[] {
 changePage(page: number): void {
   this.pageNumber = page;
   this.updatePaginatedProducts();
-  this.loadProducts();
+  this.loadFilteredProducts();
   
   window.scrollTo(0, 0);
 }
 goToNextPage() {
   if (this.pageNumber < this.totalPages()) {
     this.changePage(this.pageNumber + 1);
-this.loadProducts();
+this.loadFilteredProducts();
 window.scrollTo(0, 0);
   }
 }
@@ -474,7 +537,7 @@ window.scrollTo(0, 0);
 goToPreviousPage() {
   if (this.pageNumber > 1) {
     this.changePage(this.pageNumber - 1);
-    this.loadProducts();
+    this.loadFilteredProducts();
     window.scrollTo(0, 0);
 
   }

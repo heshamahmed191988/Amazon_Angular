@@ -5,6 +5,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { OrderService } from './order.service';
 import { IcreatrOrder } from '../models/icreatr-order';
 import { BehaviorSubject } from 'rxjs';
+import { ICartService } from './icart.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,7 @@ export class PaypalService {
     public updateOrderData: BehaviorSubject<any> = new BehaviorSubject<any>({});
     public create: IcreatrOrder = {userID:"",orderQuantities:[],addressId:0} ;
 
-    constructor(private _OrderService: OrderService) { }
+    constructor(private _OrderService: OrderService,private _CartServices:ICartService) { }
 
     public initConfig(): void {
         this.payPalConfig = {
@@ -93,6 +94,7 @@ export class PaypalService {
                            // console.log(a);
                         })
                     })
+                    this._CartServices.removeAllOrder();
                 }
                 else {
                     console.log("the order not found");

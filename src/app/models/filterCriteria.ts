@@ -9,6 +9,6 @@ export interface FilterCriteria {
 
 export enum PriceSortOrder {
     None,
-    Ascending,
-    Descending
+    asc,
+    desc
 }

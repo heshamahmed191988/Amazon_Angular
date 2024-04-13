@@ -20,9 +20,12 @@
     "@angular/router": "^17.2.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "jquery": "^3.7.1",
     "ngx-paypal": "^11.0.0",
+    "ngx-slick-carousel": "^17.0.0",
     "ngx-spinner": "^16.0.2",
     "rxjs": "~7.8.0",
+    "slick-carousel": "^1.8.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

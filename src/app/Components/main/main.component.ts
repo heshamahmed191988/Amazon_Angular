@@ -10,16 +10,19 @@ import { SearchForProudectComponentComponent } from '../search-for-proudect-comp
 import { CategoryServiceService } from '../../services/category-service.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AnimationService } from '../../services/animation.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule,RouterLink,SearchForProudectComponentComponent,RouterLink,NgxSpinnerModule],
+  imports: [CommonModule,RouterLink,SearchForProudectComponentComponent,RouterLink,NgxSpinnerModule,TranslateModule,SlickCarouselModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
 export class MainComponent implements OnInit {
   @ViewChild('carousel', { static: true }) carousel!: ElementRef;
+  @ViewChild('carousel2', { static: true }) carousel2!: ElementRef;
   startSlider: number = 0;
   startSlider1: number = 0;
   imgItem: any;
@@ -30,6 +33,8 @@ export class MainComponent implements OnInit {
   public pageNumber: number = 1;
   public pageSize: number =3;
   lang!: string; 
+  isFirstSection: boolean = true;
+  
 
 
   categories:Icategory[] = [];
@@ -37,7 +42,8 @@ export class MainComponent implements OnInit {
     private prd:ProductServiceService,
     private router:Router,
     private categoryService:CategoryServiceService,
-    private animationService:AnimationService)
+    private animationService:AnimationService,
+  private translate:TranslateService)
   {
 
   }
@@ -48,8 +54,16 @@ export class MainComponent implements OnInit {
       this.deals = deals;
       this.endSlider = (this.deals.length - 1) * 100;
       this.endSlider1 = (this.deals.length - 1) * 100;
+      
     });
+    this.lang = localStorage.getItem('lang') || 'en'; // Initialize language from localStorage
+    this.translate.use(this.lang); // Use the language with TranslateService
 
+    // Subscribe to language changes
+    this.translate.onLangChange.subscribe(langChangeEvent => {
+      this.lang = langChangeEvent.lang;
+      // Optionally, refresh data that depends on the current language here
+    });
     this.loadCategories();
   }
 
@@ -139,5 +153,70 @@ navigateToSearch(name: string, Id: number): void {
     });
   }
   
-  
+ 
+
+
+ 
+  moveCarousel(direction: number): void {
+    const carouselBox = this.carousel.nativeElement as HTMLElement;
+    const carouselWidth = carouselBox.clientWidth;
+    const scrollAmount = direction * carouselWidth;
+
+    carouselBox.scrollLeft += scrollAmount;
+  }
+
+  slides = [
+    { img: 'https://m.media-amazon.com/images/I/61VzpOi-geL._AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/41+SjYNfmQL._SY500__AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/81+TH8IIf+L._AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/41+SjYNfmQL._SY500__AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/61VzpOi-geL._AC_SY200_.jpg' },
+  ];
+
+  slideConfig = {
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: false, // Hide the previous arrow
+    nextArrow: false, // Hide the next arrow
+  };
+  slideConfig2 = {
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: false, // Hide the previous arrow
+    nextArrow: false, // Hide the next arrow
+  };
+
+  slickInit(e: any) {
+    console.log('slick initialized');
+  }
+
+  breakpoint(e: any) {
+    console.log('breakpoint');
+  }
+
+  afterChange(e: any) {
+    console.log('afterChange');
+  }
+
+  beforeChange(e: any) {
+    console.log('beforeChange');
+  }
+
+  // 2
+
+  slickInit2(e: any) {
+    console.log('slick initialized');
+  }
+
+  breakpoint2(e: any) {
+    console.log('breakpoint');
+  }
+
+  afterChange2(e: any) {
+    console.log('afterChange');
+  }
+
+  beforeChange2(e: any) {
+    console.log('beforeChange');
+  }
 }
