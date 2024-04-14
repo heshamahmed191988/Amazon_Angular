@@ -16,6 +16,7 @@ import { AddressComponent } from './Components/address/address.component';
 import { MainComponent } from './Components/main/main.component';
 import { AdminComponent } from './Components/admin/admin.component';
 import { EditUserComponent } from './Components/edit-user/edit-user.component';
+import { OrderDetailsComponent } from './Components/order-details/order-details.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,8 @@ export const routes: Routes = [
             {path: 'admin', component: AdminComponent,},
             {path: 'Edit', component: EditUserComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
+            { path: 'OrderDetails/:orderid', component: OrderDetailsComponent},
+
             {path: 'review', component: ReviewComponent,},
             {path: 'address', component: AddressComponent,canActivate:[authGuard]},
             {path: 'About', component: AboutUsComponent},

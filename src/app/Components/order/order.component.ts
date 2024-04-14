@@ -13,6 +13,7 @@ import { IcreatrOrder } from '../../models/icreatr-order';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AnimationService } from '../../services/animation.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -34,7 +35,7 @@ export class OrderComponent implements OnInit{
   public updateorder:IUpdateOrder ={orderId:1,productId:1,quantity:1,orderItemId:1,totalPrice:1}
   UserId:string = ""
   // 82b5b776-9a7a-4556-99e6-983e9509064d
-constructor(private _OrderService:OrderService,private _AuthService:AuthService,private animationService:AnimationService)
+constructor(private _OrderService:OrderService,private _AuthService:AuthService,private animationService:AnimationService,private router: Router)
 {
 
 }
@@ -61,10 +62,8 @@ setUserid() {
     })
   }
   details(orderid: number) {
-    this._OrderService.getorderdetails(orderid).subscribe(res =>{
-        console.log(res);
-        this.orderdetails = res;
-    });
+
+    this.router.navigate(['/OrderDetails', orderid]);
   }
   updateQuantity(orderupdate: Iorderdetails, quantity: string) {
     this.updateorder.productId = orderupdate.productid;

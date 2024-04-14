@@ -24,7 +24,7 @@
                       <td class="desc">
                         <h4>
                           <h4>{{item.nameEn}}</h4>
-                          <h5 href="#" class="text-navy">{{ item.productDescription }}</h5>
+                          <h5  class="text-navy">{{ item.productDescription }}</h5>
                         </h4>
                         <p class="small">
                           {{ item.productDescription }}
@@ -54,7 +54,7 @@
                 
                       <td>
                         <!-- {{ item.price | currency }} -->
-                        <s class="small text-muted">{{ item.price}}</s>
+                        <span class="small text-muted">{{item.price}}$</span>
                       </td>
                       <td width="65">
                         <input type="checkbox" [(ngModel)]="item.id">
@@ -79,10 +79,10 @@
             <!-- <div class="ibox-title">
               <h5>{{'cart.Cart Summary'|translate}}</h5>
             </div> -->
-            <!-- <div class="ibox-content">
+            <div class="ibox-content">
               <span>Total</span>
-              <h2 class="font-bold">{{ grandToltal | currency }}</h2>
-            </div> -->
+              <h2 class="font-bold">{{ grandToltal}}</h2>
+            </div>
             <div class="paypal">
               <ngx-paypal *ngIf="isAddressSubmitted" [config]="payPalConfig"></ngx-paypal>
               <button type="button" class="btn btn-warning" (click)="emptyOrder()"> {{'cart.Delete All Cart'|translate}}</button>

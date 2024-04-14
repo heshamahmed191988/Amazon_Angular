@@ -62,6 +62,7 @@ selectedBrand: string = '';
     this.route.paramMap.subscribe(paramMap => {
       this.searchQuery = paramMap.get('name') ?? '';
       this.selectedCategoryId = Number(paramMap.get('categoryId')) || 0;
+
       this.loadProducts();
      
        console.log( this.selectedCategoryId);
@@ -72,7 +73,9 @@ selectedBrand: string = '';
               this.searchResults = res;
               
               //this.sortProducts(this.sortBy);
+              
               this.calculateProductRatings();
+              
               this.Quant = this.searchResults.length;
             } else {
               console.log('Invalid response format');
@@ -349,6 +352,7 @@ selectedBrand: string = '';
         this.filterByBrand(this.selectedBrand);
       } else if (this.selectedCategoryId !== 0) {
         this.filterProductsByCategory();
+        
       } else if (this.searchQuery !== '') {
         this.loadProducts();  // Your existing method that handles search queries
       } else {
@@ -448,6 +452,7 @@ loadProducts(): void {
           this._productService.getproudectsbycatogry(this.selectedCategoryId,this.pageSize,this.pageNumber).subscribe({
               next: (res) => {
                   this.searchResults = res;
+                  console.log(`The result is getProductsByCategory: ${res}`);
                   this.Quant = this.searchResults.length;
                   this.updatePaginatedProducts();
 

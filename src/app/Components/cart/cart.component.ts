@@ -80,6 +80,8 @@ ngOnInit(): void {
   this._Cart.getProduct().subscribe(res => {
     this.product = res;
     this.grandToltal = this._Cart.getTotalPrice();
+    this.calculateGrandTotal();
+
     // Update the isCartEmpty based on the products list
     this.isCartEmpty = res.length === 0;
   });
@@ -96,6 +98,14 @@ ngOnInit(): void {
 // })
 this.payPalConfig = this._PaypalService.payPalConfig;
 }
+
+calculateGrandTotal(): void {
+  this.grandToltal = 0;
+  this.product.forEach(product => {
+    this.grandToltal += (product.quantity || 0) * product.price;
+  });
+}
+
 
 Remove(item: Iproduct): void {
 this._Cart.removeOrderItem(item.id);
@@ -142,11 +152,14 @@ goBack() {
 
 increaseQuantity(item: any) {
   item.quantity++;
+  this.calculateGrandTotal()
 }
 
 decreaseQuantity(item: any) {
   if (item.quantity > 1) {
     item.quantity--;
+    this.calculateGrandTotal()
+
   }
 }
 

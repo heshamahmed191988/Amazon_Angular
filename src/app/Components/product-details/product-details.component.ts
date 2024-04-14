@@ -41,6 +41,7 @@ export class ProductDetailsComponent implements OnInit {
   public isAddressSubmitted: boolean = false;
   public pageNumber: number = 1;
   public pageSize: number =3;
+  reviewlength: number =0;
   public currentProduct: Iproduct = {
     id: 0,
     itemscolor: [],
@@ -176,6 +177,7 @@ export class ProductDetailsComponent implements OnInit {
             totalRating += review.rating || 0;
           }
           this.currentProduct.rating = totalRating / reviews.length;
+          this.reviewlength=reviews.length;//new
         } else {
           this.currentProduct.rating = 0;
         }
@@ -245,7 +247,7 @@ export class ProductDetailsComponent implements OnInit {
   
   }
   RandomProducts(): void {
-    this._ProductServiceService.getproudectsbycatogry(this.currentProduct.id,this.pageSize,this.pageNumber).subscribe({
+    this._ProductServiceService.getAllProducts(this.pageSize,this.pageNumber).subscribe({
       next: (res: Iproduct[]) => {
         this.Products = res; 
         this.randomProducts = this.getRandomProducts(this.Products);

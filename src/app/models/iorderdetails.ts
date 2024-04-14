@@ -9,4 +9,7 @@ export interface Iorderdetails {
     productid:number
     orderid:number
     addressId?:number
+    productImage?:string
+    productDescription?:string
+    productPrice?:number
 }

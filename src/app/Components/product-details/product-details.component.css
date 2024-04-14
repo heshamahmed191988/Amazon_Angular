@@ -273,4 +273,64 @@ margin-bottom: 40px;
   flex-wrap: wrap;
   background-color: white;
 }
+  /*          related search      */
+.SpecialDishes
+{
+ position: relative;
+ font-size: 60px;
+ color: #000000;
+ background-color: #ffffff;
+ margin-bottom: 2%;
+}
+
+.Dishes
+{
+   display: flex;
+}
+.Dishescontent
+{
+   display: inline-block;
+   width: 45%;
+   font-size: 30px;
+   padding: 2%;
+ 
+}
+.Dishescontent p{
+   font-size: 20px;
+   color: #000000;
+}
+.Dishescontent a
+{
+   text-decoration: none;
+   background-color:#e16009;
+   color: #fff;
+   width: 30%;
+   height: 20%;
+   padding: 2%;
+   border-radius: 5%;
+}
+.Dishesimg
+{
+   display: inline-block;
+   width: 45%;
   
+}
+.Dishesimg img
+{
+   height: 80%;
+   width: 40%;
+  
+}
+.SpecialDishes h3 span {
+ color: #e16009;
+}
+
+.dishes-text {
+ padding-left: 90px;
+}
+.subheading
+{
+ font-size: 20px;
+ margin-left: 0%;
+ color: #212121;
+}
