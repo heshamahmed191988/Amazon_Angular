@@ -1,3 +1,7 @@
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
 <div class="container col-6">
     <h1>Order Details</h1>
     @for( orderitem of orderdetails; track orderitem.orderitemid)
@@ -6,11 +10,15 @@
         <div class="item">
             <img [src]="'data:image/jpg;base64,' +orderitem.productImage" class="col-3"/>
             <div class="details">
-                <p>{{orderitem.productname}}</p>
-                <p>Product Price : {{orderitem.productPrice}}</p>
-                <p>{{orderitem.quantity}}</p>
-                <p>{{orderitem.productDescription}}</p>
-                <p>Total Price : {{(orderitem.quantity) * (orderitem.productPrice ?? 0)}}</p>
+                <p style="color: #067070;">{{orderitem.productname}}</p>
+                <!-- <p>Product Price : <span>{{orderitem.productPrice}}</span></p> -->
+                <p style="color: #067070;">{{orderitem.productDescription}}</p>
+                <!-- <p>{{orderitem.quantity}}</p> -->
+                <p style="color: red;"><sup>EGP</sup>{{(orderitem.quantity) * (orderitem.productPrice ?? 0)}}<sup>00</sup></p>
+                <button style="    border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 4px 11px;
+                background-color: #eeebeb;"><i class="fa-solid fa-arrow-left" style="color: #1a4c8e;"></i><a [href]="'/Order'" style="color: #1a4c8e; padding-left: 4px;text-decoration: none;">Orders</a></button>
             </div>
         </div>
     }

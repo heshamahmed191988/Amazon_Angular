@@ -1,16 +1,7 @@
-.container{
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-.ordertotal{
-  border-radius: 10px;
-  border: 1px solid rgb(116, 115, 115);
-  margin-top: 2rem;
-}
+
 .order{
   display: flex;
   border-radius: 10px;
-  background-color: rgb(155 150 150 / 37%);
   justify-content: space-between;
   padding: 1.2vw;
 }
@@ -26,7 +17,7 @@
   color:rgb(102 90 99) ;
 }
 .details{
-  padding:2vw;
+  padding:1vw;
 }
 .title{
   margin-top: 2vw;
@@ -56,4 +47,38 @@ text-align: end;
   .container{
   width: 100%;
   }
+ 
+
 }
+
+@media (max-width: 990px) {
+  .orderitem{
+  font-size:2.5vw;
+  }
+  .container{
+  width: 100%;
+  }
+
+ 
+}
+
+
+.parent{
+
+  display: flex;
+}
+
+.parent img{
+  width: 100%;
+}
+/* .parent{
+  border-radius: 10px;
+  border: 1px solid rgb(116 115 115 / 59%);
+  margin-top: 2rem;
+} */
+/* .container{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+} */
+
+

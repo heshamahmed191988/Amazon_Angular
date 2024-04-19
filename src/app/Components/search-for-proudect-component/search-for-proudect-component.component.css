@@ -155,7 +155,14 @@ p > span:hover
     margin-right: 0.3%;
     width: 30%;
     height: 10vh;
-    border: 1px rgb(105, 104, 104) solid;
+    border: 1px #ddd solid;
+}
+
+.container.related .col :hover
+{
+  text-decoration: underline; 
+  color:#e16009;
+  cursor: pointer;
 }
 .container.related .col p {
     display: inline;

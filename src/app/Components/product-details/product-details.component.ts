@@ -38,6 +38,7 @@ export class ProductDetailsComponent implements OnInit {
   public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
   public total: number = 0
   lang: string = 'en';
+   selectedCategoryId = Math.floor(Math.random() * 10) + 1;
   public isAddressSubmitted: boolean = false;
   public pageNumber: number = 1;
   public pageSize: number =3;
@@ -247,7 +248,7 @@ export class ProductDetailsComponent implements OnInit {
   
   }
   RandomProducts(): void {
-    this._ProductServiceService.getAllProducts(this.pageSize,this.pageNumber).subscribe({
+    this._ProductServiceService.getproudectsbycatogry(this.selectedCategoryId,this.pageSize,this.pageNumber).subscribe({
       next: (res: Iproduct[]) => {
         this.Products = res; 
         this.randomProducts = this.getRandomProducts(this.Products);
@@ -289,6 +290,11 @@ export class ProductDetailsComponent implements OnInit {
       }
     });
   }
+
+  NavigateToDetails(proId: number) {
+    this.router.navigateByUrl(`/Details/${proId}`);
+}
+
 
   }
 

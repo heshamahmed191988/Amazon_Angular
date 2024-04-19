@@ -1,5 +1,4 @@
-
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
 
 <div class="container col-6 col-xs-12 ">
   <h1>{{'order.Your orders'|translate}}</h1>
@@ -10,18 +9,24 @@
 
 
         @for (item of filteredOrders ; track item.id) {
-          <div class="ordertotal">
+          
+    <div class="parent" style="border:2px solid #ddd; border-radius:5px; margin-bottom:20px;">
+      <div class="img" style="width: 200px;">
+        <img src="https://icons.veryicon.com/png/o/miscellaneous/icondian/icon-order-1.png" alt="" width="100%">
+      </div>
+          <div class="ordertotal" style="padding-top: 30px;">
         <div class="order">
-        <div style="font-weight: 900;">{{'order.Date Placed'|translate}}<div style="font-weight: 100;">{{item.datePlaced|date}}</div></div>
-        <div style="font-weight: 900;">{{'order.Order Status'|translate }}<div style="font-weight: 100;">{{item.status}}</div></div>
-        <div style="font-weight: 900;">{{'order.Total'|translate}} <div style="font-weight: 100;">{{item.totalPrice}}$</div></div>
+        <div style="font-weight: 900;">{{'order.Date Placed'|translate}}<div style="font-weight: 100;margin:0 10px;">{{item.datePlaced|date}}</div></div>
+        <div style="font-weight: 900;">{{'order.Order Status'|translate }}<div style="font-weight: 100; margin:0 40px;">{{item.status}}</div></div>
+        <div style="font-weight: 900;">{{'order.Total'|translate}} <div style="font-weight: 100;margin:0 10px;">{{item.totalPrice}}$</div></div>
       </div>
       <div class="details">
       <!-- <h6>{{'order.Ring No-Drill Mount for Ring Video Boorbell'|translate}}</h6> -->
-        <button (click)="details(item.id)" class="btn" style="  position: relative !important;
-        left: 38vh !important;">View your item</button>
+        <button (click)="details(item.id)" class="btn" >View your item</button>
       </div>
       </div>
+      </div>
+
     }
     <!-- <h3 class="title">{{'order.Order Item'|translate}}</h3> -->
   <!-- @for(order of orderdetails ; track order.orderitemid)

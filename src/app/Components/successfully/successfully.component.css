@@ -1,0 +1,30 @@
+.container{
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+i{
+    font-size: 25rem !important;
+}
+h1{
+    margin-top: 1rem;
+}
+.shopping{
+    position: relative;
+    margin-left: -3rem;
+    margin-top: 2rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+
+}
+.orders{
+    position: relative;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 0.5rem 3rem;
+    border-radius: 7px;
+}

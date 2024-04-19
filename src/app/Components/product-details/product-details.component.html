@@ -28,7 +28,7 @@
             <div class="ecommerce-gallery">
                 <div class="row py-3 shadow-5">
                     <!-- Main Image -->
-                    <div class="col-12 mb-1">
+                    <div class="col-12 mb-1 ">
                         <div class="lightbox">
                             <!-- Bind main image source to 'mainImageUrl' -->
                             <img [src]="mainImageUrl | safeBase64" alt="Gallery image 1" class="w-100 img-fluid"/>
@@ -44,52 +44,98 @@
 
     <div class="col-10 col-md-12 col-lg-4 mt-3 mx-4">
       <!-- <h4 class="box-title mt-5">Product description</h4> -->
-      <h4 class="list-group-item text-center" >{{ getProductDescription(currentProduct)}}</h4><hr>
-      <h4 class="list-group-item text-center" >{{ getProductName(currentProduct)}}</h4><hr>
-      <h4 class="list-group-item text-center" >{{'detail.Stock quantity'|translate}} : {{ currentProduct.stockQuantity}}</h4><hr>
+      <p class="list-group-item brand" >{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</p>
+      <h4 class="list-group-item " style="color: #0f1111;font-size: 24px;">{{ getProductDescription(currentProduct)}}</h4>
+      <span >{{currentProduct.rating}}</span> 
+      @if (currentProduct.rating && currentProduct.rating > 0 && currentProduct.rating <= 1) 
+      {
+       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+      @else if (currentProduct.rating && currentProduct.rating > 1 && currentProduct.rating < 2) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+      @else if (currentProduct.rating && currentProduct.rating ==2 ) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+      @else if (currentProduct.rating && currentProduct.rating > 2 && currentProduct.rating < 3) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+  
+      @else if (currentProduct.rating && currentProduct.rating ==3) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+      @else if (currentProduct.rating && currentProduct.rating > 4 && currentProduct.rating < 5) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+      }
+      @else if (currentProduct.rating && currentProduct.rating ==4 ) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+      @else if (currentProduct.rating && currentProduct.rating ==5 ) 
+      {
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+      }
+      @else
+      {
+      
+        <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+      }
+      <span class="rating"> {{reviewlength}} {{'detail.ratings'|translate}} </span> <span class="rating">|{{'detail.Search this page'|translate}} </span> <hr>
+      <!-- <h4 class="list-group-item " >{{ getProductName(currentProduct)}}</h4><hr> -->
+      <!-- <h4 class="list-group-item " >{{'detail.Stock quantity'|translate}} : {{ currentProduct.stockQuantity}}</h4><hr> -->
+       
+      @if (currentProduct.stockQuantity === 1)
+      {
+        <p style="color: #B12704; font-size: small;">Only 1 left in stock - order soon.</p>
+      }
+      @else if (currentProduct.stockQuantity === 2)
+      {
+        <p style="color: #B12704; font-size: small;">Only 2 left in stock - order soon.</p>
+      }
+      @else if (currentProduct.stockQuantity === 3)
+      {
+        <p style="color: #B12704; font-size: small;">Only 3 left in stock - order soon.</p>
+      }
+      @else 
+      {
+        <p class="list-group-item " >{{'detail.Stock quantity'|translate}} : {{ currentProduct.stockQuantity}}</p><hr>
+      }
 
-      <h5 class="list-group-item text-center" >{{'detail.Brand Name'|translate}} : {{ getBrandName(currentProduct)}}</h5><hr>
-      <h2 class="mt-5">
+      <h5 class="mt-2">
         <sup>EGP</sup>{{currentProduct.price}}<sup>.00</sup>
-      </h2>
+      </h5>
       <span>{{'detail.All prices include VAT'|translate}}.</span>
-        <h6>{{'detail.Buy with installments and pay EGP 21.43 for 60 months with select banks.'|translate}}</h6>
+      <div class="payment">
+          <div class="paymentchild">
+            <img src="https://m.media-amazon.com/images/G/42/A2I-Convert/mobile/IconFarm/icon-cod._CB638858551_.png">
+               <br>{{'detail.Cash on'|translate}}<br> {{'detail.Delivery'|translate}}  
+               <!-- <br>Cash on<br> Delivery      -->
+          </div>
+          <div class="paymentchild">
+            <img src="https://m.media-amazon.com/images/G/42/A2I-Convert/mobile/IconFarm/icon-returns._CB403797073_.png">
+               <br>15 {{'detail.days'|translate}} <br>    
+              {{'detail.Returnable'|translate}}     
+          </div>
+          <div class="paymentchild">
+            <img src="https://m.media-amazon.com/images/G/42/A2I-Convert/mobile/IconFarm/trust_icon_free_shipping_81px._CB590597072_.png">
+               <br> {{'detail.free'|translate}} <br>   {{'detail.Delivery'|translate}}        
+          </div>
+          <div class="paymentchild">
+            <img src="https://m.media-amazon.com/images/G/42/A2I-Convert/mobile/IconFarm/icon-secure-transaction._CB414468582_.png">
+               <br>{{'detail.transaction'|translate}}<br> {{'detail.Secure'|translate}}           
+          </div>
+          
+      </div>
+        <!-- <h6>{{'detail.Buy with installments and pay EGP 21.43 for 60 months with select banks.'|translate}}</h6> -->
         <!-- <h4>Item Colors:{{currentProduct.itemscolor}}</h4> -->
 
         <!-- <p>Rating:{{currentProduct.rating}}</p> -->
-        @if (currentProduct.rating && currentProduct.rating > 0 && currentProduct.rating <= 1) 
-        {
-         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-        }
-        @else if (currentProduct.rating && currentProduct.rating > 1 && currentProduct.rating < 2) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-        }
-        @else if (currentProduct.rating && currentProduct.rating ==2 ) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-        }
-        @else if (currentProduct.rating && currentProduct.rating > 2 && currentProduct.rating < 3) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-        }
     
-        @else if (currentProduct.rating && currentProduct.rating ==3) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-        }
-        @else if (currentProduct.rating && currentProduct.rating > 4 && currentProduct.rating < 5) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
-        }
-        @else if (currentProduct.rating && currentProduct.rating ==4 ) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-        }
-        @else if (currentProduct.rating && currentProduct.rating ==5 ) 
-        {
-          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
-        }
         <hr> 
       <h3 class="box-title mt-5">{{'detail.Key Highlights'|translate}}</h3>
       <ul class="list-unstyled">
@@ -99,11 +145,21 @@
          <br>
          <br>
       </ul>
+  
+        <div class="sponserd">
+           <div class="sponserdimg"> <img src="https://m.media-amazon.com/images/I/71ldVML8AGL._AC_SY879_.jpg"></div>
+           <div class="sponserddetails">
+            {{'detail.Mobil 1 atf 320 transmission liquid oil - 1 liter'|translate}}<br>
+            <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>19
+            <br><span style="color: #c45500;font-size: 18px;">-14% <sup>EGP</sup>365.00 </span><span style="text-decoration: line-through;">EGP424.00</span>
+           </div>
+        </div>
+        <span> {{'detail.Sponsored'|translate}} <i class="fa-solid fa-message-exclamation"></i></span>
 
       
   </div>
   
-<div class="last col-md-12 col-lg-2 mt-3 mx-lg-4 " style="width: auto;">
+<div class="last col-md-12 col-lg-2 mt-2 mx-lg-3 " style="width: auto;">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-center"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
@@ -124,65 +180,65 @@
       </div>
 
   </div>
-  <section class="today_deals_container deal2" style="overflow-x:auto; background-color: white;">
-    <div class="today_deals_heading">
-        <h3> Products related to this item</h3>
-    </div>
-  
-        
-        <!-- prd -->
-        <div class="gallerybox today_deals_product_list gall1"> 
-            <div class="imgbox today_deals_product_item" *ngFor="let product of randomProducts"> 
-              <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
-                <div class="discount_Contaienr" >
-                     <p class="descriptionrelated"><a href="#"> {{getProductDescription(product) }}</a> </p>
-                      
-                     @if (product.rating && product.rating > 0 && product.rating <= 1) 
-                     {
-                      <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-                     }
-                     @else if (product.rating && product.rating > 1 && product.rating < 2) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-                     }
-                     @else if (product.rating && product.rating ==2 ) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-                     }
-                     @else if (product.rating && product.rating > 2 && product.rating < 3) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-                     }
-                 
-                     @else if (product.rating && product.rating ==3) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-                     }
-                     @else if (product.rating && product.rating > 4 && product.rating < 5) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
-                     }
-                     @else if (product.rating && product.rating ==4 ) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-                     }
-                     @else if (product.rating && product.rating ==5 ) 
-                     {
-                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
-                     }
-                </div>
-                <p><sup>EGP</sup>{{ product.price }}<sup>00</sup></p>
-            </div>
+   <!--related-->
+   <div class="container related">
+    <h4 class="div-title">{{'detail.Related searches'|translate}}</h4>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 rowrelated">
+      <div class="col colrelated" *ngFor="let product of randomProducts" (click)="NavigateToDetails(product.id )">
+        <div class=" cardimg">
+          <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
         </div>
-     
-   
+        <p class="pdescreption">{{ getProductDescription(product)}}</p>
+        @if (product.rating && product.rating > 0 && product.rating <= 1) 
+        {
+         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+        @else if (product.rating && product.rating > 1 && product.rating < 2) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+        @else if (product.rating && product.rating ==2 ) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+        @else if (product.rating && product.rating > 2 && product.rating < 3) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+    
+        @else if (product.rating && product.rating ==3) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+        @else if (product.rating && product.rating > 4 && product.rating < 5) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+        }
+        @else if (product.rating && product.rating ==4 ) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+        @else if (product.rating && product.rating ==5 ) 
+        {
+          <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+        }
+        @else
+        {      
+          <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        }
+        <span>{{reviewlength}}</span>
+        <p class="pname"><sup>EGP</sup><span style="font-size: 25px;">{{product.price }}</span><sup>00</sup></p>
+      </div>
+    </div>
+  </div>
   
-        </section>
+  
+ <!--end-->
 
   <div class=" SpecialDishes" id="Best">
     <div class="heading-section ">
         <span class="subheading">
-          searches related to your history
+          {{'detail.searches related to your history'|translate}}
         </span>
        
     </div>
@@ -191,17 +247,10 @@
         <div class="Dishescontent">
             <h2 class="special-number">01.<hr></h2>
                 <div class="dishes-text">
-                    <h3><br>About</h3>
-                    <p class="pt-3">
+                  <h3><br>{{'detail.About'|translate}} </h3>
+                                      <p class="pt-3">
 
-                      Wireless Bluetooth headphones, like the P9 model you mentioned, 
-                      offer users the convenience of listening to music or engaging in gaming activities
-                       without being tethered to their device by cables. Over-ear headphones typically provide
-                        a comfortable fit and good noise isolation,
-                       allowing users to enjoy their audio experience without outside distractions.
-                     The P9 Wireless Headset likely offers stereo sound, providing a rich audio experience with distinct left and right channels. This can enhance music listening and gaming by creating a more immersive environment.
-                     With a built-in microphone, these headphones likely support hands-free calling and voice
-                      commands, making them versatile for both entertainment and communication purposes
+                                        {{'detail.ststic1'|translate}}   
                     </p>
                 </div>
         </div>
@@ -220,20 +269,10 @@
         <h2 class="special-number">02.<span class="hr-container"><hr></span></h2>
 
             <div class="dishes-text">
-                <h3>About</h3>
+                <h3>{{'detail.About'|translate}} </h3>
                 <p class="pt-3">                       
-                  Maybelline NY’s Lifter Gloss Bronzed delivers sun-kissed glossy
-                   lips and a fuller look. No Filler. Now, in five bronzed shades
-                    inspired by golden hour, this lip gloss formula with hyaluronic 
-                    acid leaves behind lasting hydration and fuller-looking lips.                     
-                  Maybelline New York’s Lifter Gloss Bronzed delivers glossy lips and 
-                  a full look. Now, in five bronzed shades inspired by golden hour.
-                   Take your look to the next level with sun-kissed pigments that
-                    create a warm, glowing shine. Its breakthrough formula with 
-                    Hyaluronic Acid visibly smooths lip surface and enhances lip
-                     contour with high shine for hydrated, fuller-looking lips. 
-                     No Filler. Plus, its XL Wand transforms lips in an easy,
-                      one swipe application.
+                  {{'detail.ststic2'|translate}}   
+
 
                 </p>
               

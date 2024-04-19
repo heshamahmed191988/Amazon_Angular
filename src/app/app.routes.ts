@@ -17,6 +17,7 @@ import { MainComponent } from './Components/main/main.component';
 import { AdminComponent } from './Components/admin/admin.component';
 import { EditUserComponent } from './Components/edit-user/edit-user.component';
 import { OrderDetailsComponent } from './Components/order-details/order-details.component';
+import { SuccessfullyComponent } from './Components/successfully/successfully.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +33,7 @@ export const routes: Routes = [
             {path: 'Edit', component: EditUserComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
             { path: 'OrderDetails/:orderid', component: OrderDetailsComponent},
+            { path: 'PaymentResult', component: SuccessfullyComponent},
 
             {path: 'review', component: ReviewComponent,},
             {path: 'address', component: AddressComponent,canActivate:[authGuard]},

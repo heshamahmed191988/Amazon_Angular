@@ -151,12 +151,18 @@
                     <!--end-->
               <!--secound div--show proudects dive ---->
           <div class="col-10 showproudects" > 
-
+            <div *ngIf="noResultsMessage">
+              <p>No results found for '{{ searchQuery }}'.</p>
+              <p>Try checking your spelling or use more general terms.</p>
+            </div>
+            
+            <!-- Your existing product display section goes here -->
+            <div *ngIf="paginatedProducts.length > 0">
                 <div class="row-cols-1 row-cols-md-1" style=" padding: 0px; margin: 0px;">
                   <h6>{{ 'search.results' | translate }}</h6>
                   <p style="padding: 0px !important; margin: 0px;"></p>{{ 'search.priceAndDetails' | translate }}
                 </div>     
-
+            </div>
                 <div class="row row-cols-1 row-cols-md-4 g-4 card1" style="padding-top: 0px;margin-top: 0px;">
                   <ng-container *ngFor="let product of paginatedProducts; let i = index" >   
                    

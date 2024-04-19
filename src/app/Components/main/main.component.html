@@ -1,25 +1,26 @@
 <div class="Main_Page">
     <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 
-    <!-- slider -->
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://m.media-amazon.com/images/I/61mSBHhXXEL._SX3000_.jpg" class="d-block w-100" alt="...">
+        <!-- slider -->
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://m.media-amazon.com/images/I/51RPiINhM7L.SX1500.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://m.media-amazon.com/images/I/61CiqVTRBEL.SX3000.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://m.media-amazon.com/images/I/61zAjw4bqPL.SX3000.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://m.media-amazon.com/images/I/81KkrQWEHIL.SX3000.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://m.media-amazon.com/images/I/71Ie3JXGfVL.SX3000.jpg" class="d-block w-100" alt="...">
+                </div>
             </div>
-            <div class="carousel-item">
-                <img src="https://m.media-amazon.com/images/I/71bQ5WqgwmL._SX3000_.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://m.media-amazon.com/images/I/61ge4oE-vJL._SX3000_.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://m.media-amazon.com/images/I/71S4xw5Z28L._SX3000_.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://m.media-amazon.com/images/I/71TPNNK+FKL._SX3000_.jpg" class="d-block w-100" alt="...">
-            </div>
-        </div>
+    
         <button class="carousel-control-prev today_deal_btn" type="button"  id="today_deal_btn_prev" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -35,14 +36,15 @@
 
 <div class="container card-product-containe">
     <div class="row">
-        <div class="col-md-4" *ngFor="let category of categories">
+        <div class="col-md-4" *ngFor="let category of categories;let i=index">
 <!-- Assuming 'category' is an object with 'nameEn' and 'id' properties -->
 <!-- Assuming you have a category object with nameEn and id properties -->
-<a [href]="'/SearchForProudectComponent;name=;categoryId=' + category.id">
+<a [href]="'/SearchForProudectComponent;name=;categoryId=' + category.id" style="text-decoration: none;">
                 <div class="card" style="margin-bottom: 10px;">
                     <h3 class="card-header">{{ getcategorytName(category)}}</h3>
-                    <img class="card-img-top" src="https://m.media-amazon.com/images/I/41aF1Kpc1iL._SY160_.jpg"
-                        alt="Category Image" style="border-radius: 0%;">
+                    <div class="slide">
+                        <img [src]="categoryImages[i]"  style="width: 100%; height:200px; object-fit: contain;" />
+                      </div>
                 </div>
             </a>
         </div>
@@ -174,7 +176,26 @@
         </div>
     </div>
 </section>
-
+<div class="div mb-5" style="overflow-x: auto; overflow-y: hidden; background-color: white;">
+    <div class="today_deals_product_container" style="width: 90%; margin-top:30px;width:100%;">
+        <ngx-slick-carousel class="carousel" #slickModal3="slick-carousel" [config]="slideConfig3">
+            <div ngxSlickItem *ngFor="let slide of additionalSlides" class="slide">
+                <img [src]="slide.img" style="width: 100%; max-height: 270px; object-fit: contain;">
+            </div>
+        </ngx-slick-carousel>
+        
+        <div class="today_deals_btn_container">
+            <!-- ngx-slick-carousel previous button -->
+            <button class="btn btn-outline-secondary" id="today_deal_btn_prev1" (click)="slickModal3.slickPrev()">
+                <i class="fas fa-angle-left"></i>
+            </button>
+            <!-- ngx-slick-carousel next button -->
+            <button class="btn btn-outline-secondary" id="today_deal_btn_next1" (click)="slickModal3.slickNext()">
+                <i class="fas fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
 
 

@@ -6,6 +6,7 @@ import { OrderService } from './order.service';
 import { IcreatrOrder } from '../models/icreatr-order';
 import { BehaviorSubject } from 'rxjs';
 import { ICartService } from './icart.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class PaypalService {
     public updateOrderData: BehaviorSubject<any> = new BehaviorSubject<any>({});
     public create: IcreatrOrder = {userID:"",orderQuantities:[],addressId:0} ;
 
-    constructor(private _OrderService: OrderService,private _CartServices:ICartService) { }
+    constructor(private _OrderService: OrderService,private router:Router,private _CartServices:ICartService) { }
 
     public initConfig(): void {
         this.payPalConfig = {
@@ -86,6 +87,7 @@ export class PaypalService {
                 );
 
                 if (this.create !== undefined) {
+                    debugger
                     console.log(this.create)
                     this._OrderService.CreateOrder(this.create).subscribe(a => {
                         console.log(a)
@@ -95,6 +97,7 @@ export class PaypalService {
                         })
                     })
                     this._CartServices.removeAllOrder();
+                    this.router.navigate(['/PaymentResult']);
                 }
                 else {
                     console.log("the order not found");
@@ -134,6 +137,6 @@ export class PaypalService {
     resetStatus(): void {
         this.showSuccess = false;
         this.showCancel = false;
-        this.showError = false;
-    }
+        this.showError = false;
+}
 }

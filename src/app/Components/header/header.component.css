@@ -238,7 +238,7 @@ input.Searchinput.form-control {
     color: black !important;
   }
   .in{
-    margin-left: 21vw;
+    margin-left: 43vw;
     display: flex;
     direction: ltr;
     position: relative;
@@ -248,14 +248,16 @@ input.Searchinput.form-control {
     width: 21% !important;
     position: relative;
     direction: ltr;
-    left:34vw;
+    left:50vw;
     }
   .form-select{
     border-radius: 5px !important;
   }
   ul{
-    text-align: center;
+    text-align: end;
+    margin-right: 2rem !important; 
   }
+
   .link:hover + .collapse:not(.show),
    #navbarScroll:hover{
     z-index: 10;
@@ -380,4 +382,22 @@ input.Searchinput.form-control {
   .sec-nav ul li:hover{
     border: 1px solid white;
   }
+
+  [dir='rtl'] .navbar-nav {
+    justify-content: flex-end;
+  }
+  
+  [dir='rtl'] .navbar-toggler {
+    float: left; /* Toggle button moves to the left in RTL */
+  }
+  
+  [dir='rtl'] .dropdown-menu {
+    text-align: right; /* Text alignment for dropdown menus */
+  }
+  
+  [dir='rtl'] .fas {
+    transform: scaleX(-1); /* Flip icons for RTL */
+  }
+  
+  
 }

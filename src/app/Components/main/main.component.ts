@@ -11,7 +11,7 @@ import { CategoryServiceService } from '../../services/category-service.service'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AnimationService } from '../../services/animation.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +22,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 })
 export class MainComponent implements OnInit {
   @ViewChild('carousel', { static: true }) carousel!: ElementRef;
+  @ViewChild('slickModal3', { static: false }) slickModal3!: SlickCarouselComponent;
   @ViewChild('carousel2', { static: true }) carousel2!: ElementRef;
   startSlider: number = 0;
   startSlider1: number = 0;
@@ -186,6 +187,12 @@ navigateToSearch(name: string, Id: number): void {
     nextArrow: false, // Hide the next arrow
   };
 
+
+   
+
+  
+  // Method to go to the previous slide
+ 
   slickInit(e: any) {
     console.log('slick initialized');
   }
@@ -219,4 +226,52 @@ navigateToSearch(name: string, Id: number): void {
   beforeChange2(e: any) {
     console.log('beforeChange');
   }
+
+
+  additionalSlides = [
+    { img: 'https://m.media-amazon.com/images/I/81NiP8MImEL._AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/41Ai-GLQzQL._AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/51C2DONw-TL._AC_SY200_.jpg' },
+    { img: 'https://m.media-amazon.com/images/I/61bsxa5RnJL._AC_SY200_.jpg' } ,
+    { img: 'https://m.media-amazon.com/images/I/41jK19A68DL._SY500__AC_SY200_.jpg' } ,
+    { img: 'https://m.media-amazon.com/images/I/41HLsvJ3+HL._SY500__AC_SY200_.jpg' } ,
+
+  ];
+
+  slideConfig3 = {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay:false,
+    autoplaySpeed: 2000,// Hide the previous arrow
+    nextArrow: false,
+    prevArrow:false
+  };
+  // Method to go to the previous slide
+  previousSlide3(): void {
+    if (this.slickModal3 && this.slickModal3.slickPrev) {
+      this.slickModal3.slickPrev();
+    }
+  }
+
+  // Method to go to the next slide
+  nextSlide3(): void {
+    if (this.slickModal3 && this.slickModal3.slickNext) {
+      this.slickModal3.slickNext();
+    }
+  }
+
+  categoryImages = [
+    'https://m.media-amazon.com/images/I/81Y26toqdTL.AC_SY200.jpg', // Sports
+    'https://m.media-amazon.com/images/I/615WsJuy5jL.AC_UL480_QL65.jpg', // Clothing & Accessories
+    'https://m.media-amazon.com/images/I/818BRJgKL5L.AC_UL480_QL65.jpg', // Home Related
+    'https://m.media-amazon.com/images/I/818B-inh8EL.AC_SY200.jpg', // Beauty & Personal Care
+    'https://m.media-amazon.com/images/I/71ncWmjwSAL.AC_UL480_QL65.jpg'  // Electronics
+  ];
+  getCategoryImage(index: number): string {
+    if (index >= 0 && index < this.categoryImages.length) {
+      return this.categoryImages[index];
+    } else {
+      return '';
+}
+}
 }

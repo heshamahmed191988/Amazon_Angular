@@ -1,6 +1,69 @@
 
 <ng-container *ngIf="product.length === 0; else notEmpty">
-  <h2 style="text-align: center;">{{'cart.Empty Cart'| translate}}</h2>
+  <div class="empty" style="margin-top: 3rem;
+  background-color: #e9e9e9a3;
+  padding: 2rem;
+  width: 74%;
+  margin-left: 12rem;">
+  <h2 style="text-align: center;">{{'Your Amazon Cart is empty.'| translate}}</h2>
+  <p>our shopping basket lives to serve. Give it purpose - fill it with groceries, clothing, household supplies, electronics and more.
+    Continue shopping on the amazon.eg homepage, learn about Today's Deals, or visit your Wish List.</p>
+  </div>
+
+  <section class="today_deals_container deal2" style="overflow-x:auto; background-color: white;">
+    <div class="today_deals_heading">
+        <h3> Products</h3>
+    </div>
+  
+        
+        <!-- prd -->
+        <div class="gallerybox today_deals_product_list gall1"> 
+            <div class="imgbox today_deals_product_item" *ngFor="let product of allProducts"> 
+              <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
+                <div class="discount_Contaienr" >
+                     <p class="descriptionrelated"><a [href]="'/Details/' + product.id"> {{getProductDescription(product) }}</a> </p>
+                      
+                     @if (product.rating && product.rating > 0 && product.rating <= 1) 
+                     {
+                      <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 1 && product.rating < 2) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==2 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 2 && product.rating < 3) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                 
+                     @else if (product.rating && product.rating ==3) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 4 && product.rating < 5) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==4 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==5 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                     }
+                </div>
+                <p><sup>EGP</sup>{{ product.price }}<sup>00</sup></p>
+            </div>
+        </div>
+     
+   
+  
+  </section>
 </ng-container>
 
 <ng-template #notEmpty>
@@ -19,7 +82,7 @@
                   <tbody>
                     <tr *ngFor="let item of product">
                       <td width="90">
-                        <!-- <img [src]="item.itemimages" alt="Product Image" style="max-width: 80px;"> -->
+                        <img [src]="'data:image/jpg;base64,' + item.productimages?.[0]" alt="Product Image" style="margin-top: 23px;max-width: 127px;">
                       </td>
                       <td class="desc">
                         <h4>
@@ -94,4 +157,59 @@
     </div>
   </div>
 
+
+  <section class="today_deals_container deal2" style="overflow-x:auto; background-color: white;">
+    <div class="today_deals_heading">
+        <h3> Products related to this item</h3>
+    </div>
+  
+        
+        <!-- prd -->
+        <div class="gallerybox today_deals_product_list gall1"> 
+            <div class="imgbox today_deals_product_item" *ngFor="let product of randomProducts"> 
+              <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
+                <div class="discount_Contaienr" >
+                     <p class="descriptionrelated"><a [href]="'/Details/' + product.id"> {{getProductDescription(product) }}</a> </p>
+                      
+                     @if (product.rating && product.rating > 0 && product.rating <= 1) 
+                     {
+                      <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 1 && product.rating < 2) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==2 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 2 && product.rating < 3) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                 
+                     @else if (product.rating && product.rating ==3) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating > 4 && product.rating < 5) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==4 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                     }
+                     @else if (product.rating && product.rating ==5 ) 
+                     {
+                       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                     }
+                </div>
+                <p><sup>EGP</sup>{{ product.price }}<sup>00</sup></p>
+            </div>
+        </div>
+     
+   
+  
+  </section>
 </ng-template>
