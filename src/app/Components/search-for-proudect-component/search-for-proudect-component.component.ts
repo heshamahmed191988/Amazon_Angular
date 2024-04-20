@@ -206,7 +206,7 @@ selectedBrand: string = '';
       };
     
       localStorage.setItem('searchState', JSON.stringify(state));
-      this.router.navigateByUrl(`/Details/${proId}`);
+      this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
     }
  
     filterByPrice(minPrice: number, maxPrice: number, brand?: string): void {

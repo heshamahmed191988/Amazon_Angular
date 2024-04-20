@@ -49,13 +49,13 @@
       <span >{{currentProduct.rating}}</span> 
       @if (currentProduct.rating && currentProduct.rating > 0 && currentProduct.rating <= 1) 
       {
-       <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
       @else if (currentProduct.rating && currentProduct.rating > 1 && currentProduct.rating < 2) 
       {
         <i class="fas fa-star" style="color:#E67A00;"></i>  <i class="fas fa-star-half-alt" style="color: #E67A00;"></i><i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
-      @else if (currentProduct.rating && currentProduct.rating ==2 ) 
+      @else if (currentProduct.rating && currentProduct.rating == 2) 
       {
         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
@@ -63,26 +63,24 @@
       {
         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
-  
-      @else if (currentProduct.rating && currentProduct.rating ==3) 
+      @else if (currentProduct.rating && currentProduct.rating == 3) 
       {
         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
-      @else if (currentProduct.rating && currentProduct.rating > 4 && currentProduct.rating < 5) 
+      @else if (currentProduct.rating && currentProduct.rating > 3 && currentProduct.rating < 4) 
       {
-        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+        <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star-half-alt" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
-      @else if (currentProduct.rating && currentProduct.rating ==4 ) 
+      @else if (currentProduct.rating && currentProduct.rating == 4) 
       {
         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
-      @else if (currentProduct.rating && currentProduct.rating ==5 ) 
+      @else if (currentProduct.rating && currentProduct.rating == 5) 
       {
         <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
       }
       @else
       {
-      
         <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
       }
       <span class="rating"> {{reviewlength}} {{'detail.ratings'|translate}} </span> <span class="rating">|{{'detail.Search this page'|translate}} </span> <hr>
@@ -107,8 +105,9 @@
       }
 
       <h5 class="mt-2">
-        <sup>EGP</sup>{{currentProduct.price}}<sup>.00</sup>
-      </h5>
+        <span>{{'detail.price'|translate}} : <span style="color: #B12704; font-size:large;">EGP {{currentProduct.price}}</span></span>
+        <br> <span>{{'detail.Category'|translate}} :<span style="font-size: 16px;color: black;"> {{currentProduct.categoryNameEn}} </span></span>    
+</h5>
       <span>{{'detail.All prices include VAT'|translate}}.</span>
       <div class="payment">
           <div class="paymentchild">
@@ -166,8 +165,7 @@
           <li class="list-group-item text-center"> {{'detail.payment details'|translate}}</li>
           <li class="list-group-item"> <div class="mb-3">
            
-             <input type="number" [(ngModel)]="Quantity" [value]="Quantity" class="form-control" id="quantityInput" placeholder="Quantity"  >
-             <!-- name="Quantity" [(ngModel)]="Quantity"> -->
+            <input type="number" [(ngModel)]="Quantity" [value]="Quantity" class="form-control" id="quantityInput" placeholder="Quantity" [max]="ProductQuantity">             <!-- name="Quantity" [(ngModel)]="Quantity"> -->
           </div>
         </li>
         <li class="list-group-item text-center" >  <button [disabled]="!currentProduct || (currentProduct.stockQuantity !== undefined && Quantity > currentProduct.stockQuantity)"  class="btn-buy-now w-100" style="background-color: #f7ca00;border-radius: 12px;" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >{{'detail.Add to Cart'|translate}}</button>
@@ -247,7 +245,7 @@
         <div class="Dishescontent">
             <h2 class="special-number">01.<hr></h2>
                 <div class="dishes-text">
-                  <h3><br>{{'detail.About'|translate}} </h3>
+                  <h3><br>{{'detail.About'|translate}}</h3>
                                       <p class="pt-3">
 
                                         {{'detail.ststic1'|translate}}   

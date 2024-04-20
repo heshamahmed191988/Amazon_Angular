@@ -1,3 +1,5 @@
+// RegisterComponent
+
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +18,7 @@ export class RegisterComponent {
   password = '';
   email = '';
   confirmPassword = '';
-  roleName = 'User'; // Assuming a default role; adjust as necessary
+  roleName = 'User';
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -37,27 +39,24 @@ export class RegisterComponent {
       },
       error: (error) => {
         console.error('Registration failed', error);
-        this.handleRegistrationError(error);
+        if (error.status && error.status < 300) {
+          // This check ensures even if there is an error object, we proceed if the status is under 300 (successful response)
+          this.router.navigate(['/login']);
+        } else {
+          this.handleRegistrationError(error);
+        }
       }
     });
   }
 
-
   handleRegistrationError(error: any): void {
-    // Default error message
     this.errorMessage = "An unexpected error occurred. Please try again later.";
     if (error.error instanceof ErrorEvent) {
-      // Client-side or network error
       console.error('An error occurred:', error.error.message);
     } else {
-      // Backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      // such as custom error messages from your API.
       if (error.status === 400) {
-        // Attempt to use server-provided error message, fall back to generic message
         this.errorMessage = error.error.message || "Registration failed: Invalid input.";
       } else {
-        // For other statuses, you might want to add additional handling
         this.errorMessage = error.statusText || this.errorMessage;
       }
     }

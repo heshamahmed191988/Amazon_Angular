@@ -32,13 +32,15 @@ export class ProductDetailsComponent implements OnInit {
   public UserId: string = "";
   // "82b5b776-9a7a-4556-99e6-983e9509064d;
   adressId:number = 0;
+  ProductQuantity: number= 1;
   mainImageUrl!: string ; 
   randomProducts: Iproduct[] = [];
   Products: Iproduct[] = [];
   public order: IcreatrOrder = { userID: "", orderQuantities: [],addressId:0};
   public total: number = 0
   lang: string = 'en';
-   selectedCategoryId = Math.floor(Math.random() * 10) + 1;
+  //  selectedCategoryId = Math.floor(Math.random() * 10) + 1;
+  selectedCategoryId: number =0;
   public isAddressSubmitted: boolean = false;
   public pageNumber: number = 1;
   public pageSize: number =3;
@@ -57,7 +59,9 @@ export class ProductDetailsComponent implements OnInit {
     itemimages: [],
     productDescription: '',
     price: 0,
-    rating:0
+    rating:0,
+    categoryNameEn:'',
+    categoryNameAr:''
   };
 
   payPalConfig: IPayPalConfig | undefined;
@@ -99,6 +103,7 @@ export class ProductDetailsComponent implements OnInit {
     this.animationService.openspinner();
     this.activatedrouter.paramMap.subscribe((paramMap) => {
       this.currentId = Number(paramMap.get('id'));
+      this.selectedCategoryId = Number(paramMap.get('selectedCategoryId'));
       this._ProductServiceService.getProductById(this.currentId).subscribe({
           next: (res) => {
               this.currentProduct = res;
@@ -149,7 +154,8 @@ export class ProductDetailsComponent implements OnInit {
           this.currentProduct = res;
           this.fetchReviews();
           this.RandomProducts();
-          this.productStateService.changeProductId(this.currentId); // Update product ID state
+          this.productStateService.changeProductId(this.currentId);
+          this.ProductQuantity = this.currentProduct.stockQuantity as number; // Update product ID state
         },
         error: (err) => console.log(err)
       });
@@ -292,7 +298,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   NavigateToDetails(proId: number) {
-    this.router.navigateByUrl(`/Details/${proId}`);
+    this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
 }
 
 

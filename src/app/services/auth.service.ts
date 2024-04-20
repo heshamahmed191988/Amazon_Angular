@@ -15,10 +15,32 @@ isloggedstate !:BehaviorSubject<boolean>
     this.isloggedstate = new BehaviorSubject<boolean>(this.isLoggedIn());
   }
 
-  register(user: Registration): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/api/Account/register`, user);
+ 
+  // register(user: Registration): Observable<any> {
+  //   return this.http.post(`${environment.baseUrl}/api/Account/register`, user);
+  // }
+
+  register(user: any): Observable<any> {
+    return this.http.post(`${environment.baseUrl}/api/Account/register`, user, { observe: 'response' })
+      .pipe(
+        catchError(error => {
+          throw error;
+        })
+      );
   }
 
+  private handleError(error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.text() || '';
+      const err = body || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return throwError(() => errMsg);
+  }
   login(credentials: Login): Observable<any> {
     return this.http.post(`${environment.baseUrl}/api/Account/login`, credentials).pipe(
       map((response: any) => {

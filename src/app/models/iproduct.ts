@@ -18,6 +18,8 @@ export interface Iproduct {
     rating?:number;
     categoryId?: number;
     brandName?:string;
+    categoryNameEn?:string;
+    categoryNameAr?:string;
 
     //BrandName?:string;
 }

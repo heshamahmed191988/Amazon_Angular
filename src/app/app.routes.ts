@@ -42,8 +42,7 @@ export const routes: Routes = [
             {path: 'SearchForProudectComponent/:name', component: SearchForProudectComponentComponent },
             {path: 'SearchForProudectComponent/:categoryId/:name', component: SearchForProudectComponentComponent },
             { path: 'SearchForProudectComponent', component: SearchForProudectComponentComponent },
-            {path: 'Details/:id', component: ProductDetailsComponent,},
-            // canActivate:[authGuard]
+            {path: 'Details/:id/:selectedCategoryId', component: ProductDetailsComponent},            // canActivate:[authGuard]
         ],
     },
     {path: 'login', component: LoginComponent},
