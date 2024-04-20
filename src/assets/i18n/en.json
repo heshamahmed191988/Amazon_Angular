@@ -17,7 +17,8 @@
         "all": "ALL",
         "Hello":"Hello",
         "Acount&Lists":"Acount&Lists",
-        "Order":"Orders"
+        "Order":"Orders",
+        "All":"All"
 
     },
     "login":{
@@ -203,7 +204,9 @@
         "Get It by Tomorrow": "Get It by Tomorrow",
         "only": "only",
         "&up": "& up",
-        "Related searches": "Related searches"
+        "Related searches": "Related searches",
+        "Next": "Next",
+        "Previous": "Previous"
         
       },
       "cart":{

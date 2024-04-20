@@ -168,4 +168,14 @@ p > span:hover
     display: inline;
     margin-left: 10%;
   }
+
+
+  .pagination {
+    border-radius: 0 !important;
+  }
+  
+  .page-link {
+    border-radius: 0 !important;
+  }
+  
   

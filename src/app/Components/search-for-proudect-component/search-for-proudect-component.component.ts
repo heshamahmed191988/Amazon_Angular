@@ -23,7 +23,7 @@ export class SearchForProudectComponentComponent implements OnInit {
   paginatedProducts: Iproduct[] = [];
   public pageNumber: number = 1;
   public pageSize: number =12;
-  totalProducts: number =50; // Represents the total number of products found
+  totalProducts: number =100; // Represents the total number of products found
 selectedBrand: string = '';
   Above_2500:number = 999999;
   Quant: number = 0;
