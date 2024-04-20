@@ -557,7 +557,7 @@ goToPreviousPage() {
 }
 get visiblePageNumbers(): number[] {
   let startPage: number, endPage: number;
-  const visiblePages = 3;
+  const visiblePages = 2; // Change visiblePages to 2 initially
   const totalPages = this.totalPages();
 
   if (totalPages <= visiblePages) {
@@ -566,11 +566,11 @@ get visiblePageNumbers(): number[] {
     endPage = totalPages;
   } else {
     // More than `visiblePages` total pages so calculate start and end pages
-    if (this.pageNumber <= 2) {
+    if (this.pageNumber <= 1) { // Adjust condition for initial case
       startPage = 1;
       endPage = visiblePages;
-    } else if (this.pageNumber + 1 >= totalPages) {
-      startPage = totalPages - 2;
+    } else if (this.pageNumber >= totalPages) {
+      startPage = totalPages - 1;
       endPage = totalPages;
     } else {
       startPage = this.pageNumber - 1;
@@ -583,5 +583,6 @@ get visiblePageNumbers(): number[] {
 
   return pages;
 }
+
 
 }

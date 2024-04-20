@@ -137,7 +137,7 @@
             </div>
         </nav>
       </div>
-      <nav class="navbar-sec sec-nav navbar-expand-lg navbar-dark" style="height: 3rem;">
+      <nav class="navbar-sec sec-nav navbar-expand-lg navbar-dark" [dir]="'dir' | translate" style="height: 3rem;">
         <ul class="navbar-nav">
             @for(category of categories ; track category.id){
                 <li class="nav-item"><a [href]="'/SearchForProudectComponent;name=;categoryId=' + category.id">{{getCategoryName(category)}}</a></li>
