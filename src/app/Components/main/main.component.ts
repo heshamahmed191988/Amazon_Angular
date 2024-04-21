@@ -32,12 +32,12 @@ export class MainComponent implements OnInit {
   deals: deal[] = [];
   CatId:number=0
   public pageNumber: number = 1;
-  public pageSize: number =3;
+  public pageSize: number =20;
   lang!: string; 
   isFirstSection: boolean = true;
-  
-
-
+  searchResults: Iproduct[] = [];
+  randomProducts: Iproduct[] = [];
+   selectedCategoryId = Math.floor(Math.random() * 10) + 1;
   categories:Icategory[] = [];
   constructor(private _deal:DealService , 
     private prd:ProductServiceService,
@@ -66,6 +66,7 @@ export class MainComponent implements OnInit {
       // Optionally, refresh data that depends on the current language here
     });
     this.loadCategories();
+    this.RandomProducts();
   }
 
   handleLeftBtn(): void {
@@ -271,7 +272,69 @@ navigateToSearch(name: string, Id: number): void {
     if (index >= 0 && index < this.categoryImages.length) {
       return this.categoryImages[index];
     } else {
+      console.log("Navigating to details for product ID:");
       return '';
 }
+
 }
+
+// NavigateToDetails(proId: number) {
+//   console.log("Navigating to details for product ID:", proId);
+//   console.log("Selected category ID:", this.selectedCategoryId);
+//   this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
+// }
+NavigateToDetails(proId: number) {
+  const state = {
+      pageNumber: this.pageNumber,
+      selectedCategoryId: this.selectedCategoryId,
+  };
+  debugger
+  console.log("Navigating to details for product ID:", proId);
+  console.log("Selected category ID:", this.selectedCategoryId);
+  localStorage.setItem('searchState', JSON.stringify(state));
+  this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
+}
+
+RandomProducts(): void {
+  
+    this.prd.getAllProducts(this.pageSize, this.pageNumber).subscribe({
+      next: (res: Iproduct[]) => {
+        this.searchResults = res; 
+        console.log("allll",res)
+        this.randomProducts = this.getRandomProducts(this.searchResults);
+      },
+      error: (err) => {
+        console.error('Error fetching random products:', err);
+      }
+    });
+  
+}
+
+getRandomProducts(products: Iproduct[]): Iproduct[] {
+  let randomProducts: Iproduct[] = [];
+  let maxIndex = Math.min(20, products.length);
+  let randomIndices: number[] = [];
+  while (randomIndices.length < maxIndex) {
+    let randomIndex = Math.floor(Math.random() * products.length);
+    if (!randomIndices.includes(randomIndex)) {
+      randomIndices.push(randomIndex);
+      randomProducts.push(products[randomIndex]);
+    }
+  }
+  return randomProducts;
+}
+
+// NavigateToDetails(proId: number) {
+//   this.router.navigateByUrl(`/Details/${proId}`);
+//   console.log("naaaaaaaaaav",proId)
+// }
+// NavigateToDetails(proId: number) {
+//   this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
+// }
+// NavigateToDetails(proId: number) {
+//   this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
+//   console.log("nnnnnnnnnnnnav",proId,this.selectedCategoryId)
+// }
+
+
 }

@@ -44,7 +44,7 @@
                     <h3 class="card-header">{{ getcategorytName(category)}}</h3>
                     <div class="slide">
                         <img [src]="categoryImages[i]"  style="width: 100%; height:200px; object-fit: contain;" />
-                      </div>
+            </div>
                 </div>
             </a>
         </div>
@@ -76,21 +76,30 @@
         </div>
 
         <!-- ngx-slick-carousel -->
-        <ngx-slick-carousel class="carousel" 
+        <ngx-slick-carousel class="carousel products" 
             #slickModal="slick-carousel" 
             [config]="slideConfig" 
             (init)="slickInit($event)"
             (breakpoint)="breakpoint($event)"
             (afterChange)="afterChange($event)"
             (beforeChange)="beforeChange($event)">
-            <div ngxSlickItem *ngFor="let deal of deals" class="slide">
-                <img [src]="deal.img"  style="width: 100%; height:200px; object-fit: contain;"/>
+            <a ngxSlickItem [routerLink]="['/Details/', product.id,2]" *ngFor="let product of randomProducts" class="slide" style="background-color: #21252908; margin: 3px;"  >
+                <div class=" cardimg">
+                    <img  style="width: 100%; height:200px; object-fit: contain;" *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
+                   </div>
+                  <div class="discount_Contaienr">
+                    <a>{{'main.stockQuantity'|translate}}: {{ product.stockQuantity }}</a><span style="color: rgb(211, 30, 84);"> {{'main.Limited Time deal'|translate}}</span><br>
+                      <span style="margin-left: 2vw;"><sup>EGP</sup><span style="font-size: larger;">{{ product.price}}<sub>00</sub></span></span><br>
+                      <span style="margin-left: 2vw;margin-top: 0px;"><span>{{ product.nameEn }}</span></span>
+                  </div>
+              
+                <!-- <img [src]="deal.img"  style="width: 100%; height:200px; object-fit: contain;"/>
                 <div class="discount_Contaienr">
                     <a href="#">{{'main.Up to'|translate}} {{ deal.discount }}% {{'main.off'|translate}}</a>
                     <a href="#">{{ deal.DealOfDay }}</a>
                 </div>
-                <p>{{ deal.desc }}</p>
-            </div>
+                <p>{{ deal.desc }}</p> -->
+            </a>
         </ngx-slick-carousel>
     </div>
 </section>
@@ -194,7 +203,7 @@
                 <i class="fas fa-angle-right"></i>
             </button>
         </div>
-    </div>
+ </div>
 </div>
 
 

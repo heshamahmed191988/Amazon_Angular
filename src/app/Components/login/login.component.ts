@@ -24,7 +24,7 @@ export class LoginComponent {
       this.authService.login({userName: this.userName, password: this.password }).subscribe({
         next: (data) => {
           console.log('Login successful', data);
-          localStorage.setItem('token', data.token); // Assuming 'data.token' is your JWT token
+          localStorage.setItem('token', data.token); //'data.token' is  JWT token
           this.router.navigate(['/main']);
         },
         error: (error) => {

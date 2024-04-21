@@ -195,6 +195,10 @@ height: auto;
     flex-wrap:nowrap;
 
  }
+ .mx-4{
+  margin-left:0px !important;
+  padding: 2rem !important;
+}
  .sec{
     margin-top:350px;
  }
@@ -312,7 +316,7 @@ color:#007185 ;
 }
 .sponserd
 {
-height: 20vh;
+height: 37vh;
 border: 1px solid #ddd;
 display: flex;
 padding: 5px;

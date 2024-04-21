@@ -265,4 +265,8 @@ export class CartComponent implements OnInit {
         console.log(this.allProducts);
       });
   }
+
+  canIncreaseQuantity(item:any): boolean {
+    return item.quantity < item.stockQuantity;
+}
 }

@@ -1,47 +1,33 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="text-center mb-4">
-        <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png" alt="Amazon Logo" class="img-fluid" style="max-width: 150px;">
-      </div>
+      <div class="amazon-icon-container">
+        <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png">
+       </div>
       <div class="card">
         <div class="card-header">
           <h3 class="text-center">Create Account</h3>
         </div>
         <div class="card-body">
-          <form (ngSubmit)="register()" novalidate>
+          <form (ngSubmit)="register()">
             <div class="form-group">
               <label for="username">Username:</label>
-              <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required autocomplete="username">
-              <div class="invalid-feedback">
-                Username is required.
-              </div>
+              <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>
             </div>
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required autocomplete="new-password">
-              <div class="invalid-feedback">
-                Password is required.
-              </div>
+              <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
             </div>
             <div class="form-group">
               <label for="confirmPassword">Confirm Password:</label>
-              <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required autocomplete="new-password">
-              <div class="invalid-feedback">
-                Please confirm your password.
-              </div>
+              <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required>
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
-              <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required autocomplete="email">
-              <div class="invalid-feedback">
-                Email is required and must be a valid email address.
-              </div>
+              <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
             </div>
-            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-              {{ errorMessage }}
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <div *ngIf="errorMessage" class="alert alert-danger" [innerHTML]="errorMessage"></div>
+            <button type="submit" class="btn btn-success btn-block registerbtn">Register</button>
           </form>
         </div>
       </div>

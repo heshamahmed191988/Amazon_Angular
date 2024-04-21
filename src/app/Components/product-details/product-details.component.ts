@@ -155,7 +155,7 @@ export class ProductDetailsComponent implements OnInit {
           this.fetchReviews();
           this.RandomProducts();
           this.productStateService.changeProductId(this.currentId);
-          this.ProductQuantity = this.currentProduct.stockQuantity as number; // Update product ID state
+          this.ProductQuantity = this.currentProduct.stockQuantity as number; // Update product ID state
         },
         error: (err) => console.log(err)
       });
@@ -300,7 +300,11 @@ export class ProductDetailsComponent implements OnInit {
   NavigateToDetails(proId: number) {
     this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
 }
-
+updateQuantity() {
+  if (this.Quantity > this.ProductQuantity) {
+    this.Quantity = this.ProductQuantity;
+}
+}
 
   }
 

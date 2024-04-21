@@ -29,7 +29,7 @@ export const routes: Routes = [
             {path: 'main', component: MainComponent,},
             {path: 'Order', component: OrderComponent,canActivate:[authGuard]},
             {path: 'Cart', component: CartComponent,},
-            {path: 'admin', component: AdminComponent,},
+            {path: 'Admin', component: AdminComponent,},
             {path: 'Edit', component: EditUserComponent,},
             {path: 'Details/:id/Cart', component: CartComponent},
             { path: 'OrderDetails/:orderid', component: OrderDetailsComponent},

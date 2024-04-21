@@ -158,14 +158,15 @@
       
   </div>
   
-<div class="last col-md-12 col-lg-2 mt-2 mx-lg-3 " style="width: auto;">
+  <div class="last col-md-12 col-lg-2 mt-2 mx-lg-3 " style="width: auto;">
     <div class="card col-12 ">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-center"><h5><sup>EGP</sup> {{currentProduct.price}}<sup>00</sup></h5></li>
+          <li class="list-group-item text-center"><h5><sup>EGP</sup> {{currentProduct.price*Quantity}}<sup>00</sup></h5></li>
           <li class="list-group-item text-center"> {{'detail.payment details'|translate}}</li>
           <li class="list-group-item"> <div class="mb-3">
            
-            <input type="number" [(ngModel)]="Quantity" [value]="Quantity" class="form-control" id="quantityInput" placeholder="Quantity" [max]="ProductQuantity">             <!-- name="Quantity" [(ngModel)]="Quantity"> -->
+             <input type="number" [(ngModel)]="Quantity" [value]="Quantity" class="form-control" id="quantityInput" placeholder="Quantity" [max]="ProductQuantity" (change)="updateQuantity()" >
+             <!-- name="Quantity" [(ngModel)]="Quantity"> -->
           </div>
         </li>
         <li class="list-group-item text-center" >  <button [disabled]="!currentProduct || (currentProduct.stockQuantity !== undefined && Quantity > currentProduct.stockQuantity)"  class="btn-buy-now w-100" style="background-color: #f7ca00;border-radius: 12px;" (click)="addToCart(currentProduct,Quantity)" routerLink="/Cart" routerLinkActive="router-link-active"  >{{'detail.Add to Cart'|translate}}</button>
@@ -177,7 +178,7 @@
         </ul>
       </div>
 
-  </div>
+  </div>
    <!--related-->
    <div class="container related">
     <h4 class="div-title">{{'detail.Related searches'|translate}}</h4>

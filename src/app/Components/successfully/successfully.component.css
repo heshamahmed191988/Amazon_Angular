@@ -28,3 +28,11 @@ h1{
     padding: 0.5rem 3rem;
     border-radius: 7px;
 }
+
+
+@media (max-width:550px)
+{
+    i{
+        font-size: 20rem !important;
+    }
+}

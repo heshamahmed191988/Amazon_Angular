@@ -29,10 +29,10 @@ export class AddressComponent implements OnInit {
   ngOnInit(): void {
     this.setUserid();
     this.addressForm = this.fb.group({
-      street: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipCode: ['', Validators.required],
+      street: ['', [Validators.required, Validators.maxLength(100)]],
+      city: ['', [Validators.required, Validators.maxLength(50)]],
+      state: ['', [Validators.required, Validators.maxLength(50)]],
+      zipCode: ['', Validators.required,],
       userID: ['', Validators.required],
     });
     

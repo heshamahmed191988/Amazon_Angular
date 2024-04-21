@@ -101,9 +101,9 @@
                                 <i class="fa fa-minus"></i>
                               </button>
                               <span class="quantity">{{ item.quantity }}</span>
-                              <button class="btn btn-sm btn-secondary" (click)="increaseQuantity(item)">
+                              <button class="btn btn-sm btn-secondary" (click)="increaseQuantity(item)" [disabled]="!canIncreaseQuantity(item)">
                                 <i class="fa fa-plus"></i>
-                              </button>
+                           </button>
                             </div>
                          
                           

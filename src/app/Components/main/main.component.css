@@ -528,6 +528,7 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
 }
 .today_deals_product_item p{
     justify-self: flex-end;
+    background-color: #f1efef;
 }
 
 .discount_Contaienr a{
@@ -754,7 +755,16 @@ https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-r
 .deal2{
     background-color:#e3e6e6;
 }
-
+.products{
+    position: absolute;
+    z-index: 10;
+    width: 89% !important;
+    margin-left: 62px !important;
+}
+.products a{
+    text-decoration: none;
+    color: black;
+}
 .slick-slider {
     width: 90%;
     margin: auto;
