@@ -12,7 +12,7 @@
                     <div class="input-group select mb-3 d-block d-sm-block d-md-block d-lg-none" style="margin-top: 0px; width: 9%;">
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId"
                             (change)="onCategoryChange()" style="border-radius: 0;border-bottom-left-radius: 5px;border-top-left-radius: 5px;">
-                            <option value="0">{{'header.All' | translate}}</option>
+                            <option value="0">All</option>
                             <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category) }}
                             </option>
                           </select>
@@ -53,7 +53,7 @@
                 <div class="input-group mb-3 d-none d-sm-none d-md-none d-lg-block" style="margin-top: 0px; width: 9%;">
                     <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategoryId"
                         (change)="onCategoryChange()" style="border-radius: 0;border-bottom-left-radius: 5px;border-top-left-radius: 5px;">
-                        <option value="0">{{'header.All' | translate}}</option>
+                        <option value="0">All</option>
                         <option *ngFor="let category of categories" [value]="category.id">{{ getCategoryName(category) }}
                         </option>
                       </select>
@@ -90,7 +90,7 @@
                           </div>
                         </li>
   
-                        <li class="nav-item Admin-li " routerLink="/Admin">
+                        <li class="nav-item Admin-li" routerLink="/Admin">
                           <div class="dropdown">
                               <a class="nav-link dropdown-toggle" style="color: white;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span style="color: #d9dbda;">
@@ -137,8 +137,8 @@
             </div>
         </nav>
       </div>
-      <nav class="navbar-sec sec-nav navbar-expand-lg navbar-dark" [dir]="'dir' | translate" style="height: 3rem;">
-        <ul class="navbar-nav">
+      <nav class="navbar-sec sec-nav navbar-expand-lg navbar-dark" style="height: auto;">
+        <ul class="navbar-nav" style=" padding: 2px;">
             @for(category of categories ; track category.id){
                 <li class="nav-item"><a [href]="'/SearchForProudectComponent;name=;categoryId=' + category.id">{{getCategoryName(category)}}</a></li>
             }

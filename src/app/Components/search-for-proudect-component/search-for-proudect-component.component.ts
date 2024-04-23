@@ -33,7 +33,12 @@ selectedBrand: string = '';
   public selectedCategoryId: number = 0;
   randomProducts: Iproduct[] = [];
   noResultsMessage: boolean =true;/////////////--new
+ 
+  isExpanded: boolean = false;
 
+toggleExpand(product: Iproduct) {
+  product.isExpanded = !product.isExpanded;
+}
   //public pageSize = 4; 
   //public pageNumber = 1;
 
@@ -133,40 +138,74 @@ selectedBrand: string = '';
     
   }
 
-  sortProducts(sortOption: string, brand?: string): void {
-    this.sortBy = sortOption;
-  this.selectedBrand!=brand;
-    let sortOrder = 'asc'; // Default sort order
-    if (sortOption === 'highToLow') {
-        sortOrder = 'desc';
-    }
+//   sortProducts(sortOption: string, brand?: string): void {
+//     this.sortBy = sortOption;
+//   this.selectedBrand!=brand;
+//     let sortOrder = 'asc'; // Default sort order
+//     if (sortOption === 'highToLow') {
+//         sortOrder = 'desc';
+//     }
   
-    console.log("Sort Order:", sortOrder); // Log to confirm what's being sent
+//     console.log("Sort Order:", sortOrder); // Log to confirm what's being sent
 
-    // Pass the brand directly to the filtering method to handle it server-side
-    this._productService.filterProductsByCategoryAndNameAndPrice(
-        this.selectedCategoryId, 
-        sortOrder, 
-        this.pageSize, 
-        this.pageNumber,
-        brand // Now passing the brand to the API
-    ).subscribe({
-        next: (products) => {
-            console.log("Products after sort and brand filter:", products);
+//     // Pass the brand directly to the filtering method to handle it server-side
+//     this._productService.filterProductsByCategoryAndNameAndPrice(
+//         this.selectedCategoryId, 
+//         sortOrder, 
+//         this.pageSize, 
+//         this.pageNumber,
+//         brand // Now passing the brand to the API
+//     ).subscribe({
+//         next: (products) => {
+//             console.log("Products after sort and brand filter:", products);
     
-            this.searchResults = products;
-            this.sortedProducts = [...this.searchResults];
-            this.calculateProductRatings();
-            this.updatePaginatedProducts();
-           // this.Quant = this.searchResults.length;
-        },
-        error: (error) => {
-            console.error('Failed to fetch products:', error);
-        }
-    });
+//             this.searchResults = products;
+//             this.sortedProducts = [...this.searchResults];
+//             this.calculateProductRatings();
+//             this.updatePaginatedProducts();
+//            // this.Quant = this.searchResults.length;
+//         },
+//         error: (error) => {
+//             console.error('Failed to fetch products:', error);
+//         }
+//     });
+// }
+ 
+
+sortProducts(sortOption: string, brand?: string): void {
+  this.sortBy = sortOption;
+this.selectedBrand!=brand;
+  let sortOrder = 'asc'; // Default sort order
+  if (sortOption === 'highToLow') {
+      sortOrder = 'desc';
+  }
+
+  console.log("Sort Order:", sortOrder); // Log to confirm what's being sent
+
+  // Pass the brand directly to the filtering method to handle it server-side
+  this._productService.filterProductsByCategoryAndNameAndPrice(
+      this.selectedCategoryId, 
+      sortOrder, 
+      this.pageSize, 
+      this.pageNumber,
+      brand // Now passing the brand to the API
+  ).subscribe({
+      next: (products) => {
+          console.log("Products after sort and brand filter:", products);
+  
+          this.searchResults = products;
+          this.sortedProducts = [...this.searchResults];
+          this.calculateProductRatings();
+          this.updatePaginatedProducts();
+         // this.Quant = this.searchResults.length;
+      },
+      error: (error) => {
+          console.error('Failed to fetch products:', error);
+      }
+  });
 }
 
-  
+
 
   onSortChange(event: Event): void {
     console.log("onSortChange triggered", event);
@@ -209,7 +248,52 @@ selectedBrand: string = '';
       this.router.navigateByUrl(`/Details/${proId}/${this.selectedCategoryId}`);
     }
  
-    filterByPrice(minPrice: number, maxPrice: number, brand?: string): void {
+  // filterByPrice(minPrice: number, maxPrice: number, brand?: string): void {
+  // // Validation for user input
+  // minPrice = isNaN(minPrice) ? 0 : minPrice; // Default to 0 if input is NaN
+  // maxPrice = isNaN(maxPrice) ? Infinity : maxPrice; // Default to Infinity if input is NaN
+
+  // // Ensure logical min/max values
+  // if (minPrice > maxPrice) {
+  //   console.warn('Minimum price cannot be greater than maximum price. Reverting to default.');
+  //   minPrice = 0;
+  //   maxPrice = Infinity;
+  // }
+
+  // // Clear any previous brand filter if none is provided now
+  // if (!brand) {
+  //   this.selectedBrand = ''; // Ensure no brand is selected if none provided
+  // } else {
+  //   this.selectedBrand = brand; // Update the current brand
+  // }
+
+  // this._productService.filterProductsByCategoryAndPriceRange(this.selectedCategoryId, minPrice, maxPrice, this.pageSize, this.pageNumber)
+    
+  // .subscribe({
+  //   next: (products) => {
+  //     // const filteredByBrand = (this.selectedBrand && this.selectedBrand !== '') ?
+  //     //   products.filter(product => product.brandNameEn.toLowerCase() === this.selectedBrand.toLowerCase()) :
+  //     //   products;
+      
+  //     const filteredByBrand = (this.selectedBrand && this.selectedBrand.trim() !== '') ?
+  //     products.filter(product => product.brandNameEn.toLowerCase().trim() === this.selectedBrand.toLowerCase().trim()) :
+  //     products;
+  //     this.searchResults = filteredByBrand;
+  //     console.log( "bbbb",this.searchResults)
+  //     this.sortedProducts = [...this.searchResults];
+  //     this.updatePaginatedProducts();
+  //     this.pageNumber = 1; // Reset to first page with new filter
+  //     this.Quant = filteredByBrand.length;
+
+  //     this.calculateProductRatings();
+
+  //     console.log(`Filtered by price: ${minPrice} to ${maxPrice}${this.selectedBrand ? ' and brand: ' + this.selectedBrand : ''}. Products found: ${this.sortedProducts.length}`);
+  //   },
+  //   error: (error) => console.error('Error fetching filtered products:', error)
+  // });
+  
+//}
+filterByPrice(minPrice: number, maxPrice: number, brand?: string): void {
   // Validation for user input
   minPrice = isNaN(minPrice) ? 0 : minPrice; // Default to 0 if input is NaN
   maxPrice = isNaN(maxPrice) ? Infinity : maxPrice; // Default to Infinity if input is NaN
@@ -228,26 +312,65 @@ selectedBrand: string = '';
     this.selectedBrand = brand; // Update the current brand
   }
 
-  this._productService.filterProductsByCategoryAndPriceRange(this.selectedCategoryId, minPrice, maxPrice, this.pageSize, this.pageNumber)
-  .subscribe({
-    next: (products) => {
-      const filteredByBrand = (this.selectedBrand && this.selectedBrand !== '') ?
-        products.filter(product => product.brandNameEn.toLowerCase() === this.selectedBrand.toLowerCase()) :
-        products;
+  // Filter products by category, price range, and optionally by brand
+  if (this.selectedCategoryId === 0) {
+    // Filter all products regardless of category
+    this._productService.filterProductsByPriceRange(minPrice, maxPrice)
+      .subscribe({
+        next: (products) => {
+          // Apply brand filtering if a brand is selected
+          const filteredByBrand = (this.selectedBrand && this.selectedBrand.trim() !== '') ?
+            products.filter(product => product.brandNameEn.toLowerCase().trim() === this.selectedBrand.toLowerCase().trim()) :
+            products;
+          
+          // Update search results with filtered products
+          this.searchResults = filteredByBrand;
+          this.sortedProducts = [...this.searchResults];
+          
+          // Update pagination and quantity
+          this.updatePaginatedProducts();
+          this.pageNumber = 1; // Reset to first page with new filter
+          this.Quant = filteredByBrand.length;
 
-      this.searchResults = filteredByBrand;
-      this.sortedProducts = [...this.searchResults];
-      this.updatePaginatedProducts();
-      this.pageNumber = 1; // Reset to first page with new filter
-      this.Quant = filteredByBrand.length;
+          // Calculate product ratings
+          this.calculateProductRatings();
 
-      this.calculateProductRatings();
+          // Log filtered products information
+          console.log(`Filtered by price: ${minPrice} to ${maxPrice}${this.selectedBrand ? ' and brand: ' + this.selectedBrand : ''}. Products found: ${this.sortedProducts.length}`);
+        },
+        error: (error) => console.error('Error fetching filtered products:', error)
+      });
+  } else {
+    // Filter products by category and price range
+    this._productService.filterProductsByCategoryAndPriceRange(
+      this.selectedCategoryId, minPrice, maxPrice, this.pageSize, this.pageNumber
+    ).subscribe({
+      next: (products) => {
+        // Apply brand filtering if a brand is selected
+        const filteredByBrand = (this.selectedBrand && this.selectedBrand.trim() !== '') ?
+          products.filter(product => product.brandNameEn.toLowerCase().trim() === this.selectedBrand.toLowerCase().trim()) :
+          products;
+        
+        // Update search results with filtered products
+        this.searchResults = filteredByBrand;
+        this.sortedProducts = [...this.searchResults];
+        
+        // Update pagination and quantity
+        this.updatePaginatedProducts();
+        this.pageNumber = 1; // Reset to first page with new filter
+        this.Quant = filteredByBrand.length;
 
-      console.log(`Filtered by price: ${minPrice} to ${maxPrice}${this.selectedBrand ? ' and brand: ' + this.selectedBrand : ''}. Products found: ${this.sortedProducts.length}`);
-    },
-    error: (error) => console.error('Error fetching filtered products:', error)
-  });
+        // Calculate product ratings
+        this.calculateProductRatings();
+
+        // Log filtered products information
+        console.log(`Filtered by price: ${minPrice} to ${maxPrice}${this.selectedBrand ? ' and brand: ' + this.selectedBrand : ''}. Products found: ${this.sortedProducts.length}`);
+      },
+      error: (error) => console.error('Error fetching filtered products:', error)
+    });
+  }
 }
+
   
     getProductName(product: Iproduct): string {
       return this.lang === 'en' ? product.nameEn : product.nameAr;
@@ -261,9 +384,37 @@ selectedBrand: string = '';
       return this.lang === 'en' ? product.brandNameEn : product.brandNameAr;
     }
 
-    filterByBrand(brand: string): void {
+  filterByBrand(brand: string): void {
+    
       this.selectedBrand = brand;
-      this._productService.filterdbybrandname(brand, this.pageSize, this.pageNumber).subscribe({
+      if (this.selectedCategoryId === 0) {
+       
+      this._productService.filterdaLLbrand(brand, this.pageSize, this.pageNumber).subscribe({
+        next: (res: Iproduct[]) => {
+          if (Array.isArray(res)) {
+            this.searchResults = res; 
+            this.sortedProducts = [...this.searchResults]; 
+            this.Quant = this.searchResults.length;
+            this.calculateProductRatings();
+            
+          } else {
+            console.log('Invalid response format');
+            this.searchResults = [];
+            this.sortedProducts = []; // Keep both arrays in sync
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {
+           // Ensure spinner is closed when operation completes
+          this.updatePaginatedProducts(); // Update the UI with the latest state
+        }
+      });
+      }
+        else{
+      this.selectedBrand = brand;
+      this._productService.filterdbybrandname(brand, this.selectedCategoryId,this.pageSize, this.pageNumber).subscribe({
         next: (res: Iproduct[]) => {
           if (Array.isArray(res)) {
             this.searchResults = res; // Update the primary data source
@@ -285,6 +436,7 @@ selectedBrand: string = '';
           this.updatePaginatedProducts(); // Update the UI with the latest state
         }
       });
+    }
     }
 
     clearBrandFilter(): void {
@@ -473,6 +625,24 @@ displayNoResultsMessage(): void {
               }
           });
       }
+      else {
+        this._productService.getAllProducts(this.pageSize,this.pageNumber).subscribe({
+            next: (res) => {
+                this.searchResults = res;
+                this.Quant = this.searchResults.length;
+                this.updatePaginatedProducts();
+                this.displayNoResultsMessage();
+                //this.sortProducts(this.sortBy);
+                this.calculateProductRatings();
+                //this.filterByBrand(this.selectedBrand);
+
+            },
+            error: (error) => {
+                console.error('Error fetching products by category:', error);
+            }
+        });
+    }
+
     }    
 
     ///select according to category

@@ -5,13 +5,14 @@ import { catchError, map } from 'rxjs/operators';
 import { Registration } from '../models/Registration';
 import { Login } from '../models/Login';
 import { environment } from '../../environments/environment.development';
+import { ICartService } from './icart.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 isloggedstate !:BehaviorSubject<boolean>
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient,private cart:ICartService) { 
     this.isloggedstate = new BehaviorSubject<boolean>(this.isLoggedIn());
   }
 
@@ -74,6 +75,7 @@ isloggedstate !:BehaviorSubject<boolean>
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('tokenExpiration');
     this.isloggedstate.next(false);
+   this.cart.removeAllOrder();
   }
 
   // Method to automatically attach JWT to HttpHeaders (for making authenticated requests)

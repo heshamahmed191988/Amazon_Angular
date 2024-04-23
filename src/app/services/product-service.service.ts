@@ -49,12 +49,19 @@ export class ProductServiceService {
 
 
  
-  filterdbybrandname(name: string,pageSize: number, pageNumber: number): Observable<Iproduct[]> {
+  filterdaLLbrand(name: string,pageSize: number, pageNumber: number): Observable<Iproduct[]> {
     let params = new HttpParams()
     .append('pageSize', pageSize.toString())
     .append('pageNumber', pageNumber.toString());
-    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchbrand?name=${name}`,{ params });
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchAllbrand?name=${name}`,{ params });
   }
+  filterdbybrandname(name: string, categoryId: number, pageSize: number, pageNumber: number): Observable<Iproduct[]> {
+    let params = new HttpParams()
+        .append('categoryId', categoryId.toString())
+        .append('pageSize', pageSize.toString())
+        .append('pageNumber', pageNumber.toString());
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/searchbrand?name=${name}`, { params });
+}
   getbrandsname(): Observable<Iproduct[]>{
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/brands`)
   }
@@ -138,6 +145,15 @@ export class ProductServiceService {
   
     return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all/filteredprice`, { params });
   }
+  filterProductsByPriceRange(minPrice: number, maxPrice: number) {
+    let params = new HttpParams()
+      .append('minPrice', minPrice.toString())
+      .append('maxPrice', maxPrice.toString());
+  
+    return this.httpclient.get<Iproduct[]>(`${environment.baseUrl}/api/Product/all/filteredpriceAllcategory`, { params })
+      
+  }
+  
   
 }
 

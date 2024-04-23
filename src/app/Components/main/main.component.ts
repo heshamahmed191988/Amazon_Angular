@@ -39,6 +39,8 @@ export class MainComponent implements OnInit {
   randomProducts: Iproduct[] = [];
    selectedCategoryId = Math.floor(Math.random() * 10) + 1;
   categories:Icategory[] = [];
+  randomProducts2:Iproduct[] = [];
+  randomProducts3:Iproduct[]=[];
   constructor(private _deal:DealService , 
     private prd:ProductServiceService,
     private router:Router,
@@ -266,7 +268,8 @@ navigateToSearch(name: string, Id: number): void {
     'https://m.media-amazon.com/images/I/615WsJuy5jL.AC_UL480_QL65.jpg', // Clothing & Accessories
     'https://m.media-amazon.com/images/I/818BRJgKL5L.AC_UL480_QL65.jpg', // Home Related
     'https://m.media-amazon.com/images/I/818B-inh8EL.AC_SY200.jpg', // Beauty & Personal Care
-    'https://m.media-amazon.com/images/I/71ncWmjwSAL.AC_UL480_QL65.jpg'  // Electronics
+    'https://m.media-amazon.com/images/I/71ncWmjwSAL.AC_UL480_QL65.jpg',  // Electronics
+    'https://m.media-amazon.com/images/I/71RNIRg3xFL.AC_UL480_QL65.jpg'
   ];
   getCategoryImage(index: number): string {
     if (index >= 0 && index < this.categoryImages.length) {
@@ -307,7 +310,26 @@ RandomProducts(): void {
         console.error('Error fetching random products:', err);
       }
     });
-  
+    this.prd.getproudectsbycatogry(3,this.pageSize, this.pageNumber).subscribe({
+      next: (res: Iproduct[]) => {
+        this.searchResults = res; 
+        console.log("allll",res)
+        this.randomProducts2 = this.getRandomProducts(this.searchResults);
+      },
+      error: (err) => {
+        console.error('Error fetching random products:', err);
+      }
+    });
+    this.prd.getproudectsbycatogry(4,this.pageSize, this.pageNumber).subscribe({
+      next: (res: Iproduct[]) => {
+        this.searchResults = res; 
+        console.log("allll",res)
+        this.randomProducts3 = this.getRandomProducts(this.searchResults);
+      },
+      error: (err) => {
+        console.error('Error fetching random products:', err);
+      }
+    });
 }
 
 getRandomProducts(products: Iproduct[]): Iproduct[] {
@@ -323,6 +345,9 @@ getRandomProducts(products: Iproduct[]): Iproduct[] {
   }
   return randomProducts;
 }
+
+
+
 
 // NavigateToDetails(proId: number) {
 //   this.router.navigateByUrl(`/Details/${proId}`);

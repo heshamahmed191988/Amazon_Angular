@@ -9,9 +9,10 @@
     display:flex;
 }
 .item img{
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 27%;
-    height: 46%;
+    height: 32vh;
+    object-fit: contain;
 }
 .details{
     font-size: 1.2rem;

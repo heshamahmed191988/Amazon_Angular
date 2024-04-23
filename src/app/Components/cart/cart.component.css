@@ -173,7 +173,20 @@ background-color: rgb(255,255,255,0.4);
 {
   height: auto;
 }
+.btn{
+  background-color:#ffd814;
+  color:black;
+margin-bottom: 10px;
 
+}
+
+.ibox-content{
+  padding: 5px;
+}
+
+.ibox-content i{
+  padding-top:15px;
+}
 @media (min-width: 772px) and (max-width:978px){
   .today_deals_container{
     width:98%
@@ -190,4 +203,5 @@ background-color: rgb(255,255,255,0.4);
     margin-left: 0rem !important;
     width: 100% !important;
   }
+
 }

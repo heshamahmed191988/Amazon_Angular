@@ -20,6 +20,7 @@ export interface Iproduct {
     brandName?:string;
     categoryNameEn?:string;
     categoryNameAr?:string;
+    isExpanded?: boolean;
 
     //BrandName?:string;
 }

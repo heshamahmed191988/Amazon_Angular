@@ -1,42 +1,4 @@
 
-<!-- <div class="d-flex justify-content-end">
-  <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col mb-3">
-      <select class="form-select" (change)="onSortChange($event)" style="width: 200px;">
-        <option value="featured"> Sort by :Featured</option>
-        <option value="lowToHigh">Price: Low to High</option>
-        <option value="highToLow">Price: High to Low</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  <ng-container *ngFor="let product of paginatedProducts; let i = index" >
-   
-    <div class="col" (click)="NavigateToDetails(product.id)">
-      <div class="card">
-        <img 
-        [src]="'data:image/jpg;base64,' + product.productImages[0]" >
-        <div class="card-body">
-          <h5 class="card-title">Name: {{ product.name }}</h5>
-          <h5 class="card-title">Description: {{ product.description }}</h5>
-          <h5 class="card-title">Price: {{ product.price }}</h5>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-</div>
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index">
-      <a class="page-link" href="javascript:void(0)" (click)="changePage(i+1)">{{i + 1}}</a>
-    </li>
-  </ul>
-</nav> -->
-<!--search for proudct component work!-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,63 +52,63 @@
         </div>
         <hr style="margin: 0px; padding: 0px;">
                    <!--body-->
-      <div class="row" style="padding-top: 5px;">
+      <div class="row filterparent" style="padding-top: 5px;">
           <!--first div-->
           <div class="col-2 details">
-            <p style="margin-bottom: 5px;">{{ 'search.fulfilledByAmazon' | translate }}</p>
-            <div class="squre"></div>
-            |<span class="Fulfilledspan">{{ 'search.fulfilledByAmazon' | translate }}</span> 
+            <p style="margin-bottom: 5px;"> <input type="checkbox" > |{{ 'search.fulfilledByAmazon' | translate }}</p>
+            <!-- <input type="checkbox" >
+            |<span class="Fulfilledspan">{{ 'search.fulfilledByAmazon' | translate }}</span>  -->
 
             <p style="margin-bottom: 1px; margin-top: 8px;">{{ 'search.eligibleForFreeShipping' | translate }}</p>
-            <div class="squre"></div><span> &nbsp;{{ 'search.freeShipping' | translate }}</span><br>
+            <input type="checkbox" ><span> &nbsp;{{ 'search.freeShipping' | translate }}</span><br>
             <span class="Fulfilledspan">{{ 'search.All customers get FREE Shipping on orders shipped by Amazon' | translate }}</span>
             
             <p style="margin-bottom: 1px; margin-top: 8px;">{{ 'search.deliveryDay' | translate }}</p>
-            <div class="squre"></div>
-            <span class="Fulfilledspan">&nbsp;{{ 'search.Get It by Tomorrow' | translate }}</span><br>
-            <!--filter by rating-->
-               
-            <span (click)="filterByRating(5)">
-              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
-              {{ 'search.only' | translate }}            </span><br>
-            <span (click)="filterByRating(4)">
-              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-              {{ 'search.&up' | translate }}            </span><br>
-            <span (click)="filterByRating(3)">
-              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-              {{ 'search.&up' | translate }}
-            </span><br>
-            <span (click)="filterByRating(2)">
-              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-              {{ 'search.&up' | translate }}
-            </span><br>
-            <span (click)="filterByRating(1)">
-              <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
-              {{ 'search.&up' | translate }}
-            </span>
-            <br>
+            
+            <input type="checkbox" > <span class="Fulfilledspan">&nbsp;{{ 'search.Get It by Tomorrow' | translate }}</span><br>
+       
              <!---filter by brand-->
-             <span>{{ 'search.brand' | translate }}</span>
-             <span>{{ 'search.brand' | translate }}</span>
+             <span class="filter">{{ 'search.brand' | translate }}</span>
              <div *ngFor="let brand of brands" class="brand-container">
                <input name="radioBrand"  type="radio" class="square" (click)="filterByBrand(brand)">
-               <span>{{ brand }}</span><br>
+               <span class="filterb">{{ brand }}</span><br>
              </div>
              <!-- Button to clear the brand filter -->
              <button *ngIf="selectedBrand" (click)="clearBrandFilter()">Clear Brand Filter</button>
              
             <!--filter by price-->
-            <p  style="margin-bottom: 1px; margin-top: 8px;">Price<br>
+            <p style="margin-bottom: 1px; margin-top: 8px;"><span class="filter" >{{ 'search.Price' | translate }}</span><br>
             <span (click)="filterByPrice(1, 50,selectedBrand)">{{ 'search.upTo50EGP' | translate }}</span><br>
-            <span (click)="filterByPrice(51, 100,selectedBrand)">{{ 'search.50To100EGP' | translate }}</span><br>
-            <span (click)="filterByPrice(101, 300,selectedBrand)">{{ 'search.100To300EGP' | translate }}</span><br>
-            <span (click)="filterByPrice(301, 1500,selectedBrand)">{{ 'search.300To1500EGP' | translate }}</span><br>
-            <span (click)="filterByPrice(1501, 2500,selectedBrand)">{{ 'search.1500To2500EGP' | translate }}</span><br>
+            <span (click)="filterByPrice(51, 100,selectedBrand)">{{ 'search.51To100EGP' | translate }}</span><br>
+            <span (click)="filterByPrice(101, 300,selectedBrand)">{{ 'search.101To300EGP' | translate }}</span><br>
+            <span (click)="filterByPrice(301, 1500,selectedBrand)">{{ 'search.301To1500EGP' | translate }}</span><br>
+            <span (click)="filterByPrice(1501, 2500,selectedBrand)">{{ 'search.1501To2500EGP' | translate }}</span><br>
             <span (click)="filterByPrice(2501, Above_2500,selectedBrand)">{{ 'search.above2500EGP' | translate }}</span><br>
             <input class="priceinput"  #minButton placeholder="{{ 'search.min' | translate }}" >
             <input class="priceinput"  #maxButton  placeholder="{{ 'search.max' | translate }}">
             <button (click)="filterByPrice(+minButton.value,+ maxButton.value,selectedBrand)" class="go">{{ 'search.go' | translate }}</button>
-            </p>           
+            </p>    
+                 <!--filter by rating-->
+                   <br><span class="filter">{{ 'search.CustomerReview' | translate }}</span><br>
+                 <span (click)="filterByRating(5)">
+                  <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i>
+                  {{ 'search.only' | translate }}            </span><br>
+                <span (click)="filterByRating(4)">
+                  <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                  {{ 'search.&up' | translate }}            </span><br>
+                <span (click)="filterByRating(3)">
+                  <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                  {{ 'search.&up' | translate }}
+                </span><br>
+                <span (click)="filterByRating(2)">
+                  <i class="fas fa-star" style="color:#E67A00;"></i> <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                  {{ 'search.&up' | translate }}
+                </span><br>
+                <span (click)="filterByRating(1)">
+                  <i class="fas fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i> <i class="far fa-star" style="color:#E67A00;"></i>
+                  {{ 'search.&up' | translate }}
+                </span>
+                <br>       
           </div>    
                     <!--end-->
               <!--secound div--show proudects dive ---->
@@ -166,16 +128,22 @@
                 <div class="row row-cols-1 row-cols-md-4 g-4 card1" style="padding-top: 0px;margin-top: 0px;">
                   <ng-container *ngFor="let product of paginatedProducts; let i = index" >   
                    
-                    <div class="col " *ngIf="product.stockQuantity !== 0"  (click)="NavigateToDetails(product.id )">
+                    <div class="col " *ngIf="product.stockQuantity !== 0"  >
                       <div class="card carddetails">
-                          <div class=" cardimg">
+                          <div class=" cardimg" (click)="NavigateToDetails(product.id )">
                               <img *ngIf="product.productImages && product.productImages.length > 0" [src]="'data:image/jpg;base64,' + product.productImages[0]" >
                           </div>
                           
                           <div class="card-body" >
                             <!-- <h2>{{product.stockQuantity}}</h2>  -->
-                            <h5 class="card-title">{{ getProductName(product)}}</h5>
-                            <h5 class="card-title">{{ getProductDescription(product) }}</h5>
+                            <h5 class="card-title" style="color: #E67A00;">{{ getProductName(product)}}</h5>
+                           
+                            <!-- <h5 class="card-title card-titled" >{{ getProductDescription(product) }}</h5>
+                            -->   
+                            <h5 class="card-title card-titled" [class.expanded]="product.isExpanded" (click)="toggleExpand(product)">{{ getProductDescription(product) }}</h5>
+
+                            <!-- <h5 class="card-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ getProductDescription(product) }}</h5> -->
+
                             <h5 class="card-title"><sup>EGP</sup> {{ product.price }}<sup>00</sup></h5>                            
                             <!-- <h5 class="card-title">{{ product.rating }}</h5> -->
                           
@@ -230,7 +198,7 @@
                               <p style="color: #B12704; font-size: small;">Only 3 left in stock - order soon.</p>
                             }
                             
-                             
+                             <p style="color: green;">{{product.brandNameEn}}</p>
                         
                         
                           </div>
@@ -280,3 +248,8 @@
  <div>
   
  </div>
+ <script>
+  function expandText(element) {
+    element.classList.toggle('expanded');
+  }
+</script>

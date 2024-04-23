@@ -1,4 +1,3 @@
-
 <ng-container *ngIf="product.length === 0; else notEmpty">
   <div class="empty" style="margin-top: 3rem;
   background-color: #e9e9e9a3;
@@ -97,13 +96,14 @@
                           <dd>{{'cart.A description list is perfect for defining terms'|translate}}</dd>
                           
                             <div class="quantity-controls">
-                              <button class="btn btn-sm btn-secondary" (click)="decreaseQuantity(item)">
+                              <button class=" btn-sm btn-secondary" (click)="decreaseQuantity(item)">
                                 <i class="fa fa-minus"></i>
                               </button>
                               <span class="quantity">{{ item.quantity }}</span>
-                              <button class="btn btn-sm btn-secondary" (click)="increaseQuantity(item)" [disabled]="!canIncreaseQuantity(item)">
+                              <button class=" btn-sm btn-secondary" (click)="increaseQuantity(item)" [disabled]="!canIncreaseQuantity(item)">
                                 <i class="fa fa-plus"></i>
-                           </button>
+                              </button>
+                              
                             </div>
                          
                           
@@ -117,10 +117,10 @@
                 
                       <td>
                         <!-- {{ item.price | currency }} -->
-                        <span class="small text-muted">{{item.price}}$</span>
+                        <span class=" text-muted" style="font-size:20px;">{{item.price}}$</span>
                       </td>
                       <td width="65">
-                        <input type="checkbox" [(ngModel)]="item.id">
+                        <!-- <input type="checkbox" [(ngModel)]="item.id"> -->
                       </td>
                     </tr>
                   </tbody>
@@ -129,9 +129,9 @@
 
             </div>
 
-            <div class="ibox-content">
-              <button class="btn btn-white" (click)="goBack()">
-                <i class="fa fa-arrow-left"></i> {{'cart.Continue shopping' | translate}}
+            <div class="ibox-content" >
+              <button class="btn btn-white btn" (click)="goBack()" >
+                <i class="fa fa-arrow-left btn"></i> {{'cart.Continue shopping' | translate}}
               </button>
             </div>
           </div>
